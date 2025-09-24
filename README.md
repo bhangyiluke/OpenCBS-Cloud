@@ -7,14 +7,14 @@ OpenCBS Cloud is a flexible and scalable Core Banking System which can be deploy
 
 Functionalities, including all key front-office and back-office features, make the system ideal for Microfinance Institutions, Cooperative Financial Institutions, Digital lenders and medium-sized banks. 
 
-The main features are:
+## The main features are:
 
-Client management
-Loan management
-Savings management
-Collateral management
-Loan schedule generation
-Loan portfolio tracking
-Custom fields
-Accounting
-Reports
+### Client management
+### Loan management
+### Savings management
+### Collateral management
+### Loan schedule generation
+### Loan portfolio tracking
+### Custom fields
+### Accounting
+### Reports
