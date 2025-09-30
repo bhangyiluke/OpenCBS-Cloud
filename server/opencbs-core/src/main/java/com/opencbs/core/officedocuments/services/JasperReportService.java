@@ -11,6 +11,8 @@ import com.opencbs.core.officedocuments.domain.fields.DocumentFieldMapper;
 import com.opencbs.core.officedocuments.enums.LoaderServiceType;
 import com.opencbs.core.officedocuments.enums.ReportFormatType;
 import com.opencbs.core.reports.ReportService;
+
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.*;
@@ -18,7 +20,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.io.File;
 import java.io.FileInputStream;

@@ -5,7 +5,10 @@ import com.opencbs.core.domain.BaseEvent;
 import com.opencbs.core.domain.json.ExtraJson;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.Type;
+import org.hibernate.type.SqlTypes;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,7 +29,8 @@ public class BorrowingEvent extends BaseEvent {
     @Column(name = "borrowing_id", nullable = false)
     private Long borrowingId;
 
-    @Type(type = "ExtraJsonType")
+    // @Type(type = "ExtraJsonType")
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "extra", columnDefinition = "jsonb")
     private ExtraJson extra;
 

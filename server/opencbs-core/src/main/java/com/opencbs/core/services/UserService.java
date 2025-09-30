@@ -9,11 +9,11 @@ import com.opencbs.core.request.domain.RequestType;
 import com.opencbs.core.services.audit.BaseHistoryService;
 import com.opencbs.core.services.audit.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -52,7 +52,7 @@ public class UserService extends BaseHistoryService<UserRepository> implements C
     }
 
     public Optional<User> getOne(Long id) {
-        return Optional.ofNullable(userRepository.findOne(id));
+        return userRepository.findById(id);
     }
 
     @Override
@@ -119,7 +119,7 @@ public class UserService extends BaseHistoryService<UserRepository> implements C
     public List<User> findActiveUsers() {
         User pattern = new User();
         pattern.setStatusType(StatusType.ACTIVE);
-        return this.userRepository.findAll(Example.of(pattern), new Sort(Sort.Direction.ASC, "id"));
+        return this.userRepository.findAll(Example.of(pattern), Sort.by(Sort.Direction.ASC, "id"));
     }
 
     @Override

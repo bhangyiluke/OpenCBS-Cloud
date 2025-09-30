@@ -15,6 +15,9 @@ import com.opencbs.core.officedocuments.repositories.DocumentRepository;
 import com.opencbs.core.reports.Report;
 import com.opencbs.core.reports.ReportService;
 import com.opencbs.core.workers.LookupWorker;
+
+import jakarta.annotation.PostConstruct;
+
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +29,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.PostConstruct;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

@@ -11,10 +11,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
+import org.hibernate.type.SqlTypes;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -67,7 +70,8 @@ public class AccountingEntry extends BaseEntity {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Type(type = "ExtraJsonType")
+    // @Type(type = "ExtraJsonType", value = null)
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "extra", columnDefinition = "jsonb")
     private ExtraJson extra;
 

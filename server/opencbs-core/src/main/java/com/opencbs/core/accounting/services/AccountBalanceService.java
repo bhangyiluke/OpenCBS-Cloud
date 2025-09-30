@@ -54,7 +54,8 @@ public class AccountBalanceService {
         }
 
         if (!additionalInformationOfAccount.containsKey(accountId)) {
-            additionalInformationOfAccount.put(accountId, accountAdditionalInformationRepository.findOne(accountId));
+            additionalInformationOfAccount.put(accountId, accountAdditionalInformationRepository.findById(accountId).orElseThrow(() ->
+                    new IllegalArgumentException("AccountAdditionalInformation with accountId:: " + accountId + " not found")));
         }
 
         return Optional.of(updateAccountBalance(accountId, amount, date.atTime(LocalTime.MAX), fromDebit));
@@ -93,7 +94,8 @@ public class AccountBalanceService {
                                               @NonNull BigDecimal amount,
                                               boolean fromDebit) {
         if (!additionalInformationOfAccount.containsKey(accountId)) {
-            additionalInformationOfAccount.put(accountId, accountAdditionalInformationRepository.findOne(accountId));
+            additionalInformationOfAccount.put(accountId, accountAdditionalInformationRepository.findById(accountId).orElseThrow(() ->
+                    new IllegalArgumentException("AccountAdditionalInformation with accountId:: " + accountId + " not found")));
         }
 
         Boolean isDebit = additionalInformationOfAccount.get(accountId).getIsDebit();
@@ -139,7 +141,7 @@ public class AccountBalanceService {
             balances.add(parentBalance);
         }
 
-        this.accountBalanceRepository.save(balances);
+        this.accountBalanceRepository.saveAll(balances);
         buildBalanceByParentAccounts(balances, localDate);
     }
 

@@ -5,6 +5,8 @@ import com.opencbs.core.officedocuments.domain.PrintingFormRequest;
 import com.opencbs.core.officedocuments.domain.Template;
 import com.opencbs.core.officedocuments.repositories.DocumentRepository;
 import com.opencbs.core.reports.ReportService;
+
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xwpf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import javax.annotation.PostConstruct;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

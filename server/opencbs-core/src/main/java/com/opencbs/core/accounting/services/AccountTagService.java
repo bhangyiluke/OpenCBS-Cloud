@@ -27,7 +27,8 @@ public class AccountTagService {
     }
 
     public AccountTag findOne(Long accountTagId) {
-        return this.accountTagRepository.findOne(accountTagId);
+        return this.accountTagRepository.findById(accountTagId).orElseThrow(() ->
+                new IllegalArgumentException("AccountTag with id:: " + accountTagId + " not found"));
     }
 
     public List<AccountTag> getAll() {

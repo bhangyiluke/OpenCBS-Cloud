@@ -41,7 +41,8 @@ public class VaultMapper {
     }
 
     private Branch getBranch(long branchId) {
-        return this.branchRepository.findOne(branchId);
+        return this.branchRepository.findById(branchId).orElseThrow(() ->
+                new IllegalArgumentException("Branch with id:: " + branchId + " not found"));
     }
 
     private Set<Account> getAccounts(Set<Long> accountIds) {

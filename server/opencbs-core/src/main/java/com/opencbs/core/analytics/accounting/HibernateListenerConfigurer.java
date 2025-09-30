@@ -7,7 +7,8 @@ import org.hibernate.jpa.HibernateEntityManagerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 

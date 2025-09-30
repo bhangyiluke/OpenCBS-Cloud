@@ -7,8 +7,11 @@ import com.opencbs.core.domain.enums.ModuleType;
 import com.opencbs.core.domain.json.ExtraJson;
 import com.opencbs.core.domain.json.ExtraJsonType;
 import lombok.Data;
+
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
+import org.hibernate.type.SqlTypes;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,7 +54,8 @@ public class Request extends BaseEntity {
     @Column(name = "expire_date", nullable = false)
     private LocalDate expireDate;
 
-    @Type(type = "ExtraJsonType")
+    // @Type(type = "ExtraJsonType")
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "content", columnDefinition = "jsonb")
     private ExtraJson content;
 

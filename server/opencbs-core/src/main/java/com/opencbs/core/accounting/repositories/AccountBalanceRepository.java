@@ -3,9 +3,12 @@ package com.opencbs.core.accounting.repositories;
 import com.opencbs.core.accounting.domain.AccountBalance;
 import com.opencbs.core.accounting.repositories.customs.AccountBalanceRepositoryCustom;
 import com.opencbs.core.repositories.Repository;
+
+import jakarta.persistence.LockModeType;
+
 import org.springframework.data.jpa.repository.Lock;
 
-import javax.persistence.LockModeType;
+// import javax.persistence.LockModeType;
 import java.time.LocalDateTime;
 import java.util.Optional;
 

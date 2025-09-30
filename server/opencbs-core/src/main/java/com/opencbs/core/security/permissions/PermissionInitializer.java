@@ -3,13 +3,15 @@ package com.opencbs.core.security.permissions;
 import com.opencbs.core.domain.Permission;
 import com.opencbs.core.domain.PermissionRole;
 import com.opencbs.core.services.PermissionService;
+
+import jakarta.annotation.PostConstruct;
+
 import org.reflections.Reflections;
 import org.reflections.scanners.MethodAnnotationsScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;

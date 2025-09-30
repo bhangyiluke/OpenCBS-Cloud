@@ -8,6 +8,9 @@ import com.opencbs.core.helpers.DateHelper;
 import com.opencbs.core.helpers.UserHelper;
 import com.opencbs.core.services.UserService;
 import com.opencbs.core.services.UserSessionService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +18,13 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class UserSessionHandler extends HandlerInterceptorAdapter {
+public class UserSessionHandler implements org.springframework.web.servlet.HandlerInterceptor {
 
     static private final String PATH_LOGIN = "/login";
 

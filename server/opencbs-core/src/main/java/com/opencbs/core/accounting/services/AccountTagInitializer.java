@@ -3,8 +3,7 @@ package com.opencbs.core.accounting.services;
 import com.opencbs.core.accounting.domain.AccountTag;
 import com.opencbs.core.accounting.domain.AccountTagType;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

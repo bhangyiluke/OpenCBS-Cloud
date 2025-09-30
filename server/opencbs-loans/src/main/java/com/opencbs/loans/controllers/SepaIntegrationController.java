@@ -10,6 +10,7 @@ import com.opencbs.loans.dto.sepaintegration.SepaRepaymentDto;
 import com.opencbs.loans.services.sepaintegration.SepaDocumentService;
 import com.opencbs.loans.services.sepaintegration.SepaIntegrationService;
 import io.jsonwebtoken.lang.Assert;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.util.List;
 

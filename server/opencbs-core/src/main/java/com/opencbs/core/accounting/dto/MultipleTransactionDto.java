@@ -1,12 +1,11 @@
 package com.opencbs.core.accounting.dto;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.NotEmpty;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
+
+import jakarta.validation.constraints.NotEmpty;
 
 @Data
 public class MultipleTransactionDto {

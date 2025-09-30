@@ -20,6 +20,8 @@ import com.opencbs.core.helpers.UserHelper;
 import com.opencbs.core.services.DayClosureService;
 import com.opencbs.core.services.GlobalSettingsService;
 import com.opencbs.core.services.operationdayservices.Container;
+
+import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +34,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
