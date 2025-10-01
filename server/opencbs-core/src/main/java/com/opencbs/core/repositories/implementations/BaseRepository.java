@@ -2,6 +2,7 @@ package com.opencbs.core.repositories.implementations;
 
 import com.opencbs.core.domain.BaseEntity;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import javax.persistence.EntityManager;
@@ -16,8 +17,8 @@ public abstract class BaseRepository<Tentity extends BaseEntity> {
         this.clazz = clazz;
     }
 
-    protected Criteria createCriteria(String alias) {
-        return getSession().createCriteria(clazz, alias);
+    protected Criteria createCriteria(String alias) throws HibernateException{
+        return ((Criteria) getSession()).createCriteria(clazz, alias);
     }
 
     protected Criteria createCriteria(Class clazz, String alias) {

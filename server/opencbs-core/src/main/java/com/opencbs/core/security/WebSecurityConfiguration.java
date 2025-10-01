@@ -31,48 +31,52 @@ public class WebSecurityConfiguration // extends WebSecurityConfigurerAdapter --
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-    // @Bean
-    // public AuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
-    //     AuthenticationTokenFilter authenticationTokenFilter = new AuthenticationTokenFilter();
-    //     authenticationTokenFilter.setAuthenticationManager(authenticationManager());
-    //     return authenticationTokenFilter;
-    // }
+    @Bean
+    public AuthenticationTokenFilter authenticationTokenFilterBean(AuthenticationManager manager) throws Exception {
+        AuthenticationTokenFilter authenticationTokenFilter = new AuthenticationTokenFilter();
+        authenticationTokenFilter.setAuthenticationManager(manager);
+        return authenticationTokenFilter;
+    }
 
     // @Override
     // public void configure(WebSecurity web) throws Exception {
-    //     web.ignoring().antMatchers("/*", "/assets/**", "index.html", "/docs/**", "/webjars/**", "/v2/api-docs/**",
-    //             "/swagger-resources/**");
+    // web.ignoring().antMatchers("/*", "/assets/**", "index.html", "/docs/**",
+    // "/webjars/**", "/v2/api-docs/**",
+    // "/swagger-resources/**");
     // }
 
     @Bean
-    protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
+    protected SecurityFilterChain configure(HttpSecurity httpSecurity, AuthenticationTokenFilter tokenFilter)
+            throws Exception {
+        return httpSecurity
                 .csrf(csrf -> csrf.disable())
-                .exceptionHandling()
-                .authenticationEntryPoint(this.unauthorizedHandler)
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/api").permitAll()
-                .antMatchers("/api/login", "/api/login/update-password", "/api/login/password-reset").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/profiles/people/{personId}/attachments/{attachmentId}").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/profiles/companies/{companiesId}/attachments/{attachmentId}")
-                .permitAll()
-                .antMatchers(HttpMethod.GET, "/api/profiles/groups/{groupId}/attachments/{attachmentId}").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/loan-applications/{loanApplicationId}/attachments/{attachmentId}")
-                .permitAll()
-                .antMatchers(HttpMethod.GET, "/api/loans/{loanId}/attachments/{attachmentId}").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/info").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/system-settings").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/utils/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/utils/**").permitAll()
-                .anyRequest().authenticated();
-
-        httpSecurity
-                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
-        return httpSecurity.build();
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/*", "/assets/**", "index.html", "/docs/**", "/webjars/**", "/v2/api-docs/**",
+                                "/swagger-resources/**")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/api").permitAll()
+                        .requestMatchers("/api/login", "/api/login/update-password", "/api/login/password-reset")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/profiles/people/{personId}/attachments/{attachmentId}")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET,
+                                "/api/profiles/companies/{companiesId}/attachments/{attachmentId}")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/profiles/groups/{groupId}/attachments/{attachmentId}")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET,
+                                "/api/loan-applications/{loanApplicationId}/attachments/{attachmentId}")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/loans/{loanId}/attachments/{attachmentId}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/info").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/system-settings").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/utils/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/utils/**").permitAll()
+                        .anyRequest().authenticated())
+                // .authenticationEntryPoint(this.unauthorizedHandler)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 }

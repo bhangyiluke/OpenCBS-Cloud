@@ -1,7 +1,7 @@
 package com.opencbs.core.domain.types;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
 
 import java.io.Serializable;
@@ -12,10 +12,10 @@ import java.util.TimeZone;
 
 public class UTCDateType implements UserType {
 
-    protected static int[] SQL_TYPES_UTC = {Types.TIMESTAMP};
+    protected static int SQL_TYPES_UTC = Types.TIMESTAMP;
 
     @Override
-    public int[] sqlTypes() {
+    public int getSqlType() {
         return SQL_TYPES_UTC;
     }
 
@@ -61,21 +61,57 @@ public class UTCDateType implements UserType {
     public int hashCode(Object x) throws HibernateException {
         return x.hashCode();
     }
+    // @Override
+    // public Object nullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws HibernateException, SQLException {
+    //     try {
+    //         if (rs.getDate(names[0]) == null)
+    //             return null;
+    //     } catch (Exception e) {
+    //         return null;
+    //     }
+
+    //     return new Date(rs.getTimestamp(names[0], sUTCCalendar).getTime());
+    // }
+
+    // @Override
+    // public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws HibernateException, SQLException {
+    //     try {
+    //         if (rs.getDate(names[0]) == null)
+    //             return null;
+    //     } catch (Exception e) {
+    //         return null;
+    //     }
+
+    //     return new Date(rs.getTimestamp(names[0], sUTCCalendar).getTime());
+    // }
 
     @Override
-    public Object nullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws HibernateException, SQLException {
+    public Object nullSafeGet(ResultSet rs, int index, SharedSessionContractImplementor session, Object owner) throws HibernateException, SQLException {
         try {
-            if (rs.getDate(names[0]) == null)
+            if (rs.getDate(index) == null)
                 return null;
         } catch (Exception e) {
             return null;
         }
 
-        return new Date(rs.getTimestamp(names[0], sUTCCalendar).getTime());
+        return new Date(rs.getTimestamp(index, sUTCCalendar).getTime());
     }
 
+    // public void nullSafeSet(PreparedStatement st, Object value, int index, SessionImplementor session) throws HibernateException, SQLException {
+    //     if (null == value) {
+    //         st.setTimestamp(index, null);
+    //         return;
+    //     }
+    //     Date dateValue = (Date) value;
+    //     Timestamp timestamp = new Timestamp(dateValue.getTime());
+
+    //     st.setTimestamp(index,
+    //             timestamp,
+    //             sUTCCalendar);
+    // }
+
     @Override
-    public void nullSafeSet(PreparedStatement st, Object value, int index, SessionImplementor session) throws HibernateException, SQLException {
+    public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session) throws HibernateException, SQLException {
         if (null == value) {
             st.setTimestamp(index, null);
             return;

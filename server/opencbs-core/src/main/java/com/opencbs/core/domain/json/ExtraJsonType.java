@@ -3,6 +3,7 @@ package com.opencbs.core.domain.json;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
 
 import java.io.ByteArrayInputStream;
@@ -22,8 +23,8 @@ public class ExtraJsonType implements UserType {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public int[] sqlTypes() {
-        return new int[]{Types.JAVA_OBJECT};
+    public int getSqlType() {
+        return Types.JAVA_OBJECT;
     }
 
     @Override
@@ -31,9 +32,9 @@ public class ExtraJsonType implements UserType {
         return ExtraJson.class;
     }
 
-    @Override
+    // @Override
     public Object nullSafeGet(final ResultSet rs, final String[] names, final SessionImplementor session,
-                              final Object owner) throws HibernateException, SQLException {
+            final Object owner) throws HibernateException, SQLException {
         final String cellContent = rs.getString(names[0]);
         if (cellContent == null) {
             return null;
@@ -45,9 +46,9 @@ public class ExtraJsonType implements UserType {
         }
     }
 
-    @Override
+    // @Override
     public void nullSafeSet(final PreparedStatement ps, final Object value, final int idx,
-                            final SessionImplementor session) throws HibernateException, SQLException {
+            final SessionImplementor session) throws HibernateException, SQLException {
         if (value == null) {
             ps.setNull(idx, Types.OTHER);
             return;
@@ -113,5 +114,26 @@ public class ExtraJsonType implements UserType {
         return obj.hashCode();
     }
 
-}
+    // @Override
+    // public int getSqlType() {
+    // // TODO Auto-generated method stub
+    // throw new UnsupportedOperationException("Unimplemented method 'getSqlType'");
+    // }
 
+    @Override
+    public Object nullSafeGet(ResultSet arg0, int arg1,
+    SharedSessionContractImplementor arg2, Object arg3)
+    throws SQLException {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'nullSafeGet'");
+    }
+
+    @Override
+    public void nullSafeSet(PreparedStatement arg0, Object arg1, int arg2,
+    SharedSessionContractImplementor arg3)
+    throws SQLException {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'nullSafeSet'");
+    }
+
+}

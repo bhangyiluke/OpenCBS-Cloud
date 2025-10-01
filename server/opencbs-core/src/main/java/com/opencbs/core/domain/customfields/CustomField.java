@@ -4,6 +4,9 @@ import com.opencbs.core.domain.BaseEntity;
 import com.opencbs.core.domain.enums.CustomFieldType;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.Column;
@@ -17,9 +20,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 @Data
+
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Where(clause = "deleted = false")
+@SQLRestriction(value = "deleted = false")
+@EqualsAndHashCode(callSuper = true)
 public abstract class CustomField<Tcfs extends CustomFieldSection> extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -51,7 +56,6 @@ public abstract class CustomField<Tcfs extends CustomFieldSection> extends BaseE
     @Column(name = "extra")
     private CustomFieldExtra extra;
 
-    @Builder.Default
     @Column(name = "deleted")
     private Boolean deleted = false;
 }

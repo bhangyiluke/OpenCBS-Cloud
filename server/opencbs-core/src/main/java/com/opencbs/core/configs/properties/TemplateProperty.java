@@ -1,7 +1,9 @@
 package com.opencbs.core.configs.properties;
 
-import org.hibernate.validator.constraints.NotBlank;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import jakarta.validation.constraints.NotBlank;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

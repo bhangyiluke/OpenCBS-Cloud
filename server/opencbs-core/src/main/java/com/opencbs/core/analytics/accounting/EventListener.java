@@ -5,6 +5,7 @@ import com.opencbs.core.accounting.domain.AccountingEntry;
 import com.opencbs.core.accounting.services.HelperAccountingService;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.HibernateException;
+import org.hibernate.event.spi.PersistContext;
 import org.hibernate.event.spi.PersistEvent;
 import org.hibernate.event.spi.PersistEventListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,8 @@ public class EventListener implements PersistEventListener {
     }
 
     @Override
-    public void onPersist(PersistEvent event, Map createdAlready) throws HibernateException {
-
+    public void onPersist(PersistEvent arg0, PersistContext arg1) throws HibernateException {
+        // TODO Auto-generated method stub
+        // throw new UnsupportedOperationException("Unimplemented method 'onPersist'");
     }
 }
