@@ -86,7 +86,7 @@ public class BondService {
     }
 
     public Optional<BondProduct> findOneProduct(Long id) {
-        return Optional.ofNullable(this.bondProductService.findOne(id));
+        return this.bondProductService.findOne(id);
     }
 
     public Bond findById(Long id) throws ResourceNotFoundException {

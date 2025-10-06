@@ -17,7 +17,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import java.util.List;
 
 public class TermDepositRepositoryImpl extends BaseRepository<TermDeposit> implements TermDepositRepositoryCustom {

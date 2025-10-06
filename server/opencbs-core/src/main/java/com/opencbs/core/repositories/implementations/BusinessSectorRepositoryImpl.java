@@ -3,7 +3,7 @@ package com.opencbs.core.repositories.implementations;
 import com.opencbs.core.domain.trees.BusinessSector;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 @SuppressWarnings("unused")
 public class BusinessSectorRepositoryImpl extends TreeEntityRepositoryImpl<BusinessSector> {

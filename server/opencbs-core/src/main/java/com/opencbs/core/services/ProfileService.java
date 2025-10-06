@@ -46,7 +46,7 @@ public class ProfileService extends BaseHistoryService<ProfileRepository> implem
 
     @TimeLog
     public Page<Profile> search(String searchString, Pageable pageable, User user) {
-        if (StringUtils.isEmpty(searchString)) {
+        if (!StringUtils.hasText(searchString)) {
             return this.profileRepository.findLiveAndPendingThatHasLiveFields(pageable);
         }
 
@@ -58,11 +58,11 @@ public class ProfileService extends BaseHistoryService<ProfileRepository> implem
     }
 
     public Optional<Profile> getOne(Long id) {
-        final Profile one = this.profileRepository.findOne(id);
-        if (one==null) {
-            int b= 0;
-        }
-        return Optional.ofNullable(this.profileRepository.findOne(id));
+        // final Profile one = this.profileRepository.findById(id);
+        // if (one==null) {
+        //     int b= 0;
+        // }
+        return this.profileRepository.findById(id);
     }
 
     public Page<SimplifiedProfileAccount> getAllWithCurrentAccount(String queryString, Pageable pageable, User currentUser) {

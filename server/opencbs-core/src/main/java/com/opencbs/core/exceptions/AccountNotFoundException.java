@@ -1,6 +1,6 @@
 package com.opencbs.core.exceptions;
 
-import javax.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 
 public class AccountNotFoundException extends EntityNotFoundException {
     public AccountNotFoundException(Long id) {

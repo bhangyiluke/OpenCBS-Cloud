@@ -4,8 +4,8 @@ import com.opencbs.core.domain.customfields.CustomField;
 import lombok.Data;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "types_of_collateral_custom_fields")

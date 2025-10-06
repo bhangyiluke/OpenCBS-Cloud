@@ -24,11 +24,11 @@ public class HolidayService {
     }
 
     public List<Holiday> findAll() {
-        return this.holidayRepository.findAll(new Sort(Sort.Direction.ASC, "id"));
+        return this.holidayRepository.findAll();
     }
 
     public Optional<Holiday> findOne(long id) {
-        return Optional.ofNullable(this.holidayRepository.findOne(id));
+        return this.holidayRepository.findById(id);
     }
 
     public Holiday create(Holiday holiday) {

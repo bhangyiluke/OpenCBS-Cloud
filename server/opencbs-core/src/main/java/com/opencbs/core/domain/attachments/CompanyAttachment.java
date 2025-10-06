@@ -4,8 +4,8 @@ import com.opencbs.core.domain.profiles.Company;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

@@ -3,7 +3,7 @@ package com.opencbs.loans.domain;
 import com.opencbs.core.domain.BaseEntity;
 import lombok.Data;
 
-import javax.persistence.Transient;
+import jakarta.persistence.Transient;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 

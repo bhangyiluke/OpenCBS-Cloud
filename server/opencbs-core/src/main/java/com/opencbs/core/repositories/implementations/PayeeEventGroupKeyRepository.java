@@ -2,7 +2,7 @@ package com.opencbs.core.repositories.implementations;
 
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 @Repository
 public class PayeeEventGroupKeyRepository extends BaseEventGroupKeyRepository {

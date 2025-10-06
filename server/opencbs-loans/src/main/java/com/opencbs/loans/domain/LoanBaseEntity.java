@@ -5,7 +5,7 @@ import com.opencbs.core.domain.User;
 import com.opencbs.core.services.schedulegenerators.ScheduleGeneratorTypes;
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

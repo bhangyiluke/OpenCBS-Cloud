@@ -4,9 +4,9 @@ import com.opencbs.core.domain.Branch;
 import com.opencbs.loans.domain.enums.LoanApplicationStatus;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 @Data
 public class SimplifiedLoanApplication extends SimplifiedLoanBase {

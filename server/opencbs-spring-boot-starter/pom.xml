@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.opencbs</groupId>
@@ -13,17 +13,16 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.5.6</version>
-        <relativePath/>
+        <relativePath />
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>21</java.version>
-        <spring.cloud.version>Dalston.SR1</spring.cloud.version>
+        <spring.cloud.version>2025.0.0</spring.cloud.version>
         <snippetsDirectory>${project.build.directory}/generated-snippets</snippetsDirectory>
         <assertj.version>3.27.6</assertj.version>
-        <mockito.version>5.20.0</mockito.version>
         <rest-assured.version>5.5.6</rest-assured.version>
         <json-schema-validator.version>5.5.6</json-schema-validator.version>
         <opencbs.version>0.0.1-SNAPSHOT</opencbs.version>
@@ -47,13 +46,15 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>9.4.1212</version>
+            <version>42.7.8</version>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
+<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.42</version>
+</dependency>
         <dependency>
             <groupId>com.opencbs</groupId>
             <artifactId>opencbs-core</artifactId>
@@ -62,7 +63,6 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>4.0.3</version>
         </dependency>
 
         <dependency>
@@ -72,15 +72,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>${mockito.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.jayway.restassured</groupId>
+            <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>2.9.0</version>
+            <version>${rest-assured.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -115,6 +109,10 @@
             <artifactId>jasperreports-functions</artifactId>
             <version>${jasperreports.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-properties-migrator</artifactId>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 </project>

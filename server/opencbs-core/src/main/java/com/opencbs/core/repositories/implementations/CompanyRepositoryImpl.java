@@ -3,7 +3,7 @@ package com.opencbs.core.repositories.implementations;
 import com.opencbs.core.domain.profiles.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 public class CompanyRepositoryImpl extends ProfileBaseRepositoryImpl<Company> {
     @Autowired

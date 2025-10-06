@@ -6,13 +6,13 @@ import lombok.Data;
 import org.hibernate.envers.AuditOverride;
 import org.hibernate.envers.NotAudited;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MappedSuperclass;
 import java.math.BigDecimal;
 
 @AuditOverride(forClass = NamedBaseEntity.class, isAudited = true)

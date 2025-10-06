@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencbs.core.domain.customfields.CustomFieldExtra;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 import java.io.IOException;
 
 @Converter(autoApply = true)

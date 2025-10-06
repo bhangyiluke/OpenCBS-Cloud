@@ -4,8 +4,8 @@ import com.opencbs.core.domain.BaseEntity;
 import com.opencbs.core.services.schedulegenerators.ScheduleGeneratorTypes;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 

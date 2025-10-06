@@ -9,6 +9,7 @@ import com.opencbs.core.accounting.repositories.AccountTagRepository;
 import com.opencbs.core.domain.enums.AccountType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -32,7 +33,7 @@ public class AccountTagService {
     }
 
     public List<AccountTag> getAll() {
-        return this.accountTagRepository.findAll();
+        return this.accountTagRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     public List<AccountExtendedTag> getAllByAccountId(Long accountId) {

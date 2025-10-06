@@ -8,7 +8,7 @@ import com.opencbs.loans.domain.enums.EarlyRepaymentFeeType;
 import com.opencbs.loans.domain.products.LoanProduct;
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;

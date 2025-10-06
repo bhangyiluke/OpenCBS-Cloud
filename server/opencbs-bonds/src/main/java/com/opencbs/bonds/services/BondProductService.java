@@ -19,7 +19,7 @@ public class BondProductService {
         return this.bondProductRepository.findAll().stream().findFirst();
     }
 
-    public BondProduct findOne(Long productId){
-        return this.bondProductRepository.findOne(productId);
+    public Optional<BondProduct> findOne(Long productId){
+        return this.bondProductRepository.findById(productId);
     }
 }

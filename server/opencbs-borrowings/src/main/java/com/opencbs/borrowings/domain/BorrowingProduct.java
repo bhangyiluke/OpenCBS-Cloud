@@ -3,10 +3,10 @@ package com.opencbs.borrowings.domain;
 import com.opencbs.core.domain.BaseProduct;
 import lombok.Data;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import java.util.List;
 
 @Data

@@ -6,7 +6,7 @@ import org.hibernate.envers.AuditOverride;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Audited

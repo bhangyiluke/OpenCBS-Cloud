@@ -6,9 +6,9 @@ import com.opencbs.core.repositories.implementations.BaseRepository;
 import com.opencbs.loans.analytics.loan.domain.Analytic;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Query;
 import java.time.LocalDateTime;
 
 @SuppressWarnings("unused")

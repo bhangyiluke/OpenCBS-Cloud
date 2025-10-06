@@ -5,7 +5,7 @@ import com.opencbs.loans.domain.enums.LoanStatus;
 import lombok.Data;
 import org.hibernate.annotations.Immutable;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -19,7 +19,7 @@ public class PenaltyService {
 
 
     public Optional<Penalty> get(Long id) {
-        return Optional.ofNullable(this.penaltyRepository.findOne(id));
+        return this.penaltyRepository.findById(id);
     }
 
     public Penalty create(Penalty penalty) {

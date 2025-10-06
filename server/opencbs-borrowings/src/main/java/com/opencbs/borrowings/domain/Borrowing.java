@@ -7,17 +7,17 @@ import com.opencbs.borrowings.domain.enums.BorrowingStatus;
 import com.opencbs.borrowings.domain.schedule.BorrowingInstallment;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Enumerated;
-import javax.persistence.EnumType;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
+import jakarta.persistence.CascadeType;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

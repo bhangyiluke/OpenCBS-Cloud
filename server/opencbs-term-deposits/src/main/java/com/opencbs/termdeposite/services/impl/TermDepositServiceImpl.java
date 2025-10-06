@@ -13,7 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -40,7 +40,7 @@ public class TermDepositServiceImpl implements TermDepositService {
     @Override
     @Transactional
     public Optional<TermDeposit> getOne(@NonNull Long id) {
-        return Optional.of(termDepositRepository.findOne(id));
+        return termDepositRepository.findById(id);
     }
 
     @Override

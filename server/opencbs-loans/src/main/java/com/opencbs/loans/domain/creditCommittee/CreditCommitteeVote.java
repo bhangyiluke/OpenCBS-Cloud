@@ -1,7 +1,7 @@
 package com.opencbs.loans.domain.creditCommittee;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity(name = "Vote")
 @Table(name = "credit_committee_votes")

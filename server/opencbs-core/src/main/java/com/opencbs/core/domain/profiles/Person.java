@@ -7,10 +7,10 @@ import com.opencbs.core.domain.enums.EntityStatus;
 import lombok.Data;
 import org.hibernate.envers.Audited;
 
-import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import java.util.List;
 
 @Entity

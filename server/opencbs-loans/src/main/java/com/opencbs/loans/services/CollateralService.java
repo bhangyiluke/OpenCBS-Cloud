@@ -22,7 +22,7 @@ public class CollateralService {
 
     public Optional<Collateral> findOne(long id) {
 
-        return Optional.ofNullable(this.collateralRepository.findOne(id));
+        return this.collateralRepository.findById(id);
     }
 
     public List<Collateral> findAll(long loanApplicationId) {

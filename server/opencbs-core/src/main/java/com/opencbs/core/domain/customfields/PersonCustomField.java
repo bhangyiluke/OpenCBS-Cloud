@@ -3,8 +3,8 @@ package com.opencbs.core.domain.customfields;
 import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
 @Audited

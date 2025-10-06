@@ -4,7 +4,7 @@ import com.opencbs.core.domain.BaseEntity;
 import lombok.Data;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

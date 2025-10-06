@@ -5,7 +5,7 @@ import com.opencbs.core.domain.BaseEvent;
 import com.opencbs.core.domain.OtherFee;
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Data

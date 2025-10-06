@@ -5,7 +5,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 public abstract class BaseRepository<Tentity extends BaseEntity> {
 

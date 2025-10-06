@@ -4,8 +4,8 @@ import com.opencbs.core.domain.attachments.Attachment;
 import com.opencbs.loans.domain.Loan;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
 @Data

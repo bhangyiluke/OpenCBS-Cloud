@@ -3,8 +3,8 @@ package com.opencbs.loans.domain.trees;
 import com.opencbs.core.domain.trees.TreeEntity;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Data
 @Entity

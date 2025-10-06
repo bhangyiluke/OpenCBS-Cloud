@@ -3,8 +3,8 @@ package com.opencbs.core.domain.schedule.installments;
 import com.opencbs.core.domain.BaseEntity;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 

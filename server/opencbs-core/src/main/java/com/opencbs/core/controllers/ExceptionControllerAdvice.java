@@ -3,7 +3,9 @@ package com.opencbs.core.controllers;
 import com.opencbs.core.dto.responses.ErrorResponse;
 import com.opencbs.core.exceptions.ApiException;
 import com.opencbs.core.exceptions.ValidationException;
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+// import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class ExceptionControllerAdvice {
-    private static Logger log = Logger.getLogger(ExceptionControllerAdvice.class);
+    private static Logger log = org.slf4j.LoggerFactory.getLogger(ExceptionControllerAdvice.class);
 
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<ErrorResponse> exceptionHandler(ApiException ex){

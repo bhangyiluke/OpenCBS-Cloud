@@ -45,7 +45,7 @@ public abstract class ProfileBaseService<T extends Profile, TV extends CustomFie
     }
 
     public Optional<T> findOne(long id, User currentUser) {
-        T profile = this.profileRepository.findOne(id);
+        T profile = this.profileRepository.findById(id).orElse(null);
         if (profile == null) {
             return Optional.empty();
         }
@@ -77,7 +77,7 @@ public abstract class ProfileBaseService<T extends Profile, TV extends CustomFie
     }
 
     public Optional<T> findOne(long id) {
-        return Optional.ofNullable(this.profileRepository.findOne(id));
+        return this.profileRepository.findById(id);
     }
 
     public List<ChangesInfo> getChangesById(long id) {
@@ -155,7 +155,8 @@ public abstract class ProfileBaseService<T extends Profile, TV extends CustomFie
     }
 
     private T updateWithoutChecker(T profile, User currentUser) {
-        T unchangedProfile = this.profileRepository.findOne(profile.getId());
+        T unchangedProfile = this.profileRepository.findById(profile.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Profile with id:: " + profile.getId() + " not found"));
         List<TV> oldValues = this.getValuesByStatus(unchangedProfile, EntityStatus.LIVE);
         List<TV> values = this.getProfileCustomFieldValues(profile);
         Set<Long> diffIds = this.getChangedFieldsIds(oldValues, values);
@@ -192,7 +193,7 @@ public abstract class ProfileBaseService<T extends Profile, TV extends CustomFie
         oldValues.addAll(newValues);
         this.setProfileCustomFieldValues(profile, oldValues);
         profile.setName(profile.getNameFromCustomFields());
-        profile = this.profileRepository.save(profile);
+        this.profileRepository.save(profile);
         return this.findOne(profile.getId(), currentUser).get();
     }
 
@@ -205,7 +206,7 @@ public abstract class ProfileBaseService<T extends Profile, TV extends CustomFie
     }
 
     public boolean exists(Long profileId) {
-        return this.profileRepository.exists(profileId);
+        return this.profileRepository.existsById(profileId);
     }
 
     abstract List<TV> getProfileCustomFieldValues(T profile);
@@ -252,7 +253,8 @@ public abstract class ProfileBaseService<T extends Profile, TV extends CustomFie
     }
 
     public Optional<String> getCustomValueByCode(Profile profile, String customFieldCode ) {
-        final T object = this.profileRepository.findOne(profile.getId());
+        final T object = this.profileRepository.findById(profile.getId()).orElseThrow(() ->
+                new IllegalArgumentException("Profile with id:: " + profile.getId() + " not found"));
         final Optional<TV> customValue = this.getValuesByStatus(object, EntityStatus.LIVE).stream()
                 .filter(tv -> tv.getCustomField().getName().compareTo(customFieldCode) == 0)
                 .findFirst();

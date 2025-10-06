@@ -3,7 +3,7 @@ package com.opencbs.core.analytics.accounting;
 import com.opencbs.core.accounting.domain.AccountingEntry;
 import com.opencbs.core.accounting.services.AccountingEntryService;
 
-import javax.persistence.PrePersist;
+import jakarta.persistence.PrePersist;
 
 public class AccountingEntryListener {
 

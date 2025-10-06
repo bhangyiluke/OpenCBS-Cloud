@@ -14,7 +14,7 @@ import com.opencbs.loans.services.LoanService;
 import com.opencbs.loans.validators.LoanRepayValidator;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 

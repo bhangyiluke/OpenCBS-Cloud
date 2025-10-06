@@ -15,7 +15,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.DiscriminatorValue;
+import jakarta.persistence.DiscriminatorValue;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;

@@ -14,7 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 @SuppressWarnings("unused")
 public abstract class TreeEntityRepositoryImpl<Tte extends TreeEntity> extends BaseRepository implements TreeEntityRepositoryCustom {

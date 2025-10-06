@@ -4,7 +4,7 @@ import com.opencbs.core.domain.BaseEntity;
 import com.opencbs.loans.domain.enums.ProvisionType;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @AllArgsConstructor

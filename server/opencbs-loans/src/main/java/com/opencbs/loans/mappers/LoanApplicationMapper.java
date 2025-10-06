@@ -42,7 +42,7 @@ import org.modelmapper.PropertyMap;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
-import javax.persistence.DiscriminatorValue;
+import jakarta.persistence.DiscriminatorValue;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;

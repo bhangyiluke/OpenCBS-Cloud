@@ -1,6 +1,6 @@
 package com.opencbs.core.repositories.implementations;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import java.math.BigInteger;
 
 public abstract class BaseEventGroupKeyRepository {

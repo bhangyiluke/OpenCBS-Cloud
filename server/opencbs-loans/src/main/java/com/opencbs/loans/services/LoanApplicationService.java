@@ -49,7 +49,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
-import javax.persistence.DiscriminatorValue;
+import jakarta.persistence.DiscriminatorValue;
 import javax.script.ScriptException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
