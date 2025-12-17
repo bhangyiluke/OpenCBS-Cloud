@@ -61,7 +61,7 @@ import java.util.stream.Collectors;
 
 @Service
 @ConditionalOnMissingBean(annotation = CustomLoanApplicationService.class)
-public class LoanApplicationService extends BaseHistoryService<LoanApplicationRepository> implements HistoryService {
+public class LoanApplicationService extends BaseHistoryService<LoanApplication, Long, Integer> {
 
     private final LoanService loanService;
     private final LoanEventService loanEventService;
@@ -449,7 +449,7 @@ public class LoanApplicationService extends BaseHistoryService<LoanApplicationRe
         return loan.getLoanApplication();
     }
 
-    @Override
+    // @Override
     public Class getTargetClass() {
         return LoanApplication.class;
     }

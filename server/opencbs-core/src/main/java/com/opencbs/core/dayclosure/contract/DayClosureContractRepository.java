@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public interface DayClosureContractRepository extends JpaRepository<DayClosureContract, LocalDate> {
+public interface DayClosureContractRepository extends JpaRepository<DayClosureContract, Long> {
 
     DayClosureContract findByContractIdAndProcessType(Long contractId, ProcessType processType);
     List<DayClosureContract> findByContractIdAndProcessTypeIn(Long contractId, List<ProcessType> processTypes);

@@ -76,8 +76,8 @@ public class SepaDocumentServiceImpl implements SepaDocumentService{
                     .build());
         }
 
-        int start = pageable.getOffset();
-        int end = (start + pageable.getPageSize()) > result.size() ? result.size() : (start + pageable.getPageSize());
-        return new PageImpl<>(result.subList(start, end), pageable, result.size());
+        long start = pageable.getOffset();
+        long end = (start + pageable.getPageSize()) > result.size() ? result.size() : (start + pageable.getPageSize());
+        return new PageImpl<>(result.subList(Long.valueOf(start).intValue(), Long.valueOf(end).intValue()), pageable, result.size());
     }
 }

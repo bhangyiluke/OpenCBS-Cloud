@@ -46,7 +46,7 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class AccountService extends BaseHistoryService<AccountRepository> implements CrudService<Account>, HistoryService {
+public class AccountService extends BaseHistoryService<Account, Long, Integer> implements CrudService<Account> {
 
     private final AccountRepository accountRepository;
     private final CurrencyService currencyService;
@@ -327,7 +327,7 @@ public class AccountService extends BaseHistoryService<AccountRepository> implem
         return this.getOne(id);
     }
 
-    @Override
+    // @Override
     public Class getTargetClass() {
         return Account.class;
     }

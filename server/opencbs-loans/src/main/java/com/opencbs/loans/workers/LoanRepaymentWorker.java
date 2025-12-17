@@ -106,7 +106,7 @@ public class LoanRepaymentWorker {
                         i.setRescheduled(false);
                         toSave.add(i);
                     });
-            this.loanInstallmentRepository.save(toSave);
+            this.loanInstallmentRepository.saveAll(toSave);
         }
 
         saveLoanEvents(result.getEvents(), now, result, groupKey, accrualGroupKey);

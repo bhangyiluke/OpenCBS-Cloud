@@ -2,7 +2,6 @@ package com.opencbs.loans.services;
 
 import com.opencbs.loans.domain.Collateral;
 import com.opencbs.loans.repositories.CollateralRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +14,7 @@ public class CollateralService {
 
     private CollateralRepository collateralRepository;
 
-    @Autowired
+    // @Autowired
     public CollateralService(CollateralRepository collateralRepository) {
         this.collateralRepository = collateralRepository;
     }
@@ -26,7 +25,7 @@ public class CollateralService {
     }
 
     public List<Collateral> findAll(long loanApplicationId) {
-        return this.collateralRepository.findCollateralByLoanApplicationId(loanApplicationId, new Sort(Sort.Direction.ASC, "id"));
+        return this.collateralRepository.findCollateralByLoanApplicationId(loanApplicationId, Sort.by(Sort.Direction.ASC, "id"));
     }
 
     @Transactional

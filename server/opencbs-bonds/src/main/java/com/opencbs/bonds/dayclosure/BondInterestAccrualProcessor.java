@@ -50,7 +50,8 @@ public class BondInterestAccrualProcessor implements BondDayClosureProcessor {
 
     @Override
     public void processContract(@NonNull Long bondId, @NonNull LocalDate closureDate, @NonNull User user) {
-        BondInterestAccrual bond = bondRepository.findOne(bondId);
+        BondInterestAccrual bond = bondRepository.findById(bondId).orElseThrow(() ->
+                new IllegalArgumentException("Bond with id:: " + bondId + " not found"));
         List<BondInstallmentInterestAccrual> installments = bondInstallmentRepository.findByBondId(bond.getId());
 
         AccountingEntry accountingEntry = createAccrualAccountingEntry(bond, closureDate, user, installments);

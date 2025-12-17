@@ -39,7 +39,7 @@ public class LoanProductAccountService {
             List<LoanProductAccount> loanProductAccount,
             LoanProduct loanProduct) {
         this.getAllByLoanProductId(loanProduct.getId())
-                .forEach(x -> this.loanProductAccountRepository.delete(x.getId()));
+                .forEach(x -> this.loanProductAccountRepository.deleteById(x.getId()));
         return this.create(loanProductAccount, loanProduct);
     }
 }

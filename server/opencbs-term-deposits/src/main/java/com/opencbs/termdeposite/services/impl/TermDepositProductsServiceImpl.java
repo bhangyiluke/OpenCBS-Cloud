@@ -19,19 +19,19 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class TermDepositProductsServiceImpl extends BaseHistoryService<TermDepositProductRepository> implements TermDepositProductsService {
+public class TermDepositProductsServiceImpl extends BaseHistoryService<TermDepositProduct, Long, Integer> implements TermDepositProductsService {
 
     private final TermDepositProductRepository termDepositProductRepository;
 
 
-    @Autowired
+    // @Autowired
     public TermDepositProductsServiceImpl(TermDepositProductRepository termDepositProductRepository) {
         super(termDepositProductRepository);
         this.termDepositProductRepository = termDepositProductRepository;
     }
 
     @Override
-    public Page getAll(Pageable pageable, String searchString) {
+    public Page<TermDepositProduct> getAll(@NonNull Pageable pageable, String searchString) {
         if (searchString == null) {
             return this.termDepositProductRepository.findAll(pageable);
         }
@@ -41,16 +41,16 @@ public class TermDepositProductsServiceImpl extends BaseHistoryService<TermDepos
 
     @Override
     public Optional<TermDepositProduct> getOne(@NonNull Long id) {
-        return Optional.of(termDepositProductRepository.getOne(id));
+        return termDepositProductRepository.findById(id);
     }
 
     @Override
-    public TermDepositProduct update(TermDepositProduct termDepositProduct) {
+    public TermDepositProduct update(@NonNull TermDepositProduct termDepositProduct) {
         return this.termDepositProductRepository.save(termDepositProduct);
     }
 
     @Override
-    public TermDepositProduct save(TermDepositProduct termDepositProduct) {
+    public TermDepositProduct save(@NonNull TermDepositProduct termDepositProduct) {
         return this.termDepositProductRepository.save(termDepositProduct);
     }
 
@@ -67,7 +67,7 @@ public class TermDepositProductsServiceImpl extends BaseHistoryService<TermDepos
     @Override
     public Page<TermDepositProduct> getActiveTermDepositProduct(Pageable pageable, String searchString) {
         List<StatusType> statusTypes = Collections.singletonList(StatusType.ACTIVE);
-        if (StringUtils.isEmpty(searchString)) {
+        if (!StringUtils.hasLength(searchString)) {
             searchString = "";
         }
         return this.termDepositProductRepository.findAllByNameIgnoreCaseContainingAndStatusTypeIn(pageable, searchString, statusTypes);

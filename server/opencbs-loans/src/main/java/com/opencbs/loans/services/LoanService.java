@@ -59,11 +59,11 @@ public class LoanService {
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan not found (ID=%d).", loanId)));
     }
 
-    public Optional<Loan> findOne(Long id) {
-        return Optional.ofNullable(this.loanRepository.findOne(id));
+    public Optional<Loan> findOne(@NonNull Long id) {
+        return this.loanRepository.findById(id);
     }
 
-    public void save(Loan loan) {
+    public void save(@NonNull Loan loan) {
         this.loanRepository.save(loan);
     }
 
@@ -90,8 +90,7 @@ public class LoanService {
     }
 
     public List<LoanInstallment> getInstallmentsByLoanAndEventGroupKeys(Long loanId, Collection<Long> eventGroupKeys) {
-        Loan loan = this.loanRepository.findOne(loanId);
-        if (loan == null) {
+        if (!this.loanRepository.existsById(loanId)) {
             throw new NullPointerException(String.format("The loan is not found (ID = %d)", loanId));
         }
 
@@ -99,10 +98,8 @@ public class LoanService {
     }
 
     public List<LoanInstallment> getInstallmentsByLoan(Long loanId, LocalDateTime effectiveAt, boolean reschedule, boolean rollback) {
-        Loan loan = this.loanRepository.findOne(loanId);
-        if (loan == null) {
-            throw new NullPointerException(String.format("The loan is not found (ID = %d)", loanId));
-        }
+        Loan loan = this.loanRepository.findById(loanId).orElseThrow(() ->
+                new NullPointerException(String.format("The loan is not found (ID = %d)", loanId)));
 
         List<LoanInstallment> allByLoan = this.loanInstallmentRepository.findAllByLoanIdAndEffectiveAtAndDeleted(loanId, effectiveAt, false);
         Map<Integer, List<LoanInstallment>> collect = allByLoan

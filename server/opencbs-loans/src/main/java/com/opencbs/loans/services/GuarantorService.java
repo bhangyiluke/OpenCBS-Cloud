@@ -31,7 +31,7 @@ public class GuarantorService {
     }
 
     public Optional<Guarantor> findOne(long id) {
-        return Optional.ofNullable(guarantorRepository.findOne(id));
+        return this.guarantorRepository.findById(id);
     }
 
     @Transactional

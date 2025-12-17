@@ -5,51 +5,54 @@ import com.opencbs.core.domain.audit.AuditRevisionEntity;
 import com.opencbs.core.dto.audit.ChangedDto;
 import com.opencbs.core.dto.audit.HistoryDto;
 import com.opencbs.core.helpers.DateHelper;
+
+// import org.joda.time.Instant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.history.Revision;
 import org.springframework.data.history.Revisions;
 import org.springframework.data.repository.history.RevisionRepository;
 
 import java.lang.reflect.Field;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 
-public abstract class BaseHistoryService<T extends RevisionRepository> {
+public abstract class BaseHistoryService<E extends BaseEntity, ID, N extends Number & Comparable<N>> {
 
-    private final RevisionRepository revisionRepository;
+    private final RevisionRepository<E, ID, N> revisionRepository;
 
     @Autowired
-    public BaseHistoryService(RevisionRepository revisionRepository) {
+    public BaseHistoryService(RevisionRepository<E, ID, N> revisionRepository) {
         this.revisionRepository = revisionRepository;
     }
 
-    public List<HistoryDto> getAllRevisions(Long id) throws Exception {
-        Revisions revisions = revisionRepository.findRevisions(id);
+    public List<HistoryDto> getAllRevisions(ID id) throws Exception {
+        Revisions<N, E> revisions = revisionRepository.findRevisions(id);
         return this.getListOfChanges(revisions.getContent());
     }
 
-    public <T> HistoryDto getRevisionByDate(Long entityId, LocalDateTime dateTime) throws Exception {
-        Revisions revisions = this.revisionRepository.findRevisions(entityId);
-        BaseEntity prevObject = null;
-        for (Object obj : revisions.getContent()) {
-            Revision revision = ((Revision<Integer, T>)obj);
-            LocalDateTime dateTimeRevision = DateHelper.dateToLocalDateTime(revision.getRevisionDate());
-            if( DateHelper.equal(dateTimeRevision.toLocalDate(),dateTime.toLocalDate())) {
+    public HistoryDto getRevisionByDate(ID entityId, LocalDateTime dateTime) throws Exception {
+        Revisions<N, E> revisions = this.revisionRepository.findRevisions(entityId);
+        E prevObject = null;
+        for (Revision<N, E> revision : revisions.getContent()) {
+            Instant revisionInstant = revision.getRevisionInstant().orElse(Instant.now());
+            LocalDateTime dateTimeRevision = DateHelper.dateToLocalDateTime(revisionInstant);
+            if (DateHelper.equal(dateTimeRevision.toLocalDate(), dateTime.toLocalDate())) {
                 return convertToHistoryDto(prevObject, revision);
             }
-            prevObject = (BaseEntity) revision.getEntity();
+            prevObject = revision.getEntity();
         }
         return null;
     }
 
-    private List<HistoryDto> getListOfChanges(List<Revision<Integer, T>> content) throws IllegalAccessException {
+    private List<HistoryDto> getListOfChanges(List<Revision<N, E>> content) throws IllegalAccessException {
         List<HistoryDto> changes = new ArrayList<>();
-        Object prevObject = null;
-        for (Revision revision : content) {
-            HistoryDto historyDto = convertToHistoryDto((BaseEntity) prevObject, revision);
+        E prevObject = null;
+        for (Revision<N, E> revision : content) {
+            HistoryDto historyDto = convertToHistoryDto(prevObject, revision);
             changes.add(historyDto);
             prevObject = revision.getEntity();
         }
@@ -57,17 +60,19 @@ public abstract class BaseHistoryService<T extends RevisionRepository> {
         return changes;
     }
 
-    private HistoryDto convertToHistoryDto(BaseEntity prevObject, Revision revision) throws IllegalAccessException {
-        Class clazz = revision.getEntity().getClass();
+    private HistoryDto convertToHistoryDto(E prevObject, Revision<N, E> revision) throws IllegalAccessException {
+        Class<?> clazz = revision.getEntity().getClass();
+        Long number = revision.getRevisionNumber().map(Number::longValue).orElse(0L);
+        var revisionInstant = DateHelper.dateToLocalDateTime(revision.getRevisionInstant().orElse(Instant.now()));
         return HistoryDto.builder()
-                .number(revision.getRevisionNumber().longValue())
-                .date(DateHelper.toLocalDate(revision.getRevisionDate()))
-                .changed(buildListOfChange((BaseEntity) revision.getEntity(), prevObject, clazz))
+                .number(number)
+                .date(revisionInstant.toLocalDate())
+                .changed(buildListOfChange(revision.getEntity(), prevObject, clazz))
                 .username(((AuditRevisionEntity) revision.getMetadata().getDelegate()).getUsername())
                 .build();
     }
 
-    private <E extends BaseEntity> List<ChangedDto> buildListOfChange(E entity, E prevObject, Class clazz) throws IllegalAccessException {
+    private <TEntity extends BaseEntity> List<ChangedDto> buildListOfChange(TEntity entity, TEntity prevObject, Class<?> clazz) throws IllegalAccessException {
         if (clazz == BaseEntity.class) {
             return Collections.emptyList();
         }
@@ -79,11 +84,12 @@ public abstract class BaseHistoryService<T extends RevisionRepository> {
             }
             field.setAccessible(true);
             Object prefValue = (prevObject == null) ? null : field.get(prevObject);
-            if (!comparingValues(field.get(entity), prefValue)) {
+            Object currentValue = (entity == null) ? null : field.get(entity);
+            if (!comparingValues(currentValue, prefValue)) {
                 ChangedDto builder = ChangedDto.builder()
                         .fieldName(field.getName())
-                        .prefValue((prefValue == null) ? "" : field.get(prevObject).toString())
-                        .value(buildToString(field.get(entity)))
+                        .prefValue((prefValue == null) ? "" : prefValue.toString())
+                        .value(currentValue == null ? "" : buildToString(currentValue))
                         .build();
                 changed.add(builder);
             }
@@ -118,7 +124,9 @@ public abstract class BaseHistoryService<T extends RevisionRepository> {
         return false;
     }
 
-    public LocalDateTime getDateTimeLastRevision(Long entityId) throws Exception {
-        return DateHelper.dateToLocalDateTime(this.revisionRepository.findLastChangeRevision(entityId).getRevisionDate());
+    public LocalDateTime getDateTimeLastRevision(ID entityId) throws Exception {
+        Revision<N, E> lastRevision = revisionRepository.findLastChangeRevision(entityId)
+                .orElseThrow(() -> new IllegalArgumentException("No revisions found for entity with id:: " + entityId));
+        return DateHelper.dateToLocalDateTime(lastRevision.getRevisionInstant().orElse(Instant.now()));
     }
 }

@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProfileService extends BaseHistoryService<ProfileRepository> implements CrudService<Profile>, HistoryService {
+public class ProfileService extends BaseHistoryService<Profile, Long, Integer> implements CrudService<Profile> {
 
     private final ProfileRepository profileRepository;
     private final AccountMapper accountMapper;
@@ -127,7 +127,7 @@ public class ProfileService extends BaseHistoryService<ProfileRepository> implem
         throw new UnsupportedOperationException();
     }
 
-    @Override
+    // @Override
     public Class getTargetClass() {
         return Profile.class;
     }

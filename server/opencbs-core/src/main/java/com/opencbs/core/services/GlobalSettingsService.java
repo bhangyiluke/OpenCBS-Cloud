@@ -30,7 +30,7 @@ public class GlobalSettingsService {
     }
 
     public Optional<GlobalSettings> findOne(String name) {
-        return Optional.ofNullable(this.globalSettingsRepository.findOne(name));
+        return this.globalSettingsRepository.findByName(name);
     }
 
     public GlobalSettings update(GlobalSettings globalSettings) {
@@ -64,10 +64,8 @@ public class GlobalSettingsService {
     }
 
     public String getSettingValue(@NonNull String settingName) {
-        GlobalSettings globalSettings = globalSettingsRepository.findOne(settingName);
-        if (globalSettings==null){
-            throw new ResourceNotFoundException(String.format("Not found setting with name: %s", settingName));
-        }
+        GlobalSettings globalSettings = globalSettingsRepository.findByName(settingName).orElseThrow(() ->
+                new ResourceNotFoundException(String.format("Not found setting with name: %s", settingName)));
 
         return globalSettings.getValue();
     }

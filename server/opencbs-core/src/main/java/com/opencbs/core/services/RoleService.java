@@ -18,7 +18,7 @@ import java.util.Optional;
 
 
 @Service
-public class RoleService extends BaseHistoryService<RoleRepository> implements CrudService<Role>, HistoryService {
+public class RoleService extends BaseHistoryService<Role, Long, Integer> implements CrudService<Role>, HistoryService {
 
     private RoleRepository roleRepository;
 

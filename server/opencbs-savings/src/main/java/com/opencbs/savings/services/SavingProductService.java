@@ -19,11 +19,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SavingProductService extends BaseHistoryService<SavingProductRepository> implements CrudService<SavingProduct>, HistoryService {
+public class SavingProductService extends BaseHistoryService<SavingProduct, Long, Integer> implements CrudService<SavingProduct> {
 
     private final SavingProductRepository savingProductRepository;
 
-    @Autowired
+    // @Autowired
     public SavingProductService(SavingProductRepository savingProductRepository) {
         super(savingProductRepository);
         this.savingProductRepository = savingProductRepository;
@@ -74,7 +74,7 @@ public class SavingProductService extends BaseHistoryService<SavingProductReposi
         return RequestType.SAVING_PRODUCT_EDIT.equals(requestType) || RequestType.SAVING_PRODUCT_CREATE.equals(requestType);
     }
 
-    @Override
+    // @Override
     public Class getTargetClass() {
         return SavingProduct.class;
     }

@@ -54,6 +54,14 @@ public class DateHelper {
         return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
+    public static LocalDateTime dateToLocalDateTime(Instant revisionInstant) {
+        return LocalDateTime.ofInstant(revisionInstant, ZoneId.systemDefault());
+    }
+    /*
+    * Convert JDK Instant to LocalDateTime
+    * By: Luke Bhangyi
+    * Date: 2024-06-12
+    */
     public static LocalDateTime dateToLocalDateTime(Date date) {
         return LocalDateTime.ofInstant(Instant.ofEpochMilli(date.getTime()), ZoneId.systemDefault());
     }

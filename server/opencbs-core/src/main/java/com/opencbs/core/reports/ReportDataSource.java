@@ -3,8 +3,6 @@ package com.opencbs.core.reports;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
 import jakarta.persistence.EntityManager;
@@ -26,10 +24,13 @@ public class ReportDataSource {
     }
 
     public <T> List<T> executeNativeScript(@NonNull String sqlQuery, Class<T> clazz){
-        Session session = entityManager.unwrap(Session.class);
+        // Use JPA EntityManager.createNativeQuery(...) instead of Session.createNativeQuery(...) (deprecated).
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> rows = (List<Map<String, Object>>) entityManager.createNativeQuery(sqlQuery).getResultList();
 
-        List<Map<String, Object>> rows = session.createSQLQuery(sqlQuery)
-                .setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP).list();
+        // List<Map<String, Object>> rows=
+        // List<Map<String, Object>> rows = session.createSQLQuery(sqlQuery)
+        //         .setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP).list();
 
         return map(rows, clazz);
     }

@@ -16,6 +16,9 @@ import com.opencbs.loans.dto.loanapplications.LoanApplicationPayeesDto;
 import com.opencbs.loans.mappers.LoanApplicationPayeeMapper;
 import com.opencbs.loans.repositories.LoanApplicationPayeeRepository;
 import com.opencbs.loans.repositories.LoanApplicationRepository;
+
+import lombok.NonNull;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,18 +51,18 @@ public class LoanApplicationsPayeesService {
     }
 
     @Transactional
-    public LoanApplicationPayees update(LoanApplicationPayees loanApplicationPayees) {
+    public LoanApplicationPayees update(@NonNull LoanApplicationPayees loanApplicationPayees) {
         return this.loanApplicationPayeeRepository.save(loanApplicationPayees);
     }
 
     public Optional<LoanApplicationPayees> getById(long id) {
-        return Optional.ofNullable(this.loanApplicationPayeeRepository.findOne(id));
+        return this.loanApplicationPayeeRepository.findById(id);
     }
 
     @Transactional
     public void createLoanApplicationPayee(Long loanApplicationId, LoanApplicationPayeesDto loanApplicationPayeesDto, Long payeeId) throws Exception {
         Payee payee = this.payeeService.findOne(payeeId).orElseThrow(() -> new Exception("Payee not found"));
-        LoanApplication loanApplication = this.loanApplicationRepository.findOne(loanApplicationId);
+        LoanApplication loanApplication = this.loanApplicationRepository.findById(loanApplicationId).orElseThrow(() -> new Exception("Loan application not found with id:: " + loanApplicationId));
 
         LoanApplicationPayees loanApplicationPayee = this.loanApplicationPayeeMapper.mapToEntity(loanApplicationPayeesDto);
         loanApplicationPayee.setLoanApplication(loanApplication);

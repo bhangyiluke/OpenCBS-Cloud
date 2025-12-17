@@ -35,6 +35,6 @@ public class PenaltyService {
     }
 
     public List<Penalty> findAllByIds(Iterable<Long> ids) {
-        return this.penaltyRepository.findAll(ids);
+        return this.penaltyRepository.findAllById(ids);
     }
 }

@@ -18,12 +18,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class LoanProductService extends BaseHistoryService<LoanProductRepository> implements CrudService<LoanProduct>, HistoryService {
+public class LoanProductService extends BaseHistoryService implements CrudService<LoanProduct> {
 
     private final LoanProductRepository loanProductRepository;
 
 
-    @Autowired
+    // @Autowired
     public LoanProductService(LoanProductRepository loanProductRepository) {
         super(loanProductRepository);
         this.loanProductRepository = loanProductRepository;
@@ -34,7 +34,7 @@ public class LoanProductService extends BaseHistoryService<LoanProductRepository
     }
 
     public Optional<LoanProduct> getOne(Long id) {
-        return Optional.ofNullable(this.loanProductRepository.findOne(id));
+        return this.loanProductRepository.findById(id);
     }
 
     public Optional<LoanProduct> findByName(String name) {
@@ -77,7 +77,7 @@ public class LoanProductService extends BaseHistoryService<LoanProductRepository
         return RequestType.LOAN_PRODUCT_CREATE.equals(requestType) || RequestType.LOAN_PRODUCT_EDIT.equals(requestType) ;
     }
 
-    @Override
+    // @Override
     public Class getTargetClass() {
         return LoanProduct.class;
     }

@@ -27,7 +27,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService extends BaseHistoryService<UserRepository> implements CrudService<User>, HistoryService {
+public class UserService extends BaseHistoryService<User, Long, Integer> implements CrudService<User> {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -131,7 +131,7 @@ public class UserService extends BaseHistoryService<UserRepository> implements C
         return this.getOne(entityId);
     }
 
-    @Override
+    // @Override
     public Class getTargetClass() {
         return User.class;
     }

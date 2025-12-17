@@ -18,11 +18,11 @@ public abstract class BaseRepository<Tentity extends BaseEntity> {
     }
 
     protected Criteria createCriteria(String alias) throws HibernateException{
-        return ((Criteria) getSession()).createCriteria(clazz, alias);
+        return ((Criteria) getSession()).createCriteria(alias);
     }
 
     protected Criteria createCriteria(Class clazz, String alias) {
-        return getSession().createCriteria(clazz, alias);
+        return ((Criteria) getSession()).createCriteria(alias);
     }
 
     protected EntityManager getEntityManager() {

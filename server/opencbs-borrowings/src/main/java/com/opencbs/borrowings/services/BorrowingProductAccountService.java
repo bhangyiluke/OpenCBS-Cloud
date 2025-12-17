@@ -3,6 +3,9 @@ package com.opencbs.borrowings.services;
 import com.opencbs.borrowings.domain.BorrowingProduct;
 import com.opencbs.borrowings.domain.BorrowingProductAccount;
 import com.opencbs.borrowings.repositories.BorrowingProductAccountRepository;
+
+import lombok.NonNull;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +30,7 @@ public class BorrowingProductAccountService {
     }
 
     @Transactional
-    public BorrowingProductAccount create(BorrowingProductAccount borrowingProductAccount) {
+    public BorrowingProductAccount create(@NonNull BorrowingProductAccount borrowingProductAccount) {
         return this.borrowingProductAccountRepository.save(borrowingProductAccount);
     }
 
@@ -37,7 +40,7 @@ public class BorrowingProductAccountService {
 
     public List<BorrowingProductAccount> update(List<BorrowingProductAccount> borrowingProductAccounts, BorrowingProduct borrowingProduct) {
         this.getAllByBorrowingProductId(borrowingProduct.getId())
-                .forEach(x -> this.borrowingProductAccountRepository.delete(x.getId()));
+                .forEach(x -> this.borrowingProductAccountRepository.deleteById(x.getId()));
         return this.create(borrowingProductAccounts, borrowingProduct);
     }
 }

@@ -197,7 +197,7 @@ public class LoanTopUpService {
                 x.setRescheduled(false);
             });
 
-        this.loanInstallmentRepository.save(result);
+        this.loanInstallmentRepository.saveAll(result);
     }
 
     private ScheduleParams getScheduleParameter(Loan loan, LoanTopUpDto dto, BigDecimal oldOlb) {

@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public interface TermDepositProductRepository extends RevisionRepository<TermDepositProduct, Long, Integer>, Repository<TermDepositProduct> {
 
-    Page findAllByNameIgnoreCaseContainingAndStatusTypeIn(Pageable pageable, String searchString, List<StatusType> statusTypes);
+    Page<TermDepositProduct> findAllByNameIgnoreCaseContainingAndStatusTypeIn(Pageable pageable, String searchString, List<StatusType> statusTypes);
 
     Optional<TermDepositProduct> findByCode(String code);
 

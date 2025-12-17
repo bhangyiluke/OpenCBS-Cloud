@@ -22,7 +22,7 @@ public class LoanApplicationCustomFieldService extends CustomFieldService<LoanAp
     private final LoanApplicationCustomFieldValueRepository loanApplicationCustomFieldValueRepository;
     private final LoanApplicationCustomFieldRepository loanApplicationCustomFieldRepository;
 
-    @Autowired
+    // @Autowired
     LoanApplicationCustomFieldService(LoanApplicationCustomFieldRepository repository,
                                       LoanApplicationCustomFieldValueRepository customFieldValueRepository) {
         super(repository, customFieldValueRepository);
@@ -39,6 +39,6 @@ public class LoanApplicationCustomFieldService extends CustomFieldService<LoanAp
     }
 
     public Optional<LoanApplicationCustomField> findOne(Long id) {
-        return Optional.ofNullable(this.loanApplicationCustomFieldRepository.findOne(id));
+        return this.loanApplicationCustomFieldRepository.findById(id);
     }
 }

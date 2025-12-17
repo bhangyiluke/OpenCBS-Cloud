@@ -25,7 +25,9 @@ public class DefaultEntryFeeCalculationService implements EntryFeeCalculationSer
 
     @Override
     public List<EntryFeeDto> calculate(@NonNull DataForEntryFeeCalculationDto dto) {
-        return loanProductRepository.findOne(dto.getLoanProduct()).getFees()
+        return loanProductRepository.findById(dto.getLoanProduct())
+                .map(f->f.getFees())
+                .orElse(List.of())
                 .stream()
                 .map(x -> calculate(x, dto.getAmounts()))
                 .collect(Collectors.toList());

@@ -50,7 +50,8 @@ public class SavingManagementFeeDayClosureProcessor implements SavingDayClosureP
             return;
         }
 
-        SavingManagementFee saving = savingRepository.findOne(savingId);
+        SavingManagementFee saving = savingRepository.findById(savingId).orElseThrow(() ->
+                new IllegalArgumentException("Saving with id:: " + savingId + " not found"));
         if (saving.getManagementFeeRate().equals(BigDecimal.ZERO) && saving.getManagementFeeFlat().equals(BigDecimal.ZERO)) {
             return;
         }

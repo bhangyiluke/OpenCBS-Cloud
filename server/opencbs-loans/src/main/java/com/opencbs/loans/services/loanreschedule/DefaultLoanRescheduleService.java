@@ -129,7 +129,7 @@ public class DefaultLoanRescheduleService implements LoanRescheduleService {
 
         updateInstalmentByManualFix(toSave, manualEditRescheduleDto.getScheduleDto());
 
-        List<LoanInstallment> savedLoanInstallments = this.loanInstallmentRepository.save(toSave);
+        List<LoanInstallment> savedLoanInstallments = this.loanInstallmentRepository.saveAll(toSave);
 
         this.moveAccruedInterest(savedLoanInstallments, rescheduleDto.getFirstInstallmentDate());
 
