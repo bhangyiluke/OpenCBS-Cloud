@@ -166,7 +166,7 @@ public class PrintingFormService extends AbstractDocumentService<Template> imple
         for (Map.Entry<String, Object> replacePair : replacements.entrySet()) {
             String find = String.format("[%s]", replacePair.getKey());
             String replace = replacePair.getValue() != null ? replacePair.getValue().toString() : "";
-            TextSegement found = paragraph.searchText(find, new PositionInParagraph());
+            var found = paragraph.searchText(find, new PositionInParagraph());
 
             if (found != null) {
                 if (found.getBeginRun() == found.getEndRun()) {

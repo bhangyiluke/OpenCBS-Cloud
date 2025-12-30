@@ -438,7 +438,7 @@ public class ExcelReportService extends AbstractDocumentService<ExcelTemplate> i
 
                 if (cell == null) continue;
 
-                if (!cell.getCellTypeEnum().equals(cellType)) continue;
+                if (!cell.getCellType().equals(cellType)) continue;
 
 
                 if (action.apply(row, cell)) {
