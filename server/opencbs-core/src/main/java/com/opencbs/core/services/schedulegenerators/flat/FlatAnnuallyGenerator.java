@@ -14,7 +14,7 @@ public class FlatAnnuallyGenerator extends AbstractFlatGenerator {
     private static final int DAYS_IN_YEAR = 360;
 
 
-    @Autowired
+    //@Autowired
     protected FlatAnnuallyGenerator(@NonNull HolidayService holidayService) {
         super(holidayService, 12, DAYS_IN_YEAR);
     }

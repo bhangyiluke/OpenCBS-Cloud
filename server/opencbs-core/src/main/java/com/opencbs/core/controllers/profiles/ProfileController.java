@@ -35,7 +35,7 @@ public class ProfileController {
     private final ProfileService profileService;
     private final ProfileWorker profileWorker;
 
-    @Autowired
+    //@Autowired
     public ProfileController(ProfileService profileService,
                              ProfileWorker profileWorker) {
         this.profileService = profileService;

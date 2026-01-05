@@ -15,7 +15,7 @@ public class CollateralDtoValidator {
 
     private final TypeOfCollateralService typeOfCollateralService;
 
-    @Autowired
+    //@Autowired
     public CollateralDtoValidator(TypeOfCollateralService typeOfCollateralService) {
         this.typeOfCollateralService = typeOfCollateralService;
     }

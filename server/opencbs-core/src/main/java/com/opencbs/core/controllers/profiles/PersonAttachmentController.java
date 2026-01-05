@@ -32,7 +32,7 @@ public class PersonAttachmentController {
 
     private final AttachmentMapper attachmentMapper;
 
-    @Autowired
+    //@Autowired
     public PersonAttachmentController(PersonService personService,
                                       PersonAttachmentService personAttachmentService,
                                       AttachmentMapper attachmentMapper) {

@@ -13,7 +13,7 @@ public class FixedPrincipalTwoMonthlyGenerator extends AbstractFixedPrincipalGen
     private static final int DAYS_IN_PERIOD = 60;
 
 
-    @Autowired
+    //@Autowired
     protected FixedPrincipalTwoMonthlyGenerator(@NonNull HolidayService holidayService) {
         super(holidayService, 2);
     }

@@ -14,7 +14,7 @@ public class LookupWorker {
 
     private List<LookupInterface> lookupServiceList;
 
-    @Autowired
+    //@Autowired
     LookupWorker(List<LookupInterface> lookupServiceList) {
         this.lookupServiceList = lookupServiceList;
     }

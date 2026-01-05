@@ -26,7 +26,7 @@ public class HolidayController {
     private final HolidayDtoValidator holidayDtoValidator;
     private final HolidayMapper holidayMapper;
 
-    @Autowired
+    //@Autowired
     public HolidayController(HolidayService holidayService,
                              HolidayDtoValidator holidayDtoValidator, HolidayMapper holidayMapper) {
         this.holidayService = holidayService;

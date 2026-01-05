@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProfessionService extends TreeEntityService<ProfessionRepository, Profession> {
 
-    @Autowired
+    //@Autowired
     public ProfessionService(ProfessionRepository repository) {
         super(repository);
     }

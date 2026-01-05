@@ -20,7 +20,7 @@ public class ContractProcessServiceImpl implements ContractProcessService {
 
     private final DayClosureContractService dayClosureContractService;
 
-    @Autowired
+    //@Autowired
     public ContractProcessServiceImpl(@NonNull DayClosureContractService dayClosureContractService) {
         this.dayClosureContractService = dayClosureContractService;
     }

@@ -37,7 +37,7 @@ public class CollateralController {
     private final CollateralDtoValidator collateralDtoValidator;
     private final LoanApplicationService loanApplicationService;
 
-    @Autowired
+    //@Autowired
     public CollateralController(CollateralService collateralService,
                                 CollateralMapper collateralMapper,
                                 CollateralDtoValidator collateralDtoValidator,

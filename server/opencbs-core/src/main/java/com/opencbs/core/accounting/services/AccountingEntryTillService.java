@@ -18,7 +18,7 @@ public class AccountingEntryTillService {
 
     private final AccountingEntryTillsRepository accountingEntryTillsRepository;
 
-    @Autowired
+    //@Autowired
     public AccountingEntryTillService(AccountingEntryTillsRepository accountingEntryTillsRepository) {
         this.accountingEntryTillsRepository = accountingEntryTillsRepository;
     }

@@ -8,7 +8,7 @@ import jakarta.persistence.EntityManager;
 @Repository
 public class EventGroupKeyRepository extends BaseEventGroupKeyRepository {
 
-    @Autowired
+    //@Autowired
     public EventGroupKeyRepository(EntityManager entityManager) {
         super(entityManager, "events_group_key_seq");
     }

@@ -28,7 +28,7 @@ public class BranchController extends BaseController {
     private final BranchDtoValidator branchDtoValidator;
     private final BranchMapper branchMapper;
 
-    @Autowired
+    //@Autowired
     public BranchController(BranchService branchService,
                             BranchDtoValidator branchDtoValidator,
                             BranchMapper branchMapper) {

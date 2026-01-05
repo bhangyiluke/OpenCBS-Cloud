@@ -32,7 +32,7 @@ public class LoanProductValidator {
     private final AccountService accountService;
     private final PenaltyService penaltyService;
 
-    @Autowired
+    //@Autowired
     public LoanProductValidator(LoanProductService loanProductService,
                                 CurrencyService currencyService,
                                 EntryFeeService entryFeeService,

@@ -36,7 +36,7 @@ public class BusinessSectorDocumentationTest extends BaseDocumentationTest {
 
     private String authHeader;
 
-    @Autowired
+    //@Autowired
     private BusinessSectorService businessSectorService;
 
     @Before

@@ -32,7 +32,7 @@ public class TokenHelper {
 
     private final SystemSettingsService systemSettingsService;
 
-    @Autowired
+    //@Autowired
     public TokenHelper(SecretKeyProvider secretKeyProvider,
             UserService userService,
             SystemSettingsService systemSettingsService) {

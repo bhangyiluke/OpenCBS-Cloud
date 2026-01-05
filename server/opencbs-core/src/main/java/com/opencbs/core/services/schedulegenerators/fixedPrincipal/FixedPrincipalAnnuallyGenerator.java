@@ -14,7 +14,7 @@ public class FixedPrincipalAnnuallyGenerator extends AbstractFixedPrincipalGener
     private static final int DAYS_IN_YEAR = 360;
 
 
-    @Autowired
+    //@Autowired
     protected FixedPrincipalAnnuallyGenerator(@NonNull HolidayService holidayService) {
         super(holidayService, 12 );
     }

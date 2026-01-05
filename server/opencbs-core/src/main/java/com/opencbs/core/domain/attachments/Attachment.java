@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 
 @Data
 @MappedSuperclass
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Attachment<T extends BaseEntity> extends BaseEntity {
 
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)

@@ -5,12 +5,9 @@ import com.opencbs.core.domain.Branch;
 import com.opencbs.core.domain.User;
 import com.opencbs.core.domain.enums.ModuleType;
 import com.opencbs.core.domain.json.ExtraJson;
-import com.opencbs.core.domain.json.ExtraJsonType;
 import lombok.Data;
 
 import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
 import org.hibernate.type.SqlTypes;
 
 import jakarta.persistence.Column;
@@ -26,7 +23,6 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @Table(name = "request")
-@TypeDef(name = "ExtraJsonType", typeClass = ExtraJsonType.class)
 public class Request extends BaseEntity {
 
     @Column(name = "type", nullable = false)
@@ -54,8 +50,9 @@ public class Request extends BaseEntity {
     @Column(name = "expire_date", nullable = false)
     private LocalDate expireDate;
 
-    // @Type(type = "ExtraJsonType")
+    // use AttributeConverter instead of legacy TypeDef
     @JdbcTypeCode(SqlTypes.JSON)
+    @jakarta.persistence.Convert(converter = com.opencbs.core.domain.json.ExtraJsonConverter.class)
     @Column(name = "content", columnDefinition = "jsonb")
     private ExtraJson content;
 

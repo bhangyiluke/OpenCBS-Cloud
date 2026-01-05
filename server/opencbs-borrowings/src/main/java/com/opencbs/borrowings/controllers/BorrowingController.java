@@ -51,7 +51,7 @@ public class BorrowingController {
     private final ProfileService profileService;
     private final ActualizeBorrowingStarterService actualizeBorrowingStarterService;
 
-    @Autowired
+    //@Autowired
     public BorrowingController(BorrowingService borrowingService,
                                BorrowingOperationsService borrowingOperationsService,
                                BorrowingValidator borrowingValidator,

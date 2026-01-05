@@ -34,7 +34,7 @@ public class LoginController extends BaseController {
     private final UserDtoValidator userDtoValidator;
     private final UserMapper userMapper;
 
-    @Autowired
+    //@Autowired
     public LoginController(LoginService loginService,
                            TokenHelper tokenHelper,
                            UserService userService,

@@ -23,7 +23,7 @@ public class TillSavingController extends BaseController {
     private final SavingService savingService;
     private final TillWorker tillWorker;
 
-    @Autowired
+    //@Autowired
     public TillSavingController(TillSavingValidator tillSavingValidator,
                                 SavingService savingService,
                                 @NonNull TillWorker tillWorker) {

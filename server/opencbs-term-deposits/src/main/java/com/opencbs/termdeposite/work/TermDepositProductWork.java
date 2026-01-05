@@ -19,7 +19,7 @@ public class TermDepositProductWork {
     private final TermDepositProductMapper termDepositProductMapper;
 
 
-    @Autowired
+    //@Autowired
     public TermDepositProductWork(@NonNull TermDepositProductsService termDepositProductsService,
                                   @NonNull TermDepositProductMapper termDepositProductMapper) {
         this.termDepositProductsService = termDepositProductsService;

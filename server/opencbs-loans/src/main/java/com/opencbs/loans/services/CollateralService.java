@@ -14,7 +14,7 @@ public class CollateralService {
 
     private CollateralRepository collateralRepository;
 
-    // @Autowired
+    // //@Autowired
     public CollateralService(CollateralRepository collateralRepository) {
         this.collateralRepository = collateralRepository;
     }

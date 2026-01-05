@@ -40,7 +40,7 @@ public class GroupMapper extends ProfileBaseMapper {
     private final PersonService personService;
     private final RequestService requestService;
 
-    @Autowired
+    //@Autowired
     public GroupMapper(
             AttachmentMapper attachmentMapper,
             GroupCustomFieldSectionService groupCustomFieldSectionService,

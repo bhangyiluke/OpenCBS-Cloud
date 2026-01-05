@@ -28,7 +28,7 @@ public class CreditCommitteeAmountRangeController extends BaseController {
     private final CreditCommitteeAmountRangeMapper creditCommitteeAmountRangeMapper;
     private final CreditCommitteeAmountRangeValidator validator;
 
-    @Autowired
+    //@Autowired
     public CreditCommitteeAmountRangeController(CreditCommitteeAmountRangeService creditCommitteeAmountRangeService,
                                                 CreditCommitteeAmountRangeMapper creditCommitteeAmountRangeMapper,
                                                 CreditCommitteeAmountRangeValidator validator) {

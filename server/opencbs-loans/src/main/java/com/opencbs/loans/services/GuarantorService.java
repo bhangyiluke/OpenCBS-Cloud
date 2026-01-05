@@ -20,7 +20,7 @@ public class GuarantorService {
     private final GuarantorRepository guarantorRepository;
     private final ProfileRepository profileRepository;
 
-    @Autowired
+    //@Autowired
     public GuarantorService(GuarantorRepository guarantorRepository, ProfileRepository profileRepository) {
         this.guarantorRepository = guarantorRepository;
         this.profileRepository = profileRepository;

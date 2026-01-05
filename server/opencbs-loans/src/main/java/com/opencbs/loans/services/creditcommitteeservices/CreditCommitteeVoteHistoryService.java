@@ -19,7 +19,7 @@ public class CreditCommitteeVoteHistoryService {
     private final CreditCommitteeVoteHistoryRepository creditCommitteeVoteHistoryRepository;
     private final CreditCommitteeVoteRepository creditCommitteeVoteRepository;
 
-    @Autowired
+    //@Autowired
     public CreditCommitteeVoteHistoryService(CreditCommitteeVoteHistoryRepository creditCommitteeVoteHistoryRepository,
                                              CreditCommitteeVoteRepository creditCommitteeVoteRepository) {
         this.creditCommitteeVoteHistoryRepository = creditCommitteeVoteHistoryRepository;

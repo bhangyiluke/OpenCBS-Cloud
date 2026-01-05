@@ -13,15 +13,15 @@ public class ProfileHelper {
     private static String EMAIL_CUSTOM_FIELD_CODE = "email";
 
     @Lazy
-    @Autowired
+    //@Autowired
     private CompanyService companyService;
 
     @Lazy
-    @Autowired
+    //@Autowired
     private PersonService personService;
 
     @Lazy
-    @Autowired
+    //@Autowired
     private GroupService groupService;
 
 

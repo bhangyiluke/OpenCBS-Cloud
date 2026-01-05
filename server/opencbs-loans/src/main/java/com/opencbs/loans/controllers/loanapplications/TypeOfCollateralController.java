@@ -32,7 +32,7 @@ public class TypeOfCollateralController extends BaseController {
 
     private final TypeOfCollateralDtoValidator typeOfCollateralDtoValidator;
 
-    @Autowired
+    //@Autowired
     public TypeOfCollateralController(
             TypeOfCollateralService typeOfCollateralService,
             TypeOfCollateralMapper typeOfCollateralMapper,

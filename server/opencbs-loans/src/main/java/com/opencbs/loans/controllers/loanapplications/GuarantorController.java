@@ -43,7 +43,7 @@ public class GuarantorController extends BaseController {
     private final GuarantorMapper guarantorMapper;
     private final GuarantorDtoValidator guarantorDtoValidator;
 
-    @Autowired
+    //@Autowired
     public GuarantorController(GuarantorService guarantorService,
                                GuarantorMapper guarantorMapper,
                                LoanApplicationService loanApplicationService,

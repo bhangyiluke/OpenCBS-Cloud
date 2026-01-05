@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Mapper
 public class PersonCustomFieldSectionMapper extends CustomFieldSectionMapper<PersonCustomFieldSection, PersonCustomFieldMapper> {
 
-    @Autowired
+    //@Autowired
     public PersonCustomFieldSectionMapper(PersonCustomFieldMapper customFieldMapper) {
         super(customFieldMapper);
     }

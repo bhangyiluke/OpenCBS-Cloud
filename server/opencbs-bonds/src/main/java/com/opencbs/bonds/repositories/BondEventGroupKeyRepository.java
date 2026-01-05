@@ -9,7 +9,7 @@ import jakarta.persistence.EntityManager;
 @Repository
 public class BondEventGroupKeyRepository extends BaseEventGroupKeyRepository {
 
-    @Autowired
+    //@Autowired
     public BondEventGroupKeyRepository(EntityManager entityManager) {
         super(entityManager, "bond_events_group_key");
     }

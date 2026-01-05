@@ -14,7 +14,7 @@ public class FlatBiweeklyGenerator extends AbstractFlatGenerator {
     private static final int DAYS_IN_YEAR = 336;
 
 
-    @Autowired
+    //@Autowired
     protected FlatBiweeklyGenerator(@NonNull HolidayService holidayService) {
         super(holidayService, 0, DAYS_IN_PERIOD, DAYS_IN_YEAR);
     }

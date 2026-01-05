@@ -25,7 +25,7 @@ public class BorrowingEventController {
     private final BorrowingService borrowingService;
     private final BorrowingEventMapper borrowingEventMapper;
 
-    @Autowired
+    //@Autowired
     public BorrowingEventController(BorrowingEventService borrowingEventService,
                                     BorrowingService borrowingService,
                                     BorrowingEventMapper borrowingEventMapper) {

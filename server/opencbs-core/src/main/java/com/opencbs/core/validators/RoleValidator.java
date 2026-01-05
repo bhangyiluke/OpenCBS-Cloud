@@ -19,7 +19,7 @@ public class RoleValidator {
     private final PermissionService permissionService;
     private final RequestService requestService;
 
-    @Autowired
+    //@Autowired
     public RoleValidator(RoleRepository roleRepository,
                          PermissionService permissionService,
                          RequestService requestService) {

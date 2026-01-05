@@ -25,7 +25,7 @@ public class TermDepositContainer implements Container {
     private final ApplicationContext context;
     private static List<DayClosureProcessor> termDepositDayClosureProcessorList;
 
-    @Autowired
+    //@Autowired
     protected TermDepositContainer(@NonNull TermDepositService termDepositService,
                                    @NonNull ApplicationContext context) {
         this.termDepositService = termDepositService;

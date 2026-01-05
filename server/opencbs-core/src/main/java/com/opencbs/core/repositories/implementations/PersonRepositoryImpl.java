@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.persistence.EntityManager;
 
 public class PersonRepositoryImpl extends ProfileBaseRepositoryImpl<Person> {
-    @Autowired
+    //@Autowired
     PersonRepositoryImpl(EntityManager entityManager) {
         super(entityManager, Person.class);
     }

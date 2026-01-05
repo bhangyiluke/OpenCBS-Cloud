@@ -13,7 +13,7 @@ public class FixedPrincipalSixAndInterestSix extends AbstractFixedPrincipalGener
     private static final int DAYS_IN_PERIOD = 0;
 
 
-    @Autowired
+    //@Autowired
     protected FixedPrincipalSixAndInterestSix(@NonNull HolidayService holidayService) {
         super(holidayService, 6);
     }

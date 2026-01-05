@@ -14,7 +14,7 @@ public class BondEventMapper {
     private final UserService userService;
     private final ModelMapper modelMapper = new ModelMapper();
 
-    @Autowired
+    //@Autowired
     public BondEventMapper(UserService userService) {
         this.userService = userService;
     }

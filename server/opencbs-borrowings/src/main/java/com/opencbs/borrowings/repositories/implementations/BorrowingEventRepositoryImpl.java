@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public class BorrowingEventRepositoryImpl extends BaseRepository<BorrowingEvent> implements BorrowingEventRepositoryCustom {
 
-    @Autowired
+    //@Autowired
     public BorrowingEventRepositoryImpl(EntityManager entityManager) {
         super(entityManager, BorrowingEvent.class);
     }

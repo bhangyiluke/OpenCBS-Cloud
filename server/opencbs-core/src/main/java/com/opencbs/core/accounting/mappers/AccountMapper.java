@@ -20,7 +20,7 @@ public class AccountMapper {
     private final AccountService accountService;
     private final CurrencyService currencyService;
 
-    @Autowired
+    //@Autowired
     public AccountMapper(AccountService accountService, CurrencyService currencyService) {
         this.accountService = accountService;
         this.currencyService = currencyService;

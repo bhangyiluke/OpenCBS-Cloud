@@ -17,7 +17,7 @@ public class RelationshipController extends BaseController {
 
     private final RelationshipService relationshipService;
 
-    @Autowired
+    //@Autowired
     public RelationshipController(RelationshipService relationshipService) {
         this.relationshipService = relationshipService;
     }

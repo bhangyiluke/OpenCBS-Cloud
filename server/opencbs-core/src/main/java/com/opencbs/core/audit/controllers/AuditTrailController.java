@@ -21,7 +21,7 @@ public class AuditTrailController extends BaseController {
     private final AuditTrailService auditTrailService;
 
 
-    @Autowired
+    //@Autowired
     public AuditTrailController(AuditTrailService auditTrailService) {
         this.auditTrailService = auditTrailService;
     }

@@ -14,7 +14,7 @@ import java.util.Optional;
 public class TypeOfCollateralDtoValidator {
     private final TypeOfCollateralRepository typeOfCollateralRepository;
 
-    @Autowired
+    //@Autowired
     public TypeOfCollateralDtoValidator(TypeOfCollateralRepository typeOfCollateralRepository){
         this.typeOfCollateralRepository = typeOfCollateralRepository;
     }

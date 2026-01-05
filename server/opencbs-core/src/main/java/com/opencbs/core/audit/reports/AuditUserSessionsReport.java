@@ -19,7 +19,7 @@ public class AuditUserSessionsReport implements AuditReport {
     private final UserSessionMapper userSessionMapper;
 
 
-    @Autowired
+    //@Autowired
     public AuditUserSessionsReport(UserSessionService userSessionService,
                                    UserSessionMapper userSessionMapper) {
         this.userSessionService = userSessionService;

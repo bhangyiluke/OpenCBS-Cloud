@@ -37,7 +37,7 @@ public class LoanApplicationsPayeeController {
     private final PayeeEventService payeeEventService;
     private final PayeeEventMapper payeeEventMapper;
 
-    @Autowired
+    //@Autowired
     public LoanApplicationsPayeeController(LoanApplicationService loanApplicationService,
                                            LoanApplicationsPayeesService loanApplicationsPayeesService,
                                            LoanApplicationPayeeMapper loanApplicationPayeeMapper,

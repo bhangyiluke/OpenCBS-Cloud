@@ -8,7 +8,7 @@ import jakarta.persistence.EntityManager;
 @SuppressWarnings("unused")
 public class ProfessionRepositoryImpl extends TreeEntityRepositoryImpl<Profession> {
 
-    @Autowired
+    //@Autowired
     protected ProfessionRepositoryImpl(EntityManager entityManager) {
         super(entityManager, Profession.class);
     }

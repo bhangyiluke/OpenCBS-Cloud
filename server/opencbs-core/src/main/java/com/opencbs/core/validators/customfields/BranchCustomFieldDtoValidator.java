@@ -14,7 +14,7 @@ public class BranchCustomFieldDtoValidator extends CustomFieldDtoValidator imple
 
     private final BranchCustomFieldValueRepository branchCustomFieldValueRepository;
 
-    @Autowired
+    //@Autowired
     public BranchCustomFieldDtoValidator(BranchCustomFieldRepository branchCustomFieldRepository,
                                          BranchCustomFieldValueRepository branchCustomFieldValueRepository) {
         super(branchCustomFieldRepository);

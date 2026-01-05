@@ -20,7 +20,7 @@ public class AccountingEntryLogService {
     private final AccountingEntryLogRepository accountingEntryLogRepository;
     private final AmqMessageHelper amqMessageHelper;
 
-    @Autowired
+    //@Autowired
     public AccountingEntryLogService(AccountingEntryLogRepository accountingEntryLogRepository,
                                      AmqMessageHelper amqMessageHelper) {
         this.accountingEntryLogRepository = accountingEntryLogRepository;

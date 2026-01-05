@@ -10,7 +10,7 @@ public class GroupMemberService {
 
     private final GroupsMembersBaseRepository groupsMembersBaseRepository;
 
-    @Autowired
+    //@Autowired
     public GroupMemberService(GroupsMembersBaseRepository groupsMembersBaseRepository) {
         this.groupsMembersBaseRepository = groupsMembersBaseRepository;
     }

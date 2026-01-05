@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoanRepaymentServiceFactory {
 
-    @Autowired
+    //@Autowired
     ApplicationContext context;
 
     public LoanRepaymentService getLoanRepaymentService(RepaymentTypes repaymentTypes) throws ResourceNotFoundException {

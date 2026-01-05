@@ -30,7 +30,7 @@ public class CompanyCustomFieldSectionDocumentationTest extends BaseCustomFieldS
 
     private final static String ENDPOINT = "/api/profiles/companies/custom-field-sections";
 
-    @Autowired
+    //@Autowired
     private CompanyCustomFieldSectionService companyCustomFieldSectionService;
 
     private String authHeader;

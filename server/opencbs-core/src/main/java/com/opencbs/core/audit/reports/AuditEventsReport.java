@@ -24,7 +24,7 @@ public class AuditEventsReport implements AuditReport {
 
     private final List<Auditable> auditers;
 
-    @Autowired
+    //@Autowired
     public AuditEventsReport(List<Auditable> auditers) {
         this.auditers = auditers;
     }

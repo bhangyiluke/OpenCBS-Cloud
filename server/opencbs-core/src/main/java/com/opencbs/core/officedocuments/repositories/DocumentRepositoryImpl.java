@@ -17,7 +17,7 @@ import static com.opencbs.core.officedocuments.helpers.TemplateHelper.getObjectF
 public class DocumentRepositoryImpl implements DocumentRepository {
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
+    //@Autowired
     public DocumentRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

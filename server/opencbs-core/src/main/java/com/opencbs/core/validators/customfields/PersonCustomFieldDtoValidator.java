@@ -14,7 +14,7 @@ public class PersonCustomFieldDtoValidator extends CustomFieldDtoValidator imple
 
     private final PersonCustomFieldValueRepository personCustomFieldValueRepository;
 
-    @Autowired
+    //@Autowired
     public PersonCustomFieldDtoValidator(PersonCustomFieldRepository personCustomFieldRepository,
                                          PersonCustomFieldValueRepository personCustomFieldValueRepository) {
         super(personCustomFieldRepository);

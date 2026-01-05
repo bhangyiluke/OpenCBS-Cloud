@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfiguration // extends WebSecurityConfigurerAdapter --- IGNORE ---
 {
 
-    @Autowired
+    //@Autowired
     private EntryPointUnauthorizedHandler unauthorizedHandler;
 
     @Bean

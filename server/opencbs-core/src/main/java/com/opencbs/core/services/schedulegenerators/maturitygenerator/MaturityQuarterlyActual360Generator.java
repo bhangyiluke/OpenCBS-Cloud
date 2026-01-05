@@ -23,7 +23,7 @@ public class MaturityQuarterlyActual360Generator extends ScheduleGeneratorHelper
     private static final int DAY_IN_YEAR = 360;
 
 
-    @Autowired
+    //@Autowired
     public MaturityQuarterlyActual360Generator(@NonNull HolidayService holidayService) {
         super(holidayService);
     }

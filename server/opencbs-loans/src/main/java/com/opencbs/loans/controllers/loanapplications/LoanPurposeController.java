@@ -33,7 +33,7 @@ public class LoanPurposeController {
     private final LoanPurposeMapper loanPurposeMapper;
     private final LoanPurposeValidator loanPurposeValidator;
 
-    @Autowired
+    //@Autowired
     public LoanPurposeController(
             LoanPurposeService loanPurposeService,
             LoanPurposeMapper loanPurposeMapper,

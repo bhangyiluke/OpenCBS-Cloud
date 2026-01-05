@@ -21,7 +21,7 @@ public class BondEventWorker {
     private final UserService userService;
 
 
-    @Autowired
+    //@Autowired
     public BondEventWorker(@NonNull BondEventGroupKeyService bondEventGroupKeyService,
                            @NonNull UserService userService) {
         this.bondEventGroupKeyService = bondEventGroupKeyService;

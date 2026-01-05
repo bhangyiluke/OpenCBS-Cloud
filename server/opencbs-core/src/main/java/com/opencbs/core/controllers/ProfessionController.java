@@ -32,7 +32,7 @@ public class ProfessionController {
     private final ProfessionMapper professionMapper;
     private final ProfessionDtoValidator professionDtoValidator;
 
-    @Autowired
+    //@Autowired
     public ProfessionController(ProfessionService professionService,
                                 ProfessionMapper professionMapper,
                                 ProfessionDtoValidator professionDtoValidator) {

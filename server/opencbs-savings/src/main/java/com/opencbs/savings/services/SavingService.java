@@ -47,7 +47,7 @@ public class SavingService {
     private final SavingContainer savingContainer;
 
     @Lazy
-    @Autowired
+    //@Autowired
     public SavingService(SavingRepository savingRepository,
                          SavingCodeGenerator savingCodeGenerator,
                          AccountService accountService,

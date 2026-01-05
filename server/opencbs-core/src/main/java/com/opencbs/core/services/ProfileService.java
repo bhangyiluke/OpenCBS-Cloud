@@ -34,7 +34,7 @@ public class ProfileService extends BaseHistoryService<Profile, Long, Integer> i
     private final ProfileAccountsRepository profileAccountsRepository;
 
 
-    @Autowired
+    //@Autowired
     public ProfileService(ProfileRepository profileRepository,
                           AccountMapper accountMapper,
                           ProfileAccountsRepository profileAccountsRepository) {

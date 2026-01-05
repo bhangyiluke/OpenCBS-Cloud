@@ -19,7 +19,7 @@ public class EntryFeeService {
 
     private final EntryFeeRepository entryFeeRepository;
 
-    @Autowired
+    //@Autowired
     public EntryFeeService(EntryFeeRepository entryFeeRepository) {
         this.entryFeeRepository = entryFeeRepository;
     }

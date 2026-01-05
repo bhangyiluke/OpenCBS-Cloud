@@ -15,7 +15,7 @@ public class GroupCustomFieldDtoValidator extends CustomFieldDtoValidator implem
 
     private final GroupCustomFieldValueRepository groupCustomFieldValueRepository;
 
-    @Autowired
+    //@Autowired
     public GroupCustomFieldDtoValidator(GroupCustomFieldRepository groupCustomFieldRepository,
                                         GroupCustomFieldValueRepository groupCustomFieldValueRepository) {
         super(groupCustomFieldRepository);

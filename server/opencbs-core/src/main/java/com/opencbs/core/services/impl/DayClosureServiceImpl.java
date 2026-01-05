@@ -18,7 +18,7 @@ public class DayClosureServiceImpl implements DayClosureService {
 
     private final DayClosureRepository dayClosureRepository;
 
-    @Autowired
+    //@Autowired
     public DayClosureServiceImpl(DayClosureRepository dayClosureRepository) {
         this.dayClosureRepository = dayClosureRepository;
     }

@@ -30,7 +30,7 @@ public class PersonCustomFieldSectionDocumentationTest extends BaseCustomFieldSe
 
     private final static String ENDPOINT = "/api/profiles/people/custom-field-sections";
 
-    @Autowired
+    //@Autowired
     private PersonCustomFieldSectionService personCustomFieldSectionService;
 
     private String authHeader;

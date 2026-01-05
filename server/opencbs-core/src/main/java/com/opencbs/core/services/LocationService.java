@@ -12,7 +12,7 @@ public class LocationService extends TreeEntityService<LocationRepository, Locat
 
     private final LocationRepository locationRepository;
 
-    @Autowired
+    //@Autowired
     public LocationService(LocationRepository repository,
                            LocationRepository locationRepository) {
         super(repository);

@@ -22,7 +22,7 @@ public class PayeeService {
     private PayeeRepository payeeRepository;
     private final PayeeMapper payeeMapper;
 
-    @Autowired
+    //@Autowired
     public PayeeService(PayeeRepository payeeRepository,
                         PayeeMapper payeeMapper) {
         this.payeeRepository = payeeRepository;

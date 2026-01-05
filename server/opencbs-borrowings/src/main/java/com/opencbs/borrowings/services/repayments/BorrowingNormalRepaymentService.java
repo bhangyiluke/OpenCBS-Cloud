@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unused")
 public class BorrowingNormalRepaymentService extends BorrowingRepaymentBaseService implements BorrowingRepaymentService {
 
-    @Autowired
+    //@Autowired
     public BorrowingNormalRepaymentService(
             BorrowingRepaymentStoreService borrowingRepaymentStoreService,
             BorrowingAccountingService borrowingAccountingService,

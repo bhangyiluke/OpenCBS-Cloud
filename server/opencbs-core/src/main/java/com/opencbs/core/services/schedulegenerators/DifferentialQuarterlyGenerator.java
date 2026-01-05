@@ -11,7 +11,7 @@ public class DifferentialQuarterlyGenerator extends AbstractDifferentialGenerato
     private static final int daysInPeriod = 90;
 
 
-    @Autowired
+    //@Autowired
     protected DifferentialQuarterlyGenerator(@NonNull HolidayService holidayService) {
         super(holidayService, 3, 1);
     }

@@ -6,9 +6,13 @@ import com.opencbs.savings.domain.SavingSimplified;
 import com.opencbs.savings.domain.enums.SavingAccountRuleType;
 import com.opencbs.savings.dto.SavingWithAccountDto;
 import com.opencbs.savings.repositories.customs.SavingRepositoryCustom;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.*;
-import org.hibernate.transform.Transformers;
+import jakarta.persistence.Tuple;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -26,94 +30,173 @@ public class SavingRepositoryImpl extends BaseRepository<Saving> implements Savi
 
     @Override
     public Page<SavingSimplified> getAll(String searchString, Pageable pageable) {
-        Criterion criterion = Restrictions.or(
-                Restrictions.like("saving.code", searchString, MatchMode.ANYWHERE).ignoreCase(),
-                Restrictions.like("profile.name", searchString, MatchMode.ANYWHERE).ignoreCase()
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Tuple> cq = cb.createTupleQuery();
+        Root<Saving> root = cq.from(Saving.class);
+
+        Join<Object, Object> profile = root.join("profile", jakarta.persistence.criteria.JoinType.LEFT);
+        Join<Object, Object> savingOfficer = root.join("savingOfficer", jakarta.persistence.criteria.JoinType.LEFT);
+        Join<Object, Object> product = root.join("product", jakarta.persistence.criteria.JoinType.LEFT);
+
+        Predicate predicate = null;
+        if (!StringUtils.isEmpty(searchString)) {
+            String pattern = "%" + searchString.trim().toLowerCase() + "%";
+            predicate = cb.or(
+                    cb.like(cb.lower(root.get("code")), pattern),
+                    cb.like(cb.lower(profile.get("name")), pattern)
+            );
+        }
+
+        cq.multiselect(
+                root.get("id").alias("id"),
+                root.get("code").alias("code"),
+                root.get("status").alias("status"),
+                profile.get("name").alias("profileName"),
+                profile.get("id").alias("profileId"),
+                savingOfficer.get("firstName").alias("savingOfficerFirstName"),
+                savingOfficer.get("lastName").alias("savingOfficerLastName"),
+                savingOfficer.get("id").alias("savingOfficerId"),
+                root.get("openDate").alias("openDate"),
+                product.get("name").alias("productName"),
+                product.get("id").alias("productId")
         );
+        if (predicate != null) cq.where(predicate);
+        cq.orderBy(cb.desc(root.get("createdAt")));
+        cq.distinct(true);
 
-        Criteria criteria = this.getCriteria();
-        criteria.createCriteria("profile", "profile");
-        criteria.createCriteria("savingOfficer", "savingOfficer");
-        criteria.createCriteria("product", "product");
-        criteria.add(criterion);
+        // count
+        CriteriaQuery<Long> countQuery = cb.createQuery(Long.class);
+        Root<Saving> countRoot = countQuery.from(Saving.class);
+        Join<Object, Object> countProfile = countRoot.join("profile", jakarta.persistence.criteria.JoinType.LEFT);
+        if (predicate != null) {
+            // rebuild predicate for count using countRoot & countProfile
+            String pattern = "%" + searchString.trim().toLowerCase() + "%";
+            Predicate countPred = cb.or(
+                    cb.like(cb.lower(countRoot.get("code")), pattern),
+                    cb.like(cb.lower(countProfile.get("name")), pattern)
+            );
+            countQuery.select(cb.countDistinct(countRoot)).where(countPred);
+        } else {
+            countQuery.select(cb.countDistinct(countRoot));
+        }
 
-        long total = (long) criteria.setProjection(Projections.rowCount()).uniqueResult();
-        criteria.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-        criteria.setMaxResults(pageable.getPageSize());
-        criteria.addOrder(Order.desc("createdAt"));
+        Long total = getEntityManager().createQuery(countQuery).getSingleResult();
 
-        criteria.setProjection(this.getProjectionSavingList());
-        criteria.setResultTransformer(Transformers.aliasToBean(SavingSimplified.class));
-        List<SavingSimplified> results = (List<SavingSimplified>) criteria.list();
+        TypedQuery<Tuple> typedQuery = getEntityManager().createQuery(cq);
+        typedQuery.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+        typedQuery.setMaxResults(pageable.getPageSize());
+        List<Tuple> tuples = typedQuery.getResultList();
+
+        List<SavingSimplified> results = tuples.stream().map(t -> {
+            SavingSimplified dto = new SavingSimplified();
+            Object idObj = t.get("id");
+            if (idObj instanceof Number) dto.setId(((Number) idObj).longValue());
+            dto.setCode((String) t.get("code"));
+            dto.setStatus((com.opencbs.savings.domain.enums.SavingStatus) t.get("status"));
+            dto.setProfileName((String) t.get("profileName"));
+            Object profileIdObj = t.get("profileId");
+            if (profileIdObj instanceof Number) dto.setProfileId(((Number) profileIdObj).longValue());
+            dto.setSavingOfficerFirstName((String) t.get("savingOfficerFirstName"));
+            dto.setSavingOfficerLastName((String) t.get("savingOfficerLastName"));
+            Object savingOfficerIdObj = t.get("savingOfficerId");
+            if (savingOfficerIdObj instanceof Number) dto.setSavingOfficerId(((Number) savingOfficerIdObj).longValue());
+            dto.setOpenDate((java.time.LocalDateTime) t.get("openDate"));
+            dto.setProductName((String) t.get("productName"));
+            Object productIdObj = t.get("productId");
+            if (productIdObj instanceof Number) dto.setProductId(((Number) productIdObj).longValue());
+            return dto;
+        }).toList();
+
         return new PageImpl<>(results, pageable, total);
     }
 
     public Page<SavingWithAccountDto> getAllSimplifiedSavingAccount(String searchString, Pageable pageable) {
-        Criteria criteria = this.createCriteria(Saving.class, "s");
-        criteria.createAlias("s.profile", "p");
-        criteria.createAlias("s.product", "sp");
-        criteria.createAlias("p.currentAccounts", "currentAccount");
-        criteria.createAlias("s.accounts", "savingAccount");
-        criteria.createAlias("currentAccount.currency", "c2");
-        criteria.createAlias("savingAccount.account", "account");
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Tuple> cq = cb.createTupleQuery();
+        Root<Saving> root = cq.from(Saving.class);
 
+        Join<Object, Object> p = root.join("profile", jakarta.persistence.criteria.JoinType.LEFT);
+        Join<Object, Object> sp = root.join("product", jakarta.persistence.criteria.JoinType.LEFT);
+        Join<Object, Object> currentAccount = p.join("currentAccounts", jakarta.persistence.criteria.JoinType.LEFT);
+        Join<Object, Object> savingAccount = root.join("accounts", jakarta.persistence.criteria.JoinType.LEFT);
+        Join<Object, Object> c2 = currentAccount.join("currency", jakarta.persistence.criteria.JoinType.LEFT);
+        Join<Object, Object> account = savingAccount.join("account", jakarta.persistence.criteria.JoinType.LEFT);
+
+        Predicate wherePredicate = null;
         if (!StringUtils.isEmpty(searchString)) {
-            Criterion where = Restrictions.or(
-                    Restrictions.like("account.number", searchString, MatchMode.ANYWHERE).ignoreCase(),
-                    Restrictions.like("p.name", searchString, MatchMode.ANYWHERE).ignoreCase()
+            String pattern = "%" + searchString.trim().toLowerCase() + "%";
+            wherePredicate = cb.or(
+                    cb.like(cb.lower(account.get("number")), pattern),
+                    cb.like(cb.lower(p.get("name")), pattern)
             );
-            criteria.add(where);
         }
-        Criterion criterion = Restrictions.and(
-                Restrictions.like("savingAccount.type", SavingAccountRuleType.SAVING),
-                Restrictions.eqProperty("currentAccount.currency", "sp.currency")
+
+        Predicate criterion = cb.and(
+                cb.equal(savingAccount.get("type"), SavingAccountRuleType.SAVING),
+                cb.equal(currentAccount.get("currency"), sp.get("currency"))
         );
-        criteria.add(criterion);
 
-        long total = (long) criteria.setProjection(Projections.rowCount()).uniqueResult();
+        if (wherePredicate != null) cq.where(cb.and(wherePredicate, criterion));
+        else cq.where(criterion);
 
-        criteria.setProjection(buildProjectionList());
+        cq.multiselect(
+                currentAccount.get("id").alias("id"),
+                p.get("name").alias("name"),
+                account.get("number").alias("number"),
+                account.get("id").alias("accountId"),
+                p.get("id").alias("profileId"),
+                root.get("id").alias("savingId"),
+                c2.get("name").alias("currency")
+        );
+        cq.distinct(true);
 
-        criteria.setMaxResults(pageable.getPageSize());
-        criteria.setFirstResult(pageable.getPageSize() * pageable.getPageNumber());
+        // count distinct currentAccount id
+        CriteriaQuery<Long> countQuery = cb.createQuery(Long.class);
+        Root<Saving> countRoot = countQuery.from(Saving.class);
+        Join<Object, Object> countP = countRoot.join("profile", jakarta.persistence.criteria.JoinType.LEFT);
+        Join<Object, Object> countSp = countRoot.join("product", jakarta.persistence.criteria.JoinType.LEFT);
+        Join<Object, Object> countCurrentAccount = countP.join("currentAccounts", jakarta.persistence.criteria.JoinType.LEFT);
+        Join<Object, Object> countSavingAccount = countRoot.join("accounts", jakarta.persistence.criteria.JoinType.LEFT);
+        Join<Object, Object> countAccount = countSavingAccount.join("account", jakarta.persistence.criteria.JoinType.LEFT);
 
-        criteria.setResultTransformer(Transformers.aliasToBean(SavingWithAccountDto.class));
-        List<SavingWithAccountDto> results = (List<SavingWithAccountDto>) criteria.list();
+        Predicate countCriterion = cb.and(
+                cb.equal(countSavingAccount.get("type"), SavingAccountRuleType.SAVING),
+                cb.equal(countCurrentAccount.get("currency"), countSp.get("currency"))
+        );
+        if (!StringUtils.isEmpty(searchString)) {
+            String pattern = "%" + searchString.trim().toLowerCase() + "%";
+            Predicate countWhere = cb.or(
+                    cb.like(cb.lower(countAccount.get("number")), pattern),
+                    cb.like(cb.lower(countP.get("name")), pattern)
+            );
+            countQuery.select(cb.countDistinct(countCurrentAccount.get("id"))).where(cb.and(countWhere, countCriterion));
+        } else {
+            countQuery.select(cb.countDistinct(countCurrentAccount.get("id"))).where(countCriterion);
+        }
+
+        Long total = getEntityManager().createQuery(countQuery).getSingleResult();
+
+        TypedQuery<Tuple> typedQuery = getEntityManager().createQuery(cq);
+        typedQuery.setFirstResult(pageable.getPageSize() * pageable.getPageNumber());
+        typedQuery.setMaxResults(pageable.getPageSize());
+
+        List<Tuple> tuples = typedQuery.getResultList();
+        List<SavingWithAccountDto> results = tuples.stream().map(t -> {
+            SavingWithAccountDto dto = new SavingWithAccountDto();
+            Object idObj = t.get("id");
+            if (idObj instanceof Number) dto.setId(((Number) idObj).longValue());
+            dto.setName((String) t.get("name"));
+            dto.setNumber((String) t.get("number"));
+            Object accountIdObj = t.get("accountId");
+            if (accountIdObj instanceof Number) dto.setAccountId(((Number) accountIdObj).longValue());
+            Object profileIdObj = t.get("profileId");
+            if (profileIdObj instanceof Number) dto.setProfileId(((Number) profileIdObj).longValue());
+            Object savingIdObj = t.get("savingId");
+            if (savingIdObj instanceof Number) dto.setSavingId(((Number) savingIdObj).longValue());
+            dto.setCurrency((String) t.get("currency"));
+            return dto;
+        }).toList();
 
         return new PageImpl<>(results, pageable, total);
-    }
-
-    private Criteria getCriteria() {
-        Criteria criteria = this.createCriteria("saving");
-        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        return criteria;
-    }
-
-    private ProjectionList getProjectionSavingList() {
-        ProjectionList projectionList = Projections.projectionList();
-        projectionList.add(Projections.property("saving.id").as("id"));
-        projectionList.add(Projections.property("saving.code").as("code"));
-        projectionList.add(Projections.property("saving.status").as("status"));
-        projectionList.add(Projections.property("profile.name").as("profileName"));
-        projectionList.add(Projections.property("profile.id").as("profileId"));
-        projectionList.add(Projections.property("savingOfficer.firstName").as("savingOfficerFirstName"));
-        projectionList.add(Projections.property("savingOfficer.lastName").as("savingOfficerLastName"));
-        projectionList.add(Projections.property("savingOfficer.id").as("savingOfficerId"));
-        projectionList.add(Projections.property("saving.openDate").as("openDate"));
-        projectionList.add(Projections.property("product.name").as("productName"));
-        projectionList.add(Projections.property("product.id").as("productId"));
-        return projectionList;
-    }
-
-    private ProjectionList buildProjectionList() {
-        ProjectionList projectionList = Projections.projectionList();
-        projectionList.add(Projections.property("currentAccount.id").as("id"));
-        projectionList.add(Projections.property("p.name").as("name"));
-        projectionList.add(Projections.property("account.number").as("number"));
-        projectionList.add(Projections.property("account.id").as("accountId"));
-        projectionList.add(Projections.property("p.id").as("profileId"));
-        projectionList.add(Projections.property("s.id").as("savingId"));
-        projectionList.add(Projections.property("c2.name").as("currency"));
-        return projectionList;
     }
 }

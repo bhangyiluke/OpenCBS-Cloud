@@ -21,7 +21,7 @@ public class BondEventService {
 
     private final BondEventRepository bondEventRepository;
 
-    @Autowired
+    //@Autowired
     public BondEventService(BondEventRepository bondEventRepository) {
         this.bondEventRepository = bondEventRepository;
     }

@@ -10,7 +10,7 @@ public class PersonDtoValidator {
 
     private final PersonCustomFieldValueDtoValidator personCustomFieldValueDtoValidator;
 
-    @Autowired
+    //@Autowired
     public PersonDtoValidator(PersonCustomFieldValueDtoValidator personCustomFieldValueDtoValidator) {
         this.personCustomFieldValueDtoValidator = personCustomFieldValueDtoValidator;
     }

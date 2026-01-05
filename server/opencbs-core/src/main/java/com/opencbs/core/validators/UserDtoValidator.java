@@ -30,7 +30,7 @@ public class UserDtoValidator {
     private final String REGEX_PHONE_PATTERN = "\\+?[0-9()-?]+$";
     private final String REGEX_EMAIL_PATTERN = "(?i)^[a-z0-9._%+-]+@[a-z0-9._-]+\\.[a-z]{2,6}$";
 
-    @Autowired
+    //@Autowired
     public UserDtoValidator(UserRepository userRepository,
                             RoleRepository roleRepository,
                             BranchService branchService,

@@ -24,7 +24,7 @@ public class BorrowingEventService {
 
     private final BorrowingEventRepository borrowingEventRepository;
 
-    @Autowired
+    //@Autowired
     public BorrowingEventService(BorrowingEventRepository borrowingEventRepository) {
         this.borrowingEventRepository = borrowingEventRepository;
     }

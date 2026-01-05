@@ -32,7 +32,7 @@ public class BondRepaymentController {
     private final BondService bondService;
     private final BondRepaymentServiceFactory bondRepaymentServiceFactory;
 
-    @Autowired
+    //@Autowired
     public BondRepaymentController(
             BondValidator bondValidator,
             BondService bondService,

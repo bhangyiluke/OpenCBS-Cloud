@@ -13,7 +13,7 @@ public class PersonCustomFieldService extends CustomFieldService<PersonCustomFie
         PersonCustomFieldRepository,
         PersonCustomFieldValueRepository> {
 
-    @Autowired
+    //@Autowired
     public PersonCustomFieldService(PersonCustomFieldRepository personCustomFieldRepository, PersonCustomFieldValueRepository personCustomValueRepository) {
         super(personCustomFieldRepository, personCustomValueRepository);
     }

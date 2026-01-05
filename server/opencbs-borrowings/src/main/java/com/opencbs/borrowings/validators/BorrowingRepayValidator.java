@@ -17,7 +17,7 @@ public class BorrowingRepayValidator {
     private final BorrowingEventService borrowingEventService;
     private final BorrowingValidator borrowingValidator;
 
-    @Autowired
+    //@Autowired
     public BorrowingRepayValidator(BorrowingEventService borrowingEventService,
                                    BorrowingValidator borrowingValidator) {
         this.borrowingEventService = borrowingEventService;

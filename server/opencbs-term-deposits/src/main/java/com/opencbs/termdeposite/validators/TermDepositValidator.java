@@ -30,7 +30,7 @@ public class TermDepositValidator extends BaseValidator {
     private final UserService userService;
 
 
-    @Autowired
+    //@Autowired
     public TermDepositValidator(TermDepositProductsService termDepositProductsService,
                            ProfileService profileService,
                            UserService userService) {

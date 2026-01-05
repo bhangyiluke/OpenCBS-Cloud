@@ -58,7 +58,7 @@ public class AccountService extends BaseHistoryService<Account, Long, Integer> i
 
     private final String PAYEE_ACCOUNT = "Off Balance Target Account";
 
-    @Autowired
+    //@Autowired
     public AccountService(AccountRepository accountRepository,
                           CurrencyService currencyService,
                           AccountingEntryRepository accountingEntryRepository,

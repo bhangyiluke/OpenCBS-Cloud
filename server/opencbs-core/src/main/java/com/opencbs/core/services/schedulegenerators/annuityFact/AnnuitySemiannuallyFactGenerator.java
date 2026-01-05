@@ -16,7 +16,7 @@ public class AnnuitySemiannuallyFactGenerator extends AbstractAnnuityFactGenerat
     private static final int daysInPeriod = 30;
 
 
-    @Autowired
+    //@Autowired
     protected AnnuitySemiannuallyFactGenerator(@NonNull HolidayService holidayService) {
         super(holidayService, 6);
     }

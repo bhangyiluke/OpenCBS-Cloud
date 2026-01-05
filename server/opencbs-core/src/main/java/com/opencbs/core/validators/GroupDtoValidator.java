@@ -10,7 +10,7 @@ public class GroupDtoValidator {
 
     private final GroupCustomFieldValueDtoValidator groupCustomFieldValueDtoValidator;
 
-    @Autowired
+    //@Autowired
     public GroupDtoValidator(GroupCustomFieldValueDtoValidator groupCustomFieldValueDtoValidator) {
         this.groupCustomFieldValueDtoValidator = groupCustomFieldValueDtoValidator;
     }

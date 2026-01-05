@@ -19,7 +19,7 @@ public class AuditTrailService {
     private final List<AuditReport> reports;
 
 
-    @Autowired
+    //@Autowired
     public AuditTrailService(List<AuditReport> reports) {
         this.reports = reports;
     }

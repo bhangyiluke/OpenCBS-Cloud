@@ -41,7 +41,7 @@ public class TillController extends BaseController {
     private final TillValidator tillValidator;
     private final TillMapper tillMapper;
 
-    @Autowired
+    //@Autowired
     public TillController(TillService tillService,
                           TillValidator tillValidator,
                           TillMapper tillMapper) {

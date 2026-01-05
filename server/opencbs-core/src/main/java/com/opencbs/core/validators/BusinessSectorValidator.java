@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Validator
 public class BusinessSectorValidator extends TreeEntityDtoValidator<BusinessSectorService> {
-    @Autowired
+    //@Autowired
     public BusinessSectorValidator(BusinessSectorService service) {
         super(service);
     }

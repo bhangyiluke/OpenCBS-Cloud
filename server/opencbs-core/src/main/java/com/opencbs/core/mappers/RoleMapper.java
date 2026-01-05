@@ -26,7 +26,7 @@ public class RoleMapper {
     private final PermissionMapper permissionMapper;
     private final RequestService requestService;
 
-    @Autowired
+    //@Autowired
     public RoleMapper(PermissionService permissionService,
                       PermissionMapper permissionMapper,
                       RequestService requestService) {

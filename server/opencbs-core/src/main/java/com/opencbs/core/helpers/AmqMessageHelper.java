@@ -20,7 +20,7 @@ public class AmqMessageHelper {
     private final RabbitProperties rabbitProperties;
 
 
-    @Autowired
+    //@Autowired
     public AmqMessageHelper(AmpqSenderService ampqSenderService,
                             RabbitProperties rabbitProperties) {
         this.ampqSenderService = ampqSenderService;

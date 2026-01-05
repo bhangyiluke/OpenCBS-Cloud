@@ -21,7 +21,7 @@ public class TypeOfCollateralCustomFieldService extends CustomFieldService<TypeO
     private final TypeOfCollateralCustomFieldRepository typeOfCollateralCustomFieldRepository;
 
 
-    @Autowired
+    //@Autowired
     public TypeOfCollateralCustomFieldService(TypeOfCollateralCustomFieldRepository repository,
                                               TypeOfCollateralCustomFieldValueRepository customFieldValueRepository) {
         super(repository, customFieldValueRepository);

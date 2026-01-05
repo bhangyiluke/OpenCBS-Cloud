@@ -17,7 +17,7 @@ public class LoanApplicationCustomFieldDtoValidator extends CustomFieldDtoValida
 
     private final LoanApplicationCustomFieldValueRepository loanApplicationCustomFieldValueRepository;
 
-    @Autowired
+    //@Autowired
     public LoanApplicationCustomFieldDtoValidator(LoanApplicationCustomFieldRepository loanApplicationCustomFieldRepository,
                                                   LoanApplicationCustomFieldValueRepository loanApplicationCustomFieldValueRepository) {
         super(loanApplicationCustomFieldRepository);

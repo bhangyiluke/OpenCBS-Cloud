@@ -14,7 +14,7 @@ public class GroupLoanApplicationService {
 
     private final GroupLoanApplicationRepository groupLoanApplicationRepository;
 
-    @Autowired
+    //@Autowired
     public GroupLoanApplicationService(GroupLoanApplicationRepository groupLoanApplicationRepository) {
         this.groupLoanApplicationRepository = groupLoanApplicationRepository;
     }

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Validator
 public class LoanBatchRepaymentValidator {
 
-    @Autowired
+    //@Autowired
     public LoanBatchRepaymentValidator(){}
 
     public void validate(LoanApplication loanApplication){

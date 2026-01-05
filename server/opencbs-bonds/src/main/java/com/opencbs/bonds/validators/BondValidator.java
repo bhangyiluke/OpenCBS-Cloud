@@ -42,7 +42,7 @@ public class BondValidator extends BaseValidator {
     private final BondEventService bondEventService;
     private final DayClosureContractService dayClosureContractService;
 
-    @Autowired
+    //@Autowired
     public BondValidator(BondService bondService,
                          ProfileService profileService,
                          CurrencyService currencyService,

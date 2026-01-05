@@ -18,7 +18,7 @@ public class HibernateListenerConfigurer {
     // @PersistenceUnit
     // private EntityManagerFactory entityManagerFactory;
 
-    // @Autowired
+    // //@Autowired
     // private EventListener listener;
 
     // @PostConstruct

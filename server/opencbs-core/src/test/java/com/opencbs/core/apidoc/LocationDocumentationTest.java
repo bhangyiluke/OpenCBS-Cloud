@@ -37,7 +37,7 @@ public class LocationDocumentationTest extends BaseDocumentationTest {
 
     private String authHeader;
 
-    @Autowired
+    //@Autowired
     private LocationService locationService;
 
     @Before

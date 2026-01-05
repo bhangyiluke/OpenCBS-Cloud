@@ -14,7 +14,7 @@ public class CompanyCustomFieldDtoValidator extends CustomFieldDtoValidator impl
 
     private final CompanyCustomFieldValueRepository companyCustomFieldValueRepository;
 
-    @Autowired
+    //@Autowired
     public CompanyCustomFieldDtoValidator(CompanyCustomFieldRepository companyCustomFieldRepository,
                                           CompanyCustomFieldValueRepository companyCustomFieldValueRepository) {
         super(companyCustomFieldRepository);

@@ -32,7 +32,7 @@ public class LookupService implements LookupInterface {
     private final TillService tillService;
     private final AccountService accountService;
 
-    @Autowired
+    //@Autowired
     public LookupService(ProfessionService professionService,
                          LocationService locationService,
                          BusinessSectorService businessSectorService,

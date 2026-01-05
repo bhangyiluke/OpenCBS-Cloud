@@ -5,7 +5,6 @@ import com.opencbs.core.domain.BaseEntity;
 import com.opencbs.core.domain.Branch;
 import com.opencbs.core.domain.User;
 import com.opencbs.core.domain.json.ExtraJson;
-import com.opencbs.core.domain.json.ExtraJsonType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,8 +14,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
 import org.hibernate.type.SqlTypes;
 
 import jakarta.persistence.Column;
@@ -38,7 +35,6 @@ import java.time.LocalDateTime;
 @Entity
 @EntityListeners(AccountingEntryListener.class)
 @Table(name = "accounting_entries")
-@TypeDef(name = "ExtraJsonType", typeClass = ExtraJsonType.class)
 @SQLDelete(sql = "update accounting_entries set deleted = true where id = ?1", check = ResultCheckStyle.COUNT)
 public class AccountingEntry extends BaseEntity {
 
@@ -70,8 +66,9 @@ public class AccountingEntry extends BaseEntity {
     @Column(name = "description", nullable = false)
     private String description;
 
-    // @Type(type = "ExtraJsonType", value = null)
+    // use AttributeConverter instead of legacy TypeDef
     @JdbcTypeCode(SqlTypes.JSON)
+    @jakarta.persistence.Convert(converter = com.opencbs.core.domain.json.ExtraJsonConverter.class)
     @Column(name = "extra", columnDefinition = "jsonb")
     private ExtraJson extra;
 

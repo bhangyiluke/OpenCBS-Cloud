@@ -7,7 +7,7 @@ import jakarta.persistence.EntityManager;
 
 @SuppressWarnings("unused")
 public class BusinessSectorRepositoryImpl extends TreeEntityRepositoryImpl<BusinessSector> {
-    @Autowired
+    //@Autowired
     public BusinessSectorRepositoryImpl(EntityManager entityManager) {
         super(entityManager, BusinessSector.class);
     }

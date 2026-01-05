@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TillEventService {
     private final TillEventRepository tillEventRepository;
 
-    @Autowired
+    //@Autowired
     public TillEventService(TillEventRepository tillEventRepository) {
         this.tillEventRepository = tillEventRepository;
     }

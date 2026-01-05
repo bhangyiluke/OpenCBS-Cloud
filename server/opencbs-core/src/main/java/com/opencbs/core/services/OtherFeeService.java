@@ -19,7 +19,7 @@ public class OtherFeeService {
     protected final OtherFeeMapper otherFeeMapper;
 
 
-    @Autowired
+    //@Autowired
     public OtherFeeService(OtherFeeRepository otherFeeRepository,
                            EventGroupKeyService eventGroupKeyService,
                            OtherFeeMapper otherFeeMapper) {

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Mapper
 public class TypeOfCollateralMapper extends CustomFieldSectionMapper<TypeOfCollateral, TypeOfCollateralCustomFieldMapper> {
 
-    @Autowired
+    //@Autowired
     public TypeOfCollateralMapper(TypeOfCollateralCustomFieldMapper customFieldMapper) {
         super(customFieldMapper);
     }

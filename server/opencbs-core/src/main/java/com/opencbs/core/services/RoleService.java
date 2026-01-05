@@ -23,7 +23,7 @@ public class RoleService extends BaseHistoryService<Role, Long, Integer> impleme
     private RoleRepository roleRepository;
 
 
-    @Autowired
+    //@Autowired
     public RoleService(RoleRepository roleRepository) {
         super(roleRepository);
         this.roleRepository = roleRepository;

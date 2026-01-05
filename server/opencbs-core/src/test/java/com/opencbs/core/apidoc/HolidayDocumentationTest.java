@@ -38,10 +38,10 @@ public class HolidayDocumentationTest extends BaseDocumentationTest {
 
     private String authHeader;
 
-    @Autowired
+    //@Autowired
     private HolidayService holidayService;
 
-    @Autowired
+    //@Autowired
     private HolidayMapper holidayMapper;
 
     @Before

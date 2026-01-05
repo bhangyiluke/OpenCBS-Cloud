@@ -39,7 +39,7 @@ public class TaskEventService {
     private final TaskEventsParticipantsRepositoryCustom taskEventsParticipantsRepositoryCustom;
     private final TaskEventParticipantRepository taskEventParticipantRepository;
 
-    @Autowired
+    //@Autowired
     public TaskEventService(TaskEventRepository taskEventRepository,
                             UserService userService,
                             ProfileService profileService,

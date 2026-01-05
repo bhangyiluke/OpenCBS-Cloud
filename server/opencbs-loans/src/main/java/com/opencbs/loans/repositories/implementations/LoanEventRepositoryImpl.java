@@ -4,10 +4,10 @@ import com.opencbs.core.domain.enums.EventType;
 import com.opencbs.core.repositories.implementations.BaseRepository;
 import com.opencbs.loans.domain.LoanEvent;
 import com.opencbs.loans.repositories.customs.LoanEventRepositoryCustom;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.CriteriaSpecification;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,30 +19,25 @@ import java.util.List;
 @Repository
 public class LoanEventRepositoryImpl extends BaseRepository<LoanEvent> implements LoanEventRepositoryCustom {
 
-    @Autowired
+    //@Autowired
     public LoanEventRepositoryImpl(EntityManager entityManager) {
         super(entityManager, LoanEvent.class);
     }
 
     @Override
     public List<LoanEvent> findAllByLoanIdAndDeletedAndEventTypeAndEffectiveAt(Long loanId, boolean isDeleted, EventType eventType, LocalDateTime localDateTime) {
-        Criteria criteria = this.createCriteria("le");
-        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-
-        Criterion where;
-        if (localDateTime != null){
-            where = Restrictions.conjunction(Restrictions.eq("le.loanId", loanId))
-                    .add(Restrictions.eq("le.deleted", isDeleted))
-                    .add(Restrictions.eq("le.eventType", eventType))
-                    .add(Restrictions.le("le.effectiveAt", localDateTime));
-        } else {
-            where = Restrictions.conjunction(Restrictions.eq("le.loanId", loanId))
-                    .add(Restrictions.eq("le.deleted", isDeleted))
-                    .add(Restrictions.eq("le.eventType", eventType));
+        CriteriaBuilder cb = criteriaBuilder();
+        CriteriaQuery<LoanEvent> cq = cb.createQuery(LoanEvent.class);
+        Root<LoanEvent> root = cq.from(LoanEvent.class);
+        Predicate predicate = cb.conjunction();
+        predicate = cb.and(predicate, cb.equal(root.get("loanId"), loanId));
+        predicate = cb.and(predicate, cb.equal(root.get("deleted"), isDeleted));
+        predicate = cb.and(predicate, cb.equal(root.get("eventType"), eventType));
+        if (localDateTime != null) {
+            predicate = cb.and(predicate, cb.lessThanOrEqualTo(root.get("effectiveAt"), localDateTime));
         }
-        criteria.add(where);
-
-        return criteria.list();
+        cq.select(root).where(predicate).distinct(true);
+        return getEntityManager().createQuery(cq).getResultList();
     }
 
     @Override
@@ -63,22 +58,19 @@ public class LoanEventRepositoryImpl extends BaseRepository<LoanEvent> implement
 
     @Override
     public List<LoanEvent> findAllByLoanIdAndDeletedAndEventTypeAndEffectiveAtBetween(Long loanId,boolean isDeleted, EventType eventType, LocalDateTime startPeriod, LocalDateTime endPeriod) {
-        Criteria criteria = this.createCriteria("le");
-        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        CriteriaBuilder cb = criteriaBuilder();
+        CriteriaQuery<LoanEvent> cq = cb.createQuery(LoanEvent.class);
+        Root<LoanEvent> root = cq.from(LoanEvent.class);
 
-        Criterion where;
-        if (startPeriod != null && endPeriod != null){
-            where = Restrictions.conjunction(Restrictions.eq("le.loanId", loanId))
-                    .add(Restrictions.eq("le.deleted", isDeleted))
-                    .add(Restrictions.eq("le.eventType", eventType))
-                    .add(Restrictions.between("le.effectiveAt", startPeriod, endPeriod));
-        } else {
-            where = Restrictions.conjunction(Restrictions.eq("le.loanId", loanId))
-                    .add(Restrictions.eq("le.deleted", isDeleted))
-                    .add(Restrictions.eq("le.eventType", eventType));
+        Predicate predicate = cb.conjunction();
+        predicate = cb.and(predicate, cb.equal(root.get("loanId"), loanId));
+        predicate = cb.and(predicate, cb.equal(root.get("deleted"), isDeleted));
+        predicate = cb.and(predicate, cb.equal(root.get("eventType"), eventType));
+        if (startPeriod != null && endPeriod != null) {
+            predicate = cb.and(predicate, cb.between(root.get("effectiveAt"), startPeriod, endPeriod));
         }
-        criteria.add(where);
 
-        return criteria.list();
+        cq.select(root).where(predicate).distinct(true);
+        return getEntityManager().createQuery(cq).getResultList();
     }
 }

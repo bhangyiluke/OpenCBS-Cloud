@@ -19,7 +19,7 @@ public class CurrencyService {
 
     private final CurrencyRepository currencyRepository;
 
-    @Autowired
+    //@Autowired
     public CurrencyService(CurrencyRepository currencyRepository) {
         this.currencyRepository = currencyRepository;
     }

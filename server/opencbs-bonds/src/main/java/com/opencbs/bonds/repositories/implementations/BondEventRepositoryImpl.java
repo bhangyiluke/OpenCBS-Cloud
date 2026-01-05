@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public class BondEventRepositoryImpl extends BaseRepository<BondEvent> implements BondEventRepositoryCustom {
 
-    @Autowired
+    //@Autowired
     public BondEventRepositoryImpl(EntityManager entityManager) {
         super(entityManager, BondEvent.class);
     }

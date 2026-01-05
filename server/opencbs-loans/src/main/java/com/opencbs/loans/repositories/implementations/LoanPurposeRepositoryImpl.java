@@ -8,7 +8,7 @@ import jakarta.persistence.EntityManager;
 
 @SuppressWarnings("unused")
 public class LoanPurposeRepositoryImpl extends TreeEntityRepositoryImpl<LoanPurpose> {
-    @Autowired
+    //@Autowired
     protected LoanPurposeRepositoryImpl(EntityManager entityManager) {
         super(entityManager, LoanPurpose.class);
     }

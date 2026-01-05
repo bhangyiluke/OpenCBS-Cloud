@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class PersonService extends ProfileBaseService<Person, PersonCustomFieldValue> {
 
-    @Autowired
+    //@Autowired
     public PersonService(ProfileBaseRepository<Person> profileRepository,
                          GlobalSettingsService globalSettingsService,
                          AccountService accountService,

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper
 public class LoanPurposeMapper extends TreeEntityMapper<LoanPurposeService, LoanPurpose> {
-    @Autowired
+    //@Autowired
     public LoanPurposeMapper(LoanPurposeService service) {
         super(service, LoanPurpose.class);
     }

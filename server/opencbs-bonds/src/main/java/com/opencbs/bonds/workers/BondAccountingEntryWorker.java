@@ -33,7 +33,7 @@ public class BondAccountingEntryWorker {
     private final GlobalSettingsService globalSettingsService;
     private final BondAccountService bondAccountService;
 
-    @Autowired
+    //@Autowired
     public BondAccountingEntryWorker(BondService bondService,
                                      UserService userService,
                                      AccountingEntryService accountingEntryService,

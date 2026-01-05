@@ -28,7 +28,7 @@ public class SavingValidator extends BaseValidator {
     private final ProfileService profileService;
     private final UserService userService;
 
-    @Autowired
+    //@Autowired
     public SavingValidator(SavingProductService savingProductService,
                            ProfileService profileService,
                            UserService userService) {

@@ -33,7 +33,7 @@ public class LocationController {
     private final LocationMapper locationMapper;
     private final LocationDtoValidator locationDtoValidator;
 
-    @Autowired
+    //@Autowired
     public LocationController(
             LocationService locationService,
             LocationMapper locationMapper,

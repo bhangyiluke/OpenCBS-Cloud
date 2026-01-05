@@ -34,7 +34,7 @@ public class VaultController extends BaseController {
     private final VaultMapper vaultMapper;
     private final VaultValidator vaultValidator;
 
-    @Autowired
+    //@Autowired
     public VaultController(VaultService vaultService,
                            VaultMapper vaultMapper,
                            VaultValidator vaultValidator) {

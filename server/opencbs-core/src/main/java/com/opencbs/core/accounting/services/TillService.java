@@ -66,7 +66,7 @@ public class TillService {
 
     private static final  String  REFERENCE_NUMBER = "REFERENCE_NUMBER";
 
-    @Autowired
+    //@Autowired
     public TillService(TillRepository tillRepository,
                        UserService userService,
                        TillEventService tillEventService,

@@ -28,7 +28,7 @@ public class LoanApplicationCustomFieldSectionController extends BaseController 
     private final LoanApplicationCustomFieldSectionMapper loanApplicationCustomFieldSectionMapper;
     private final CustomFieldSectionDtoValidator customFieldSectionDtoValidator;
 
-    @Autowired
+    //@Autowired
     public LoanApplicationCustomFieldSectionController(LoanApplicationCustomFieldSectionService loanApplicationCustomFieldSectionService,
                                                        LoanApplicationCustomFieldSectionMapper loanApplicationCustomFieldSectionMapper,
                                                        CustomFieldSectionDtoValidator customFieldSectionDtoValidator) {

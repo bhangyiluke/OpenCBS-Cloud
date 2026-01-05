@@ -10,7 +10,7 @@ public class ConfigService {
 
     private final RabbitProperties rabbitProperties;
 
-    @Autowired
+    //@Autowired
     public ConfigService(RabbitProperties rabbitProperties) {
         this.rabbitProperties = rabbitProperties;
     }

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper
 public class LocationMapper extends TreeEntityMapper<LocationService, Location> {
-    @Autowired
+    //@Autowired
     public LocationMapper(LocationService service) {
         super(service, Location.class);
     }

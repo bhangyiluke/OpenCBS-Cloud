@@ -36,7 +36,7 @@ public class ProfessionDocumentationTest extends BaseDocumentationTest {
 
     private String authHeader;
 
-    @Autowired
+    //@Autowired
     private ProfessionService professionService;
 
     @Before

@@ -16,7 +16,7 @@ public class BondProductController {
 
     private final BondProductService bondProductService;
 
-    @Autowired
+    //@Autowired
     public BondProductController(BondProductService bondProductService) {
         this.bondProductService = bondProductService;
     }

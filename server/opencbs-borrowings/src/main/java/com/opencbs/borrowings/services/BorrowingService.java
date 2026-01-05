@@ -55,7 +55,7 @@ public class BorrowingService {
     private final BorrowingGroupKeyRepository borrowingGroupKeyRepository;
     private final BorrowingAccountService borrowingAccountService;
 
-    @Autowired
+    //@Autowired
     public BorrowingService(BorrowingRepository borrowingRepository,
                             ScheduleService scheduleService,
                             BorrowingGlobalSettingsService borrowingGlobalSettingsService,

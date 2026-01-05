@@ -14,7 +14,7 @@ import java.math.BigInteger;
 @SuppressWarnings("unused")
 public class LocationRepositoryImpl extends TreeEntityRepositoryImpl<Location> implements LocationsRepositoryCustom {
 
-    @Autowired
+    //@Autowired
     protected LocationRepositoryImpl(EntityManager entityManager) {
         super(entityManager, Location.class);
     }

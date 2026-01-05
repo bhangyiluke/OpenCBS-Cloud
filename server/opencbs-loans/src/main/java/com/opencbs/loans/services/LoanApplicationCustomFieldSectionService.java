@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoanApplicationCustomFieldSectionService extends CustomFieldSectionService<LoanApplicationCustomFieldSection, LoanApplicationCustomFieldSectionRepository> {
 
-    @Autowired
+    //@Autowired
     public LoanApplicationCustomFieldSectionService(LoanApplicationCustomFieldSectionRepository repository) {
         super(repository);
     }

@@ -15,7 +15,7 @@ public class FixedPrincipalQuarterlyGenerator extends AbstractFixedPrincipalGene
     private static final int DAYS_IN_PERIOD = 0;
 
 
-    @Autowired
+    //@Autowired
     protected FixedPrincipalQuarterlyGenerator(@NonNull HolidayService holidayService) {
         super(holidayService, 3);
     }

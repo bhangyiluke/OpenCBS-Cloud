@@ -10,7 +10,7 @@ import java.util.Map;
 @Component
 public class BorrowingRepaymentServiceFactory {
 
-    @Autowired
+    //@Autowired
     ApplicationContext context;
 
     public BorrowingRepaymentService getBorrowingRepaymentService(RepaymentTypes repaymentTypes) {

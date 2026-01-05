@@ -13,7 +13,7 @@ public class GroupCustomFieldService extends CustomFieldService<GroupCustomField
         GroupCustomFieldRepository,
         GroupCustomFieldValueRepository> {
 
-    @Autowired
+    //@Autowired
     public GroupCustomFieldService(GroupCustomFieldRepository repository,
                                    GroupCustomFieldValueRepository customFieldValueRepository) {
         super(repository, customFieldValueRepository);

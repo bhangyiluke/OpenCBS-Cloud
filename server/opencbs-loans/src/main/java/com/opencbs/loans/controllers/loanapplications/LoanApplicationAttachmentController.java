@@ -34,7 +34,7 @@ public class LoanApplicationAttachmentController {
     private final LoanApplicationAttachmentService loanApplicationAttachmentService;
     private final AttachmentMapper attachmentMapper;
 
-    @Autowired
+    //@Autowired
     public LoanApplicationAttachmentController(LoanApplicationService loanApplicationService,
                                                LoanApplicationAttachmentService loanApplicationAttachmentService,
                                                AttachmentMapper attachmentMapper) {

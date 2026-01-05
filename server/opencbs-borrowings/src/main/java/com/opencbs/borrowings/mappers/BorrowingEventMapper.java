@@ -14,7 +14,7 @@ public class BorrowingEventMapper {
     private final UserService userService;
     private final ModelMapper modelMapper = new ModelMapper();
 
-    @Autowired
+    //@Autowired
     public BorrowingEventMapper(UserService userService) {
         this.userService = userService;
     }

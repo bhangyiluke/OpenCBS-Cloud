@@ -49,7 +49,7 @@ public class PrintingFormService extends AbstractDocumentService<Template> imple
     }
 
 
-    @Autowired
+    //@Autowired
     public PrintingFormService(TemplateProperty templateProperty,
                                DocumentRepository documentRepository,
                                JasperReportService jasperReportService) throws Exception {

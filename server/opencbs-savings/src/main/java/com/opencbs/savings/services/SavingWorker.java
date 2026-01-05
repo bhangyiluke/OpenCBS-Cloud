@@ -26,7 +26,7 @@ public class SavingWorker {
     private final AccountingEntryService accountingEntryService;
     private final static int DEFAULT_SCALE = 5;
 
-    @Autowired
+    //@Autowired
     public SavingWorker(ProfileService profileService,
                         SavingAccountingService savingAccountingService,
                         SavingService savingService,

@@ -38,7 +38,7 @@ public class BorrowingRepaymentStoreService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Autowired
+    //@Autowired
     public BorrowingRepaymentStoreService(BorrowingEventService borrowingEventService,
                                           BorrowingGroupKeyRepository borrowingGroupKeyRepository,
                                           BranchRepository branchRepository,

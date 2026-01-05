@@ -65,7 +65,7 @@ public class ExcelReportService extends AbstractDocumentService<ExcelTemplate> i
         }
     }
 
-    @Autowired
+    //@Autowired
     public ExcelReportService(TemplateProperty templateProperty,
                               DocumentRepository documentRepository,
                               LookupWorker lookupWorker,

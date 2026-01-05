@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PersonAttachmentService extends AttachmentService<Person, PersonAttachment, PersonAttachmentRepository> {
 
-    @Autowired
+    //@Autowired
     public PersonAttachmentService(PersonAttachmentRepository repository,
                                    FileProvider fileProvider,
                                    AttachmentProperty attachmentProperty) {

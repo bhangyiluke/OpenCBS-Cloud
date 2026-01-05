@@ -23,7 +23,7 @@ public class LoanProductService extends BaseHistoryService implements CrudServic
     private final LoanProductRepository loanProductRepository;
 
 
-    // @Autowired
+    // //@Autowired
     public LoanProductService(LoanProductRepository loanProductRepository) {
         super(loanProductRepository);
         this.loanProductRepository = loanProductRepository;

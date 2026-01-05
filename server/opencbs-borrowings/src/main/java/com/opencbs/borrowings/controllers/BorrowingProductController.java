@@ -28,7 +28,7 @@ public class BorrowingProductController {
     private final BorrowingProductMapper borrowingProductMapper;
     private final BorrowingProductValidator borrowingProductValidator;
 
-    @Autowired
+    //@Autowired
     public BorrowingProductController(BorrowingProductService borrowingProductService,
                                       BorrowingProductMapper borrowingProductMapper,
                                       BorrowingProductValidator borrowingProductValidator) {

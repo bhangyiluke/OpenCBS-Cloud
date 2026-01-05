@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Mapper
 public class PaymentMethodMapper extends TreeEntityMapper<PaymentMethodService, PaymentMethod> {
 
-    @Autowired
+    //@Autowired
     public PaymentMethodMapper(PaymentMethodService service) {
         super(service, PaymentMethod.class);
     }

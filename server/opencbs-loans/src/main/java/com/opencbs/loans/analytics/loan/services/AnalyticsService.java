@@ -13,7 +13,7 @@ public class AnalyticsService {
 
     private final AnalyticRepository analyticRepository;
 
-    @Autowired
+    //@Autowired
     public AnalyticsService(AnalyticRepository analyticRepository) {
         this.analyticRepository = analyticRepository;
     }

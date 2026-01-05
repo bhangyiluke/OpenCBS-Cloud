@@ -49,7 +49,7 @@ public class SavingController {
     private final SavingCloseInterface savingCloseInterface;
     private final SavingAccountingService savingAccountingService;
 
-    @Autowired
+    //@Autowired
     public SavingController(SavingValidator savingValidator,
                             SavingMapper savingMapper,
                             SavingWorker savingWorker,

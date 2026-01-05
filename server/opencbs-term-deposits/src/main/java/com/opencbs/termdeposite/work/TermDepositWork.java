@@ -58,7 +58,7 @@ public class TermDepositWork {
     private final TermDepositContainer termDepositContainer;
     private final TermDepositCodeGenerator termDepositCodeGenerator;
 
-    @Autowired
+    //@Autowired
     public TermDepositWork(@NonNull TermDepositService termDepositService,
                            @NonNull TermDepositAccountingService termDepositAccountingService,
                            @NonNull TermDepositMapper termDepositMapper,

@@ -19,7 +19,7 @@ public class AnalyticsController {
 
     private final AnalyticsService analyticsService;
 
-    @Autowired
+    //@Autowired
     public AnalyticsController(AnalyticsService reportService) {
         this.analyticsService = reportService;
     }

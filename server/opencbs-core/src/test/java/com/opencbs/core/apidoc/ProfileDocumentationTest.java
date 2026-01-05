@@ -37,13 +37,13 @@ public class ProfileDocumentationTest extends BaseDocumentationTest {
 
     private String authHeader;
 
-    @Autowired
+    //@Autowired
     private CompanyService companyService;
 
-    @Autowired
+    //@Autowired
     private UserService userService;
 
-    @Autowired
+    //@Autowired
     private CompanyCustomFieldService companyCustomFieldService;
 
     @Before

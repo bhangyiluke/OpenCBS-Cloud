@@ -12,7 +12,7 @@ public class TillSavingValidator {
 
     private final TillValidator tillValidator;
 
-    @Autowired
+    //@Autowired
     public TillSavingValidator(TillValidator tillValidator) {
         this.tillValidator = tillValidator;
     }

@@ -14,7 +14,7 @@ import java.util.Optional;
 public class VaultService {
     private final VaultRepository vaultRepository;
 
-    @Autowired
+    //@Autowired
     public VaultService(VaultRepository vaultRepository) {
         this.vaultRepository = vaultRepository;
     }

@@ -34,7 +34,8 @@ public interface LoanEventRepository extends Repository<LoanEvent>, LoanEventRep
     @Query("select new com.opencbs.loans.audit.LoanAuditEventIdentificator(le.id, le.effectiveAt) from LoanEvent le where le.effectiveAt between ?1 and ?2 and (le.createdById = ?3 or ?3 is null) and le.system=FALSE")
     List<LoanAuditEventIdentificator> getAllByEffectiveAtBetweenAndCreatedBy(LocalDateTime fromDate, LocalDateTime toDate, Long userId);
 
-    @Query("select new com.opencbs.loans.domain.LoanRollBackEvent(le.groupKey, MAX(le.rolledBackBy), MAX(le.rolledBackTime), SUM(le.amount)) from LoanEvent le where le.rolledBackTime between ?1 and ?2 and (le.rolledBackBy = ?3 or ?3 is null) group by le.groupKey")
+    // @Query("select new com.opencbs.loans.domain.LoanRollBackEvent(le.groupKey, MAX(le.rolledBackBy), MAX(le.rolledBackTime), SUM(le.amount)) from LoanEvent le where le.rolledBackTime between ?1 and ?2 and (le.rolledBackBy = ?3 or ?3 is null) group by le.groupKey")
+    @Query("select new com.opencbs.loans.domain.LoanRollBackEvent(le.groupKey, le.rolledBackBy, MAX(le.rolledBackTime), SUM(le.amount)) from LoanEvent le where le.rolledBackTime between ?1 and ?2 and (le.rolledBackBy = ?3 or ?3 is null) group by le.groupKey, le.rolledBackBy")
     List<LoanRollBackEvent> getAllRoolbackEventsByDateAndUser(LocalDateTime fromDate, LocalDateTime toDate, Long userId);
 
     Boolean existsByLoanIdAndEffectiveAtAfterAndEventTypeInAndDeletedIsFalse(Long loanId, LocalDateTime dateTime, Collection<EventType> eventTypes);

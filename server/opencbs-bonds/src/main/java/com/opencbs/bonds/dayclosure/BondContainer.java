@@ -25,7 +25,7 @@ public class BondContainer implements Container {
     private final ApplicationContext context;
     private static List<DayClosureProcessor> bondDayClosureProcessorList;
 
-    @Autowired
+    //@Autowired
     protected BondContainer(@NonNull BondService bondService,
                             @NonNull ApplicationContext context) {
         this.bondService = bondService;

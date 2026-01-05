@@ -22,7 +22,7 @@ public class BondEventController {
     private final BondEventService bondEventService;
     private final BondEventMapper bondEventMapper;
 
-    @Autowired
+    //@Autowired
     public BondEventController(BondEventService bondEventService,
                                BondEventMapper bondEventMapper) {
         this.bondEventService = bondEventService;

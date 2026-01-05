@@ -36,7 +36,7 @@ public class TermDepositMapper {
     private final AccountService accountService;
 
 
-    @Autowired
+    //@Autowired
     public TermDepositMapper(@NonNull TermDepositProductMapper termDepositProductMapper,
                              @NonNull ProfileService profileService,
                              @NonNull UserService userService,

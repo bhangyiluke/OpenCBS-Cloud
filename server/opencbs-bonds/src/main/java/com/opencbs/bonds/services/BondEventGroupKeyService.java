@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class BondEventGroupKeyService {
     private final BondEventGroupKeyRepository bondEventGroupKeyRepository;
 
-    @Autowired
+    //@Autowired
     public BondEventGroupKeyService(BondEventGroupKeyRepository bondEventGroupKeyRepository) {
         this.bondEventGroupKeyRepository = bondEventGroupKeyRepository;
     }

@@ -29,7 +29,7 @@ import java.util.Set;
 @Data
 @Audited
 @Table(name = "profiles")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "[type]", discriminatorType = DiscriminatorType.STRING)
 public class Profile extends CreationInfoEntity implements NamedEntity {
 

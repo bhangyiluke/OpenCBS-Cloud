@@ -22,7 +22,7 @@ public class LoanApplicationCustomFieldValuesController {
     private final LoanApplicationService loanApplicationService;
     private final LoanApplicationMapper loanApplicationMapper;
 
-    @Autowired
+    //@Autowired
     public LoanApplicationCustomFieldValuesController(LoanApplicationService loanApplicationService,
                                                       LoanApplicationMapper loanApplicationMapper) {
         this.loanApplicationService = loanApplicationService;

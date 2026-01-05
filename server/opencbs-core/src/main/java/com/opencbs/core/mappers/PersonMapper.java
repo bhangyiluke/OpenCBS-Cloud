@@ -34,7 +34,7 @@ public class PersonMapper extends ProfileBaseMapper {
     private final PersonCustomFieldMapper personCustomFieldMapper;
     private final RequestService requestService;
 
-    @Autowired
+    //@Autowired
     public PersonMapper(
             PersonCustomFieldSectionService personCustomFieldSectionService,
             PersonCustomFieldMapper personCustomFieldMapper,

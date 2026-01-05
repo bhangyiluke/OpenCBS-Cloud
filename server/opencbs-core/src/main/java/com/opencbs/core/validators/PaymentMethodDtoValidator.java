@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Validator
 public class PaymentMethodDtoValidator extends TreeEntityDtoValidator<PaymentMethodService> {
 
-    @Autowired
+    //@Autowired
     public PaymentMethodDtoValidator(PaymentMethodService service) {
         super(service);
     }

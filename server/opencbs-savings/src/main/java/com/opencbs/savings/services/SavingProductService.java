@@ -23,7 +23,7 @@ public class SavingProductService extends BaseHistoryService<SavingProduct, Long
 
     private final SavingProductRepository savingProductRepository;
 
-    // @Autowired
+    // //@Autowired
     public SavingProductService(SavingProductRepository savingProductRepository) {
         super(savingProductRepository);
         this.savingProductRepository = savingProductRepository;

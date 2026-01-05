@@ -12,7 +12,7 @@ public class BondInstallmentService {
 
     private final BondInstallmentRepository bondInstallmentRepository;
 
-    @Autowired
+    //@Autowired
     public BondInstallmentService(
             BondInstallmentRepository bondInstallmentRepository) {
         this.bondInstallmentRepository = bondInstallmentRepository;

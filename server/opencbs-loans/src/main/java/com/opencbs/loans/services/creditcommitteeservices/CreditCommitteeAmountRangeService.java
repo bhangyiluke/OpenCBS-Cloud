@@ -16,7 +16,7 @@ public class CreditCommitteeAmountRangeService {
 
     private final CreditCommitteeAmountRangeRepository creditCommitteeAmountRangeRepository;
 
-    @Autowired
+    //@Autowired
     public CreditCommitteeAmountRangeService(CreditCommitteeAmountRangeRepository creditCommitteeAmountRangeRepository) {
         this.creditCommitteeAmountRangeRepository = creditCommitteeAmountRangeRepository;
     }

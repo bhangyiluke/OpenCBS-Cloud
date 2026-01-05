@@ -15,7 +15,7 @@ public class BorrowingProductService {
 
     private final BorrowingProductRepository borrowingProductRepository;
 
-    @Autowired
+    //@Autowired
     public BorrowingProductService(BorrowingProductRepository borrowingProductRepository) {
         this.borrowingProductRepository = borrowingProductRepository;
     }

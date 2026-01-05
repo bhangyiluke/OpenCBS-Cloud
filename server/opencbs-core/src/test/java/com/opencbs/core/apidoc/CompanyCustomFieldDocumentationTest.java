@@ -38,10 +38,10 @@ public class CompanyCustomFieldDocumentationTest extends BaseCustomFieldSectionD
 
     private String authHeader;
 
-    @Autowired
+    //@Autowired
     private CompanyCustomFieldSectionService companyCustomFieldSectionService;
 
-    @Autowired
+    //@Autowired
     private CompanyCustomFieldService companyCustomFieldService;
 
     @Before

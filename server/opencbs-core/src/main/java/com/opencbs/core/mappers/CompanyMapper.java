@@ -40,7 +40,7 @@ public class CompanyMapper extends ProfileBaseMapper {
     private final PersonService personService;
     private final RequestService requestService;
 
-    @Autowired
+    //@Autowired
     public CompanyMapper(
             AttachmentMapper attachmentMapper,
             CompanyCustomFieldSectionService companyCustomFieldSectionService,

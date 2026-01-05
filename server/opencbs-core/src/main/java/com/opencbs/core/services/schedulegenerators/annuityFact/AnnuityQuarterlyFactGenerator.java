@@ -16,7 +16,7 @@ public class AnnuityQuarterlyFactGenerator extends AbstractAnnuityFactGenerator{
     private static final int daysInPeriod = 90;
 
 
-    @Autowired
+    //@Autowired
     protected AnnuityQuarterlyFactGenerator(@NonNull HolidayService holidayService) {
         super(holidayService, 3);
     }

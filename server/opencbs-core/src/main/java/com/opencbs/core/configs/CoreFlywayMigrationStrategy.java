@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 @Configuration
 public class CoreFlywayMigrationStrategy implements FlywayMigrationStrategy {
 
-    @Autowired
+    //@Autowired
     ApplicationContext context;
 
     @Override

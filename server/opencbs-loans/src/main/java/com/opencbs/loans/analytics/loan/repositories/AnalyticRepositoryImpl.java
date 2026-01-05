@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @SuppressWarnings("unused")
 public class AnalyticRepositoryImpl extends BaseRepository<Analytic> implements AnalyticRepositoryCustom {
 
-    @Autowired
+    //@Autowired
     public AnalyticRepositoryImpl(EntityManager entityManager) {
         super(entityManager, Analytic.class);
     }

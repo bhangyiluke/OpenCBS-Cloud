@@ -22,7 +22,7 @@ import jakarta.persistence.MappedSuperclass;
 @Data
 
 @MappedSuperclass
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @SQLRestriction(value = "deleted = false")
 @EqualsAndHashCode(callSuper = true)
 public abstract class CustomField<Tcfs extends CustomFieldSection> extends BaseEntity {

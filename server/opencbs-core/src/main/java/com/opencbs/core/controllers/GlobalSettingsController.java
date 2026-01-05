@@ -22,7 +22,7 @@ public class GlobalSettingsController extends BaseController {
     private final GlobalSettingsService globalSettingsService;
     private final GlobalSettingsMapper globalSettingsMapper;
 
-    @Autowired
+    //@Autowired
     public GlobalSettingsController(GlobalSettingsService globalSettingsService,
                                     GlobalSettingsMapper globalSettingsMapper) {
         this.globalSettingsService = globalSettingsService;

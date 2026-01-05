@@ -19,7 +19,7 @@ public class DefaultProfileWorker implements ProfileWorker {
 
     private final ProfileService profileService;
 
-    @Autowired
+    //@Autowired
     public DefaultProfileWorker(ProfileService profileService) {
         this.profileService = profileService;
     }

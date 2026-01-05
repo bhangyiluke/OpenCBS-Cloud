@@ -27,7 +27,7 @@ public class TermDepositProductMapper {
     private final TermDepositProductAccountMapper termDepositProductAccountMapper;
     private final RequestService requestService;
 
-    @Autowired
+    //@Autowired
     public TermDepositProductMapper(@NonNull CurrencyService currencyService,
                                     @NonNull TermDepositProductAccountMapper termDepositProductAccountMapper,
                                     RequestService requestService) {

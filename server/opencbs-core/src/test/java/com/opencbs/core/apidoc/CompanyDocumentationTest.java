@@ -45,13 +45,13 @@ public class CompanyDocumentationTest extends BaseDocumentationTest {
 
     private String authHeader;
 
-    @Autowired
+    //@Autowired
     private CompanyService companyService;
 
-    @Autowired
+    //@Autowired
     private CompanyCustomFieldService companyCustomFieldService;
 
-    @Autowired
+    //@Autowired
     private UserService userService;
 
     @Before

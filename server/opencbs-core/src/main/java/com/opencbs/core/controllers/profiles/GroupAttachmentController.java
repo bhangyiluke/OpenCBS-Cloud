@@ -33,7 +33,7 @@ public class GroupAttachmentController {
 
     private final AttachmentMapper attachmentMapper;
 
-    @Autowired
+    //@Autowired
     public GroupAttachmentController(GroupService groupService,
                                      GroupAttachmentService groupAttachmentService,
                                      AttachmentMapper attachmentMapper) {

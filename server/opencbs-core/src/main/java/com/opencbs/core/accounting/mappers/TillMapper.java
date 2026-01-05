@@ -29,7 +29,7 @@ public class TillMapper {
         }
     }
 
-    @Autowired
+    //@Autowired
     public TillMapper(BranchService branchService,
                       AccountService accountService) {
         this.branchService = branchService;

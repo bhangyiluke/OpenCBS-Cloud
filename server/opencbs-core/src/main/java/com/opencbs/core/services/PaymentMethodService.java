@@ -12,7 +12,7 @@ public class PaymentMethodService extends TreeEntityService<PaymentMethodReposit
 
     private final PaymentMethodRepository paymentMethodRepository;
 
-    @Autowired
+    //@Autowired
     public PaymentMethodService(PaymentMethodRepository repository,
                                 PaymentMethodRepository paymentMethodRepository) {
         super(repository);

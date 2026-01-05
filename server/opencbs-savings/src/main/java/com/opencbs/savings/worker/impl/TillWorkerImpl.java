@@ -34,7 +34,7 @@ public class TillWorkerImpl implements TillWorker {
     private final SavingMapper savingMapper;
     private final TillSavingValidator tillSavingValidator;
 
-    @Autowired
+    //@Autowired
     public TillWorkerImpl(@NonNull UserService userService,
                           @NonNull TillService tillService,
                           @NonNull SavingWorker savingWorker,

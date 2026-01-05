@@ -32,7 +32,7 @@ public class LoanOtherFeeController extends OtherFeeController {
     private final LoanOtherFeeValidation loanOtherFeeValidation;
     private final LoanValidator loanValidator;
 
-    @Autowired
+    //@Autowired
     public LoanOtherFeeController(OtherFeeService otherFeeService,
                                   OtherFeeValidation otherFeeValidation,
                                   OtherFeeMapper otherFeeMapper,

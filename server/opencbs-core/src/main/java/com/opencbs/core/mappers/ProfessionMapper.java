@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Mapper
 public class ProfessionMapper extends TreeEntityMapper<ProfessionService, Profession> {
 
-    @Autowired
+    //@Autowired
     public ProfessionMapper(ProfessionService service) {
         super(service, Profession.class);
     }

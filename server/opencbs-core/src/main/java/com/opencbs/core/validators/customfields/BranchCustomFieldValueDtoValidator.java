@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class BranchCustomFieldValueDtoValidator extends CustomFieldValueDtoValidator<BranchCustomField, BranchCustomFieldValue,
         BranchCustomFieldRepository, BranchCustomFieldValueRepository, BranchCustomFieldService> {
 
-    @Autowired
+    //@Autowired
     BranchCustomFieldValueDtoValidator(BranchCustomFieldService customFieldService, FieldTypeValidatorFactory fieldTypeValidatorFactory) {
         super(customFieldService, fieldTypeValidatorFactory);
     }

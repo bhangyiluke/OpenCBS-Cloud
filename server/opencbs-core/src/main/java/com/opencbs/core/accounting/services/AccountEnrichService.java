@@ -27,7 +27,7 @@ public class AccountEnrichService {
     private final AccountService accountService;
     private final AccountBalanceService accountBalanceService;
 
-    @Autowired
+    //@Autowired
     public AccountEnrichService(AccountService accountService,
                                 AccountBalanceService accountBalanceService) {
         this.accountService = accountService;

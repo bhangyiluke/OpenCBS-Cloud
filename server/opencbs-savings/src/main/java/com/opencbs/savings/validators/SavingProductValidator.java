@@ -29,7 +29,7 @@ public class SavingProductValidator extends BaseValidator {
     private final CurrencyService currencyService;
     private final AccountService accountService;
 
-    @Autowired
+    //@Autowired
     public SavingProductValidator(SavingProductService savingProductService,
                                   CurrencyService currencyService,
                                   AccountService accountService) {

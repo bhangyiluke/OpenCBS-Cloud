@@ -25,7 +25,7 @@ public class BondAccountWorker {
     private final AccountService accountService;
     private final GlobalSettingsService globalSettingsService;
 
-    @Autowired
+    //@Autowired
     public BondAccountWorker(BondProductAccountService bondProductAccountService,
                              BondAccountService bondAccountService,
                              AccountService accountService,

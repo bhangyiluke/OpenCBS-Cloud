@@ -62,7 +62,7 @@ public class BondService {
     private final BondInstallmentService bondInstallmentService;
     private final BondEventService bondEventService;
 
-    @Autowired
+    //@Autowired
     public BondService(BondRepository bondRepository,
                        BondGlobalSettingService bondGlobalSettingService,
                        ScheduleService scheduleService,

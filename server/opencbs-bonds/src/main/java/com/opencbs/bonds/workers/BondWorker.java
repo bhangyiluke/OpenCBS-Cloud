@@ -33,7 +33,7 @@ public class BondWorker {
     private final BondInstallmentService bondInstallmentService;
     private final BondContainer bondContainer;
 
-    @Autowired
+    //@Autowired
     public BondWorker(BondAccountWorker bondAccountWorker,
                       BondService bondService,
                       BondEventWorker bondEventWorker,

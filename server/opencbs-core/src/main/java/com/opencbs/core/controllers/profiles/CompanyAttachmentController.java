@@ -33,7 +33,7 @@ public class CompanyAttachmentController {
 
     private final AttachmentMapper attachmentMapper;
 
-    @Autowired
+    //@Autowired
     public CompanyAttachmentController(CompanyService companyService,
                                        CompanyAttachmentService companyAttachmentsService,
                                        AttachmentMapper attachmentMapper) {

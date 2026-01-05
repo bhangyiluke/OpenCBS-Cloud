@@ -33,7 +33,7 @@ public class UserSessionHandler implements org.springframework.web.servlet.Handl
     private final UserService userService;
 
 
-    @Autowired
+    //@Autowired
     public UserSessionHandler(UserSessionService userSessionService, UserService userService) {
         this.userSessionService = userSessionService;
         this.userService = userService;

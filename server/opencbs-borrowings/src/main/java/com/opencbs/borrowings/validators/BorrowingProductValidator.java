@@ -23,7 +23,7 @@ public class BorrowingProductValidator extends BaseValidator {
     private final CurrencyService currencyService;
     private final AccountService accountService;
 
-    @Autowired
+    //@Autowired
     public BorrowingProductValidator(BorrowingProductService borrowingProductService,
                                      CurrencyService currencyService,
                                      AccountService accountService) {

@@ -14,7 +14,7 @@ public class AnnuityAnnuallyGenerator extends AbstractAnnuityGenerator {
     private static final int DAYS_IN_YEAR = 360;
 
 
-    @Autowired
+    //@Autowired
     protected AnnuityAnnuallyGenerator(@NonNull HolidayService holidayService) {
         super(holidayService,  12);
     }

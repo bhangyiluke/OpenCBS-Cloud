@@ -19,7 +19,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class CurrencyController extends BaseController {
     private final CurrencyService currencyService;
 
-    @Autowired
+    //@Autowired
     public CurrencyController(CurrencyService currencyService) {
         this.currencyService = currencyService;
     }

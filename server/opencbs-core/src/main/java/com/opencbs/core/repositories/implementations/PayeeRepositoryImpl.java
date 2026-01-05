@@ -14,7 +14,7 @@ import java.math.BigInteger;
 @SuppressWarnings("unused")
 public class PayeeRepositoryImpl extends BaseRepository<Payee> implements PayeeRepositoryCustom {
 
-    @Autowired
+    //@Autowired
     public PayeeRepositoryImpl(EntityManager entityManager) {
         super(entityManager, Payee.class);
     }

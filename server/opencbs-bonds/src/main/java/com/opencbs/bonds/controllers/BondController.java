@@ -55,7 +55,7 @@ public class BondController {
     private final BondWorker bondWorker;
     private final BondRollBackWorker bondRollBackWorker;
 
-    @Autowired
+    //@Autowired
     public BondController(BondValidator bondValidator,
                           BondMapper bondMapper,
                           BondService bondService,

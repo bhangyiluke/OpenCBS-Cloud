@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class BranchCustomFieldService extends CustomFieldService<BranchCustomField,
         BranchCustomFieldValue, BranchCustomFieldRepository, BranchCustomFieldValueRepository> {
 
-    @Autowired
+    //@Autowired
     public BranchCustomFieldService(BranchCustomFieldRepository repository,
                                     BranchCustomFieldValueRepository valueRepository,
                                     BranchCustomFieldSectionMapper branchCustomFieldSectionMapper,

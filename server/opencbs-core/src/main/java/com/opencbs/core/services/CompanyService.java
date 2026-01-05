@@ -26,7 +26,7 @@ public class CompanyService extends ProfileBaseService<Company, CompanyCustomFie
     private final CompanyMemberService companyMemberService;
     private final ProfileRepository profileRepository;
 
-    @Autowired
+    //@Autowired
     public CompanyService(ProfileBaseRepository<Company> profileRepository,
                           GlobalSettingsService globalSettingsService,
                           AccountService accountService,

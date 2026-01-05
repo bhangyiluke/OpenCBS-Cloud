@@ -29,7 +29,7 @@ public class CreditCommitteeVoteHistoryController {
     private final CreditCommitteeVoteHistoryMapper creditCommitteeVoteHistoryMapper;
     private final LoanApplicationService loanApplicationService;
 
-    @Autowired
+    //@Autowired
     public CreditCommitteeVoteHistoryController(CreditCommitteeVoteHistoryService creditCommitteeVoteHistoryService,
                                                 CreditCommitteeVoteHistoryMapper creditCommitteeVoteHistoryMapper,
                                                 LoanApplicationService loanApplicationService) {

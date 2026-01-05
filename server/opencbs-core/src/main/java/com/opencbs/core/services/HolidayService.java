@@ -18,7 +18,7 @@ public class HolidayService {
 
     private final HolidayRepository holidayRepository;
 
-    @Autowired
+    //@Autowired
     public HolidayService(HolidayRepository holidayRepository) {
         this.holidayRepository = holidayRepository;
     }

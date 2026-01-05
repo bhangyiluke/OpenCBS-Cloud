@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 
 @Audited
 @MappedSuperclass
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Data
 public abstract class CustomFieldValue<Tcf extends CustomField> extends CreationInfoEntity {
 

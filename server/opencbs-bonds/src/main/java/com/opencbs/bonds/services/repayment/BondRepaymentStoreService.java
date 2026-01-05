@@ -38,7 +38,7 @@ public class BondRepaymentStoreService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Autowired
+    //@Autowired
     BondRepaymentStoreService(
             BondInstallmentService bondInstallmentService,
             BondEventGroupKeyService bondEventGroupKeyService,

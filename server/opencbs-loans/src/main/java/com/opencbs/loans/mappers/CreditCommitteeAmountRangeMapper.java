@@ -23,7 +23,7 @@ public class CreditCommitteeAmountRangeMapper {
     private final RoleService roleService;
     private final RoleMapper roleMapper;
 
-    @Autowired
+    //@Autowired
     public CreditCommitteeAmountRangeMapper(CreditCommitteeAmountRangeService creditCommitteeAmountRangeService,
                                             RoleService roleService,
                                             RoleMapper roleMapper) {

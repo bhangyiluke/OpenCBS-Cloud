@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Validator
 public class LocationDtoValidator extends TreeEntityDtoValidator<LocationService> {
-   @Autowired
+   //@Autowired
     public LocationDtoValidator(LocationService service) {
         super(service);
     }

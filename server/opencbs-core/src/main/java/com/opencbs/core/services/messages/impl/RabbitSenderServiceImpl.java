@@ -17,7 +17,7 @@ public class RabbitSenderServiceImpl implements AmpqSenderService {
     private final ObjectMapper objectMapper;
 
 
-    @Autowired
+    //@Autowired
     public RabbitSenderServiceImpl(@NonNull RabbitTemplate rabbitTemplate,
                                    @NonNull ObjectMapper objectMapper) {
         this.rabbitTemplate = rabbitTemplate;

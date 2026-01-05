@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 @Entity
 @Data
 @Table(name = "task_events_participants")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "[type]", discriminatorType = DiscriminatorType.STRING)
 public class TaskEventParticipant extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)

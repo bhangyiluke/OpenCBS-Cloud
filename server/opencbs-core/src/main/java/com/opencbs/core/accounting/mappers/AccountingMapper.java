@@ -16,7 +16,7 @@ public class AccountingMapper {
 
     private final AccountService accountService;
 
-    @Autowired
+    //@Autowired
     public AccountingMapper(AccountService accountService) {
         this.accountService = accountService;
     }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BranchCustomFieldSectionService extends CustomFieldSectionService<BranchCustomFieldSection, BranchCustomFieldSectionRepository>{
 
-    @Autowired
+    //@Autowired
     public BranchCustomFieldSectionService(BranchCustomFieldSectionRepository repository) {
         super(repository);
     }

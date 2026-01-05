@@ -41,7 +41,7 @@ public class BorrowingRepaymentController {
 
     private final BorrowingRepayValidator borrowingRepayValidator;
 
-    @Autowired
+    //@Autowired
     public BorrowingRepaymentController(
             BorrowingService borrowingService,
             BorrowingRepaymentServiceFactory borrowingRepaymentServiceFactory,

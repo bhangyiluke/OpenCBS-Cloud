@@ -12,7 +12,7 @@ public class PayeeValidator {
 
     private PayeeService payeeService;
 
-    @Autowired
+    //@Autowired
     public PayeeValidator(PayeeService payeeService) {
         this.payeeService = payeeService;
     }

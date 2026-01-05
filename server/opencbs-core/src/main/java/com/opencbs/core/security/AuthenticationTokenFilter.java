@@ -25,10 +25,10 @@ import java.util.Optional;
  */
 public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFilter {
 
-    @Autowired
+    //@Autowired
     private TokenHelper tokenUtils;
 
-    @Autowired
+    //@Autowired
     private UserService userService;
 
     @Override

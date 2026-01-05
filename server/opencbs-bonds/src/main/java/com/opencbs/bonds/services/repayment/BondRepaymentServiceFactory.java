@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Component
 public class BondRepaymentServiceFactory {
 
-    @Autowired
+    //@Autowired
     ApplicationContext context;
 
     private Map<RepaymentTypes, BondRepaymentService> cacheBondServices;

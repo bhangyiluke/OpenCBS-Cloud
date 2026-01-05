@@ -20,7 +20,7 @@ public class VaultMapper {
 
     private final AccountService accountService;
 
-    @Autowired
+    //@Autowired
     public VaultMapper(BranchRepository branchRepository,
                        AccountService accountService) {
         this.branchRepository = branchRepository;

@@ -21,7 +21,7 @@ public class BranchService {
 
     private final BranchRepository branchRepository;
 
-    @Autowired
+    //@Autowired
     public BranchService(BranchRepository branchRepository) {
         this.branchRepository = branchRepository;
     }

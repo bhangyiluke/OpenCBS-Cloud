@@ -22,7 +22,7 @@ public class LoanAuditing implements Auditable {
     private final LoanEventService loanEventService;
     private final LoanEventMapper loanEventMapper;
 
-    @Autowired
+    //@Autowired
     public LoanAuditing(UserService userService,
                         LoanEventService loanEventService,
                         LoanEventMapper loanEventMapper) {

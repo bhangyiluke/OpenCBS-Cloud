@@ -41,7 +41,7 @@ public class TillValidator {
     private final CurrencyService currencyService;
     private final AccountingEntryService accountingEntryService;
 
-    @Autowired
+    //@Autowired
     public TillValidator(BranchService branchService,
                          AccountService accountService,
                          VaultService vaultService,

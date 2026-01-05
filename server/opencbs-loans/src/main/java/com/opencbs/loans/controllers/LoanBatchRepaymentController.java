@@ -32,7 +32,7 @@ public class LoanBatchRepaymentController {
     private final LoanApplicationService loanApplicationService;
     private final LoanWorker loanWorker;
 
-    @Autowired
+    //@Autowired
     public LoanBatchRepaymentController(LoanBatchRepaymentWorker loanBatchRepaymentWorker,
                                         LoanBatchScheduleMapper loanBatchScheduleMapper,
                                         LoanBatchRepaymentValidator loanBatchRepaymentValidator,

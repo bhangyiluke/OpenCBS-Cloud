@@ -42,7 +42,7 @@ public class TermDepositController {
     private final AccountingMapper accountingMapper;
     private final TermDepositCloseInterface termDepositCloseInterface;
 
-    @Autowired
+    //@Autowired
     public TermDepositController(@NonNull TermDepositWork termDepositWork,
                                  @NonNull TermDepositMapper termDepositMapper,
                                  @NonNull AccountingMapper accountingMapper,

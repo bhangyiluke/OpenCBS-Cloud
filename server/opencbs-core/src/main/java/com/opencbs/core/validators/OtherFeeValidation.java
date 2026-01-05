@@ -14,7 +14,7 @@ import java.util.Optional;
 public class OtherFeeValidation extends BaseValidator {
     private final OtherFeeService otherFeeService;
 
-    @Autowired
+    //@Autowired
     public OtherFeeValidation(OtherFeeService otherFeeService) {this.otherFeeService = otherFeeService;}
 
     public void validateOnCreate(CreateOtherFeeDto otherFeeDto){

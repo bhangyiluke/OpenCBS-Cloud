@@ -29,7 +29,7 @@ public class TaskEventController {
     private final TaskEventService taskEventService;
     private final TaskEventsParticipantsRepositoryCustom taskEventsParticipantsRepositoryCustom;
 
-    @Autowired
+    //@Autowired
     public TaskEventController(TaskEventService taskEventService,
                                TaskEventsParticipantsRepositoryCustom taskEventsParticipantsRepositoryCustom) {
         this.taskEventService = taskEventService;

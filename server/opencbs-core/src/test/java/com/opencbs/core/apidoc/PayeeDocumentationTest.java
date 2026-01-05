@@ -34,7 +34,7 @@ public class PayeeDocumentationTest extends BaseDocumentationTest {
 
     private String authHeader;
 
-    @Autowired
+    //@Autowired
     private PayeeService payeeService;
 
     @Before

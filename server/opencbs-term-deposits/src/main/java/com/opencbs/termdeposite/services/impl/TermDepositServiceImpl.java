@@ -26,7 +26,7 @@ public class TermDepositServiceImpl implements TermDepositService {
 
     private final TermDepositRepository termDepositRepository;
 
-    @Autowired
+    //@Autowired
     public TermDepositServiceImpl(
             @NonNull TermDepositRepository termDepositRepository) {
         this.termDepositRepository = termDepositRepository;

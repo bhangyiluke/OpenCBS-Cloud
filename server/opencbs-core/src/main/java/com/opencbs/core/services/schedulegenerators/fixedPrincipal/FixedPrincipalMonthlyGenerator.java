@@ -13,7 +13,7 @@ public class FixedPrincipalMonthlyGenerator extends AbstractFixedPrincipalGenera
     private static final int DAYS_IN_PERIOD = 30;
 
 
-    @Autowired
+    //@Autowired
     protected FixedPrincipalMonthlyGenerator(@NonNull HolidayService holidayService) {
         super(holidayService, 1);
     }

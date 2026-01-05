@@ -20,7 +20,7 @@ public class EventListener implements PersistEventListener {
     private final HelperAccountingService helperAccountingService;
 
 
-    @Autowired
+    //@Autowired
     public EventListener(HelperAccountingService helperAccountingService) {
         this.helperAccountingService = helperAccountingService;
     }

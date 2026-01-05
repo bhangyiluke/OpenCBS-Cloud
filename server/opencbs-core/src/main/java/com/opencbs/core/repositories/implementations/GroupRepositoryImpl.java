@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.persistence.EntityManager;
 
 public class GroupRepositoryImpl extends ProfileBaseRepositoryImpl<Group> {
-    @Autowired
+    //@Autowired
     public GroupRepositoryImpl(EntityManager entityManager) {
         super(entityManager, Group.class);
     }

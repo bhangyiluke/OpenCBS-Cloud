@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BusinessSectorService extends TreeEntityService<BusinessSectorRepository, BusinessSector> {
-    @Autowired
+    //@Autowired
     public BusinessSectorService(BusinessSectorRepository repository) {
         super(repository);
     }

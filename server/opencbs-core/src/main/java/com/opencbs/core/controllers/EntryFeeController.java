@@ -27,7 +27,7 @@ public class EntryFeeController extends BaseController {
     private final EntryFeeValidator entryFeeValidator;
     private final EntryFeeMapper entryFeeMapper;
 
-    @Autowired
+    //@Autowired
     public EntryFeeController(EntryFeeService entryFeeService,
                               EntryFeeValidator entryFeeValidator,
                               EntryFeeMapper entryFeeMapper) {

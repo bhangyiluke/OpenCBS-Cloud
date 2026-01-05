@@ -31,7 +31,7 @@ public class GroupService extends ProfileBaseService<Group, GroupCustomFieldValu
     private final List<GroupMemberListener> groupMemberListenerList;
 
 
-    @Autowired
+    //@Autowired
     public GroupService(
             GlobalSettingsService globalSettingsService,
             AccountService accountService,

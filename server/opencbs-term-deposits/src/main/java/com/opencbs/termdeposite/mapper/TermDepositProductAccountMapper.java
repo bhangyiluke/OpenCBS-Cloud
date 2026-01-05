@@ -25,7 +25,7 @@ public class TermDepositProductAccountMapper {
 
     private final AccountMapper accountMapper;
 
-    @Autowired
+    //@Autowired
     public TermDepositProductAccountMapper(@NonNull AccountService accountService,
                                            @NonNull AccountMapper accountMapper) {
         this.accountService = accountService;

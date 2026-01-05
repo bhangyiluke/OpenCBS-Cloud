@@ -32,7 +32,7 @@ public class PayeeController extends BaseController {
     private final PayeeValidator payeeValidator;
     private final PayeeMapper payeeMapper;
 
-    @Autowired
+    //@Autowired
     public PayeeController(PayeeService payeeService,
                            PayeeValidator payeeValidator,
                            PayeeMapper payeeMapper) {

@@ -32,10 +32,10 @@ public abstract class BaseDocumentationTest {
 
     MockMvc mockMvc;
 
-    @Autowired
+    //@Autowired
     private WebApplicationContext context;
 
-    @Autowired
+    //@Autowired
     private Flyway flyway;
 
     protected void setup() throws Exception {

@@ -17,7 +17,7 @@ public class LoanApplicationCustomFieldValueValidator {
 
     private final LoanApplicationCustomFieldService loanApplicationCustomFieldService;
 
-    @Autowired
+    //@Autowired
     public LoanApplicationCustomFieldValueValidator(LoanApplicationCustomFieldService loanApplicationCustomFieldService) {
         this.loanApplicationCustomFieldService = loanApplicationCustomFieldService;
     }

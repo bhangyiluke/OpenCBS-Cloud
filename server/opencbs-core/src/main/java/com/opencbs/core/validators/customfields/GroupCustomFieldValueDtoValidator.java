@@ -17,7 +17,7 @@ public class GroupCustomFieldValueDtoValidator extends CustomFieldValueDtoValida
         GroupCustomFieldValueRepository,
         GroupCustomFieldService> {
 
-    @Autowired
+    //@Autowired
     public GroupCustomFieldValueDtoValidator(GroupCustomFieldService customFieldService,
                                              FieldTypeValidatorFactory fieldTypeValidatorFactory) {
         super(customFieldService, fieldTypeValidatorFactory);

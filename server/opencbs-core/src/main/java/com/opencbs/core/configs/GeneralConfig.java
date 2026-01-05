@@ -15,6 +15,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.envers.repository.support.EnversRevisionRepositoryFactoryBean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+// import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -32,7 +33,7 @@ import java.text.SimpleDateFormat;
         AttachmentProperty.class,
         TemplateProperty.class,
         CoreModuleProperties.class})
-@EnableJpaRepositories(value = "com.opencbs", repositoryFactoryBeanClass = EnversRevisionRepositoryFactoryBean.class)
+// @EnableJpaRepositories(value = "com.opencbs", repositoryFactoryBeanClass = EnversRevisionRepositoryFactoryBean.class)
 @EnableScheduling
 @AutoConfigureAfter
 @SuppressWarnings("unused")

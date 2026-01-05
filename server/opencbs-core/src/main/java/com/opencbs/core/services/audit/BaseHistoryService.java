@@ -24,7 +24,7 @@ public abstract class BaseHistoryService<E extends BaseEntity, ID, N extends Num
 
     private final RevisionRepository<E, ID, N> revisionRepository;
 
-    @Autowired
+    //@Autowired
     public BaseHistoryService(RevisionRepository<E, ID, N> revisionRepository) {
         this.revisionRepository = revisionRepository;
     }

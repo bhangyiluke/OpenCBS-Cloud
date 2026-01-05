@@ -32,7 +32,7 @@ public class LoanAttachmentController {
     private final LoanAttachmentService loanAttachmentService;
     private final AttachmentMapper attachmentMapper;
 
-    @Autowired
+    //@Autowired
     public LoanAttachmentController(LoanService loanService, LoanAttachmentService loanAttachmentService, AttachmentMapper attachmentMapper) {
         this.loanService = loanService;
         this.loanAttachmentService = loanAttachmentService;

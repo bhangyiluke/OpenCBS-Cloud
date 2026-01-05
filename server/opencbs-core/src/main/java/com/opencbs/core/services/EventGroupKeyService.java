@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class EventGroupKeyService {
     private EventGroupKeyRepository eventGroupKeyRepository;
 
-    @Autowired
+    //@Autowired
     public EventGroupKeyService(EventGroupKeyRepository eventGroupKeyRepository) {
         this.eventGroupKeyRepository = eventGroupKeyRepository;
     }

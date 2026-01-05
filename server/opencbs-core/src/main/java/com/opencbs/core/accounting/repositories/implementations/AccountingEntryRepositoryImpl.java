@@ -1,18 +1,18 @@
 package com.opencbs.core.accounting.repositories.implementations;
 
-import com.github.fluent.hibernate.transformer.FluentHibernateResultTransformer;
 import com.opencbs.core.accounting.domain.Account;
 import com.opencbs.core.accounting.domain.AccountingEntry;
 import com.opencbs.core.accounting.dto.SortedAccountingEntryDto;
 import com.opencbs.core.accounting.repositories.customs.AccountingEntryRepositoryCustom;
 import com.opencbs.core.repositories.implementations.BaseRepository;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.sql.JoinType;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.Query;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -27,7 +27,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class AccountingEntryRepositoryImpl extends BaseRepository<AccountingEntry> implements AccountingEntryRepositoryCustom {
 
-    @Autowired
+    //@Autowired
     public AccountingEntryRepositoryImpl(EntityManager entityManager) {
         super(entityManager, AccountingEntry.class);
     }
@@ -59,60 +59,86 @@ public class AccountingEntryRepositoryImpl extends BaseRepository<AccountingEntr
 
     @Override
     public List<AccountingEntry> getAccountingEntries(LocalDateTime startDate, LocalDateTime endDate) {
-        Criteria criteria = createCriteria("a");
-        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        CriteriaBuilder cb = criteriaBuilder();
+        CriteriaQuery<AccountingEntry> cq = cb.createQuery(AccountingEntry.class);
+        Root<AccountingEntry> root = cq.from(AccountingEntry.class);
 
-        Criterion criterionStart = Restrictions.ge("a.effectiveAt", startDate);
-        Criterion criterionEnd = Restrictions.lt("a.effectiveAt", endDate);
-        Criterion criterion = Restrictions.and(criterionStart, criterionEnd);
-        criteria.add(criterion);
+        Predicate p = cb.and(
+                cb.greaterThanOrEqualTo(root.get("effectiveAt"), startDate),
+                cb.lessThan(root.get("effectiveAt"), endDate),
+                cb.equal(root.get("deleted"), false)
+        );
 
-        Criterion criterionDelete = Restrictions.eq("deleted", false);
-        criteria.add(criterionDelete);
-
-        return criteria.list();
+        cq.select(root).where(p).distinct(true);
+        TypedQuery<AccountingEntry> query = getEntityManager().createQuery(cq);
+        return query.getResultList();
     }
 
     @Override
     public Page<AccountingEntry> getAll(SortedAccountingEntryDto sortedAccountingEntryDto, Pageable pageable, List<Long> accountIds) {
-        Criterion criterion = Restrictions.eq("deleted", false);
+        CriteriaBuilder cb = criteriaBuilder();
+        CriteriaQuery<AccountingEntry> cq = cb.createQuery(AccountingEntry.class);
+        Root<AccountingEntry> root = cq.from(AccountingEntry.class);
 
-        Criteria criteria = this.getCriteria();
-        criteria.createAlias("debitAccount", "debAccount", JoinType.LEFT_OUTER_JOIN);
-        criteria.createAlias("creditAccount", "creAccount", JoinType.LEFT_OUTER_JOIN);
-        criteria.createAlias("createdBy", "createdBy", JoinType.LEFT_OUTER_JOIN);
-        criteria.createAlias("branch", "branch", JoinType.LEFT_OUTER_JOIN);
+        Join<AccountingEntry, ?> debAccount = root.join("debitAccount", JoinType.LEFT);
+        Join<AccountingEntry, ?> creAccount = root.join("creditAccount", JoinType.LEFT);
+        Join<AccountingEntry, ?> createdBy = root.join("createdBy", JoinType.LEFT);
+        root.join("branch", JoinType.LEFT);
 
-        if ((accountIds != null) && (!accountIds.isEmpty())) {
-            criteria.add(Restrictions.or(
-                    Restrictions.in("debitAccount.id", accountIds),
-                    Restrictions.in("creditAccount.id", accountIds)
-            ));
-        }
-        if(sortedAccountingEntryDto.getFromDate() != null){
-            criteria.add(Restrictions.ge("effectiveAt",
-                    LocalDateTime.of(sortedAccountingEntryDto.getFromDate(),LocalTime.MIN)));
-        }
-        if(sortedAccountingEntryDto.getToDate() != null){
-            criteria.add(Restrictions.le("effectiveAt",
-                    LocalDateTime.of(sortedAccountingEntryDto.getToDate(),LocalTime.MAX)));
+        // predicates
+        Predicate deletedFalse = cb.equal(root.get("deleted"), false);
+        java.util.List<Predicate> predicates = new java.util.ArrayList<>();
+        predicates.add(deletedFalse);
+
+        if (accountIds != null && !accountIds.isEmpty()) {
+            predicates.add(cb.or(debAccount.get("id").in(accountIds), creAccount.get("id").in(accountIds)));
         }
 
-        if(!sortedAccountingEntryDto.getShowSystem()){
-            criteria.add(Restrictions.ne("createdBy.isSystemUser",true));
+        if (sortedAccountingEntryDto.getFromDate() != null) {
+            predicates.add(cb.greaterThanOrEqualTo(root.get("effectiveAt"), LocalDateTime.of(sortedAccountingEntryDto.getFromDate(), LocalTime.MIN)));
         }
 
-        criteria.add(criterion);
-        long total = (long) criteria.setProjection(Projections.rowCount()).uniqueResult();
-        criteria.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-        criteria.setMaxResults(pageable.getPageSize());
-        criteria.addOrder(Order.desc("effectiveAt"));
-        criteria.addOrder(Order.asc("id"));
+        if (sortedAccountingEntryDto.getToDate() != null) {
+            predicates.add(cb.lessThanOrEqualTo(root.get("effectiveAt"), LocalDateTime.of(sortedAccountingEntryDto.getToDate(), LocalTime.MAX)));
+        }
 
-        criteria.setProjection(this.getProjectionList());
-        criteria.setResultTransformer(new FluentHibernateResultTransformer(AccountingEntry.class));
+        if (!sortedAccountingEntryDto.getShowSystem()) {
+            predicates.add(cb.notEqual(createdBy.get("isSystemUser"), true));
+        }
 
-        return new PageImpl<>(criteria.list(), pageable, total);
+        cq.select(root).where(predicates.toArray(new Predicate[0])).distinct(true);
+        cq.orderBy(cb.desc(root.get("effectiveAt")), cb.asc(root.get("id")));
+
+        // total count
+        CriteriaQuery<Long> countCq = cb.createQuery(Long.class);
+        Root<AccountingEntry> countRoot = countCq.from(AccountingEntry.class);
+        // apply similar joins and predicates on count query
+        Join<AccountingEntry, ?> countDeb = countRoot.join("debitAccount", JoinType.LEFT);
+        Join<AccountingEntry, ?> countCre = countRoot.join("creditAccount", JoinType.LEFT);
+        Join<AccountingEntry, ?> countCreatedBy = countRoot.join("createdBy", JoinType.LEFT);
+        java.util.List<Predicate> countPreds = new java.util.ArrayList<>();
+        countPreds.add(cb.equal(countRoot.get("deleted"), false));
+        if (accountIds != null && !accountIds.isEmpty()) {
+            countPreds.add(cb.or(countDeb.get("id").in(accountIds), countCre.get("id").in(accountIds)));
+        }
+        if (sortedAccountingEntryDto.getFromDate() != null) {
+            countPreds.add(cb.greaterThanOrEqualTo(countRoot.get("effectiveAt"), LocalDateTime.of(sortedAccountingEntryDto.getFromDate(), LocalTime.MIN)));
+        }
+        if (sortedAccountingEntryDto.getToDate() != null) {
+            countPreds.add(cb.lessThanOrEqualTo(countRoot.get("effectiveAt"), LocalDateTime.of(sortedAccountingEntryDto.getToDate(), LocalTime.MAX)));
+        }
+        if (!sortedAccountingEntryDto.getShowSystem()) {
+            countPreds.add(cb.notEqual(countCreatedBy.get("isSystemUser"), true));
+        }
+        countCq.select(cb.countDistinct(countRoot)).where(countPreds.toArray(new Predicate[0]));
+        Long total = getEntityManager().createQuery(countCq).getSingleResult();
+
+        TypedQuery<AccountingEntry> typed = getEntityManager().createQuery(cq);
+        typed.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+        typed.setMaxResults(pageable.getPageSize());
+
+        List<AccountingEntry> results = typed.getResultList();
+        return new PageImpl<>(results, pageable, total);
     }
 
     @Override
@@ -120,29 +146,5 @@ public class AccountingEntryRepositoryImpl extends BaseRepository<AccountingEntr
         return this.getAll(sortedAccountingEntryDto, pageable, null);
     }
 
-    private Criteria getCriteria() {
-        Criteria criteria = this.createCriteria("ae");
-        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        return criteria;
-    }
-
-    private ProjectionList getProjectionList() {
-        ProjectionList projectionList = Projections.projectionList();
-        projectionList.add(Projections.property("ae.id").as("id"));
-        projectionList.add(Projections.property("ae.amount").as("amount"));
-        projectionList.add(Projections.property("ae.description").as("description"));
-        projectionList.add(Projections.property("ae.createdAt").as("createdAt"));
-        projectionList.add(Projections.property("ae.effectiveAt").as("effectiveAt"));
-        projectionList.add(Projections.property("debAccount.id").as("debitAccount.id"));
-        projectionList.add(Projections.property("debAccount.name").as("debitAccount.name"));
-        projectionList.add(Projections.property("debAccount.number").as("debitAccount.number"));
-        projectionList.add(Projections.property("creAccount.id").as("creditAccount.id"));
-        projectionList.add(Projections.property("creAccount.name").as("creditAccount.name"));
-        projectionList.add(Projections.property("creAccount.number").as("creditAccount.number"));
-        projectionList.add(Projections.property("branch.name").as("branch.name"));
-        projectionList.add(Projections.property("createdBy.firstName").as("createdBy.firstName"));
-        projectionList.add(Projections.property("createdBy.lastName").as("createdBy.lastName"));
-        projectionList.add(Projections.property("createdBy.username").as("createdBy.username"));
-        return projectionList;
-    }
+    // legacy helper methods (Hibernate Criteria) removed in favor of JPA Criteria
 }

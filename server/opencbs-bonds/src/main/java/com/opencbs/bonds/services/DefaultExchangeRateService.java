@@ -29,7 +29,7 @@ public class DefaultExchangeRateService extends AbstractExchangeRateService {
 
     public static final String EURO_CURRENCY = "EUR";
 
-    @Autowired
+    //@Autowired
     public DefaultExchangeRateService(@NonNull CurrencyService currencyService,
                                         @NonNull ExchangeRateRepository exchangeRateRepository,
                                         @NonNull HolidayService holidayService) {

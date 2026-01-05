@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.opencbs</groupId>
     <artifactId>opencbs-server</artifactId>
-    <version>${opencbs.version}</version>
+    <version>0.0.1-SNAPSHOT</version>
     <properties>
         <jsoup.version>1.16.1</jsoup.version>
-        <opencbs.version>0.0.1-SNAPSHOT</opencbs.version>
+        <!-- <opencbs.version>0.0.1-SNAPSHOT</opencbs.version> -->
     </properties>
     <parent>
         <groupId>com.opencbs</groupId>
@@ -16,21 +16,45 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../opencbs-spring-boot-starter/pom.xml</relativePath> <!-- lookup parent in reactor -->
     </parent>
+
+    <!-- Add repositories so the jasperreports plugin can resolve com.lowagie:itext:2.1.7.js8 -->
+    <!-- <repositories> -->
+        <!-- jaspersoft repository removed; prefer Maven Central for standard artifacts -->
+        <!-- <repository>
+            <id>central</id>
+            <name>Maven Central</name>
+            <url>https://repo1.maven.org/maven2/</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>false</enabled></snapshots>
+        </repository>
+    </repositories> -->
+
+<!-- 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jaspersoft-third-party-plugins</id>
+            <name>Jaspersoft Third-Party Plugins</name>
+            <url>https://jaspersoft.jfrog.io/artifactory/third-party-ce-artifacts/</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>false</enabled></snapshots>
+        </pluginRepository>
+    </pluginRepositories> -->
+
     <dependencies>
         <dependency>
             <groupId>com.opencbs</groupId>
             <artifactId>opencbs-loans</artifactId>
-            <version>${opencbs.version}</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.opencbs</groupId>
             <artifactId>opencbs-borrowings</artifactId>
-            <version>${opencbs.version}</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.opencbs</groupId>
             <artifactId>opencbs-savings</artifactId>
-            <version>${opencbs.version}</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -43,131 +67,31 @@
             <version>${assertj.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.rest-assured</groupId>
+            <groupId>com.jayway.restassured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>5.5.6</version>
+            <version>2.9.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.opencbs</groupId>
             <artifactId>opencbs-term-deposits</artifactId>
-            <version>${opencbs.version}</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>${jsoup.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.lowagie/itext
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-properties-migrator</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>2.1.7</version>
+        </dependency> -->
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <configuration>
-                    <failOnError>false</failOnError>
-                    <filesets>
-                        <fileset>
-                            <directory>../../client</directory>
-                            <includes>
-                                <include>dist/</include>
-                                <include>node_modules/</include>
-                            </includes>
-                            <followSymlinks>false</followSymlinks>
-                        </fileset>
-                    </filesets>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-resource</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>
-                                ${project.build.outputDirectory}/static/docs
-                            </outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>
-                                        ${project.build.directory}/generated-docs
-                                    </directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-angular-dist</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>../../client/dist</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
-                <executions>
-                    <execution>
-                        <id>yarn</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <phase>compile</phase>
-                        <configuration>
-                            <executable>yarn</executable>
-                            <workingDirectory>../../client</workingDirectory>
-                            <environmentVariables>
-                                <NODE_OPTIONS>--openssl-legacy-provider</NODE_OPTIONS>
-                            </environmentVariables>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>yarn build</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <phase>compile</phase>
-                        <configuration>
-                            <executable>yarn</executable>
-                            <arguments>
-                                <argument>build-prod</argument>
-                            </arguments>
-                            <workingDirectory>../../client</workingDirectory>
-                            <environmentVariables>
-                                <NODE_OPTIONS>--openssl-legacy-provider</NODE_OPTIONS>
-                            </environmentVariables>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

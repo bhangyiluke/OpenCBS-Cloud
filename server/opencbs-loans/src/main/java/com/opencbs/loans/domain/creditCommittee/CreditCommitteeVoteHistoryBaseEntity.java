@@ -13,6 +13,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
@@ -22,7 +23,13 @@ import java.time.LocalDateTime;
 @Data
 public abstract class CreditCommitteeVoteHistoryBaseEntity extends BaseEntity {
 
+    // @GeneratedValue(strategy = GenerationType.AUTO)
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @Column(name = "id")
+    private Long id;
+    
+    // TODO: Uncomment above line and add id field if needed
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "loan_application_id", nullable = false)
     private LoanApplication loanApplication;

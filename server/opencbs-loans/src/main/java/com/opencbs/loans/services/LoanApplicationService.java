@@ -85,7 +85,7 @@ public class LoanApplicationService extends BaseHistoryService<LoanApplication, 
     private final LoanNotificatorSender loanNotificatorSender;
     private final CreditLineService creditLineService;
 
-    @Autowired
+    //@Autowired
     public LoanApplicationService(LoanApplicationRepository loanApplicationRepository,
                                   ScheduleService scheduleService,
                                   LoanService loanService,

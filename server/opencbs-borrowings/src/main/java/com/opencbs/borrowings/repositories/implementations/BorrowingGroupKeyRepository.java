@@ -8,7 +8,7 @@ import jakarta.persistence.EntityManager;
 
 @Repository
 public class BorrowingGroupKeyRepository extends BaseEventGroupKeyRepository {
-    @Autowired
+    //@Autowired
     public BorrowingGroupKeyRepository(EntityManager entityManager) {
         super(entityManager, "borrowing_event_group_key");
     }

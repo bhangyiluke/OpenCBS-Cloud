@@ -2,14 +2,12 @@ package com.opencbs.core.repositories.implementations;
 
 import com.opencbs.core.domain.trees.TreeEntity;
 import com.opencbs.core.repositories.customs.TreeEntityRepositoryCustom;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Subqueries;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Subquery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -25,50 +23,54 @@ public abstract class TreeEntityRepositoryImpl<Tte extends TreeEntity> extends B
 
     @Override
     public Page<Tte> findBy(String query, Pageable pageable) {
-        Criteria criteria = this.getCriteria();
-        Criterion queryCriterion = this.getValueRestriction(query);
-        criteria.add(queryCriterion);
-        criteria.add(this.getLeavesSubQuery());
-        criteria.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-        criteria.setMaxResults(pageable.getPageSize());
-        criteria.addOrder(Order.asc("t.name"));
-        return new PageImpl<>(criteria.list(), pageable, this.getTotal(queryCriterion));
+        CriteriaBuilder cb = criteriaBuilder();
+        CriteriaQuery<Tte> cq = cb.createQuery((Class<Tte>) this.clazz);
+        Root<Tte> root = cq.from((Class<Tte>) this.clazz);
+
+        Predicate valuePredicate = null;
+        if (query != null && !query.isEmpty()) {
+            valuePredicate = cb.like(cb.lower(root.get("name")), "%" + query.toLowerCase() + "%");
+        }
+
+        // leaves subquery: select p.parent.id where parent is not null
+        Subquery<Long> sub = cq.subquery(Long.class);
+        Root<Tte> p = sub.from((Class<Tte>) this.clazz);
+        sub.select(p.get("parent").get("id")).where(cb.isNotNull(p.get("parent").get("id")));
+        Predicate leavesNotIn = cb.not(root.get("id").in(sub));
+
+        Predicate finalPredicate = leavesNotIn;
+        if (valuePredicate != null) {
+            finalPredicate = cb.and(valuePredicate, leavesNotIn);
+        }
+
+        cq.select(root).where(finalPredicate).distinct(true).orderBy(cb.asc(root.get("name")));
+
+        TypedQuery<Tte> tq = getEntityManager().createQuery(cq);
+        tq.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+        tq.setMaxResults(pageable.getPageSize());
+        java.util.List<Tte> results = tq.getResultList();
+
+        // count
+        CriteriaQuery<Long> countQ = cb.createQuery(Long.class);
+        Root<Tte> countRoot = countQ.from((Class<Tte>) this.clazz);
+        Subquery<Long> countSub = countQ.subquery(Long.class);
+        Root<Tte> cp = countSub.from((Class<Tte>) this.clazz);
+        countSub.select(cp.get("parent").get("id")).where(cb.isNotNull(cp.get("parent").get("id")));
+        Predicate countLeavesNotIn = cb.not(countRoot.get("id").in(countSub));
+
+        if (valuePredicate != null) {
+            countQ.select(cb.count(countRoot)).where(cb.and(cb.like(cb.lower(countRoot.get("name")), "%" + query.toLowerCase() + "%"), countLeavesNotIn));
+        } else {
+            countQ.select(cb.count(countRoot)).where(countLeavesNotIn);
+        }
+
+        Long total = getEntityManager().createQuery(countQ).getSingleResult();
+
+        return new PageImpl<>(results, pageable, total);
     }
 
     @Override
     public Page<Tte> findLeaves(Pageable pageable) {
-        Criteria criteria = this.getCriteria();
-        criteria.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-        criteria.setMaxResults(pageable.getPageSize());
-        criteria.addOrder(Order.asc("t.name"));
-        return new PageImpl<>(criteria.list(), pageable, this.getTotal(null));
-    }
-
-    private Criteria getCriteria() {
-        Criteria criteria = this.createCriteria("t");
-        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        return criteria;
-    }
-
-    private Criterion getValueRestriction(String query) {
-        return Restrictions
-                .like("t.name", query, MatchMode.ANYWHERE)
-                .ignoreCase();
-    }
-
-    private Long getTotal(Criterion criterion) {
-        Criteria criteria = this.getCriteria();
-        if (criterion != null) {
-            criteria.add(criterion);
-        }
-        criteria.add(this.getLeavesSubQuery());
-        return (long) criteria.setProjection(Projections.rowCount()).uniqueResult();
-    }
-
-    private Criterion getLeavesSubQuery() {
-        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(this.clazz, "p")
-                .add(Restrictions.isNotNull("p.parent.id"))
-                .setProjection(Projections.property("p.parent.id"));
-        return Subqueries.propertyNotIn("t.id", detachedCriteria);
+        return findBy(null, pageable);
     }
 }

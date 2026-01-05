@@ -33,7 +33,7 @@ public class BusinessSectorController {
     private final BusinessSectorMapper businessSectorMapper;
     private final BusinessSectorValidator businessSectorValidator;
 
-    @Autowired
+    //@Autowired
     public BusinessSectorController(BusinessSectorService businessSectorService,
                                     BusinessSectorMapper businessSectorMapper,
                                     BusinessSectorValidator businessSectorValidator) {

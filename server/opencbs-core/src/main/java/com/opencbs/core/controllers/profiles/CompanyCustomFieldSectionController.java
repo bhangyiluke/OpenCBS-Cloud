@@ -30,7 +30,7 @@ public class CompanyCustomFieldSectionController extends BaseController {
     private final CompanyCustomFieldSectionMapper companyCustomFieldSectionMapper;
     private final CustomFieldSectionDtoValidator customFieldSectionDtoValidator;
 
-    @Autowired
+    //@Autowired
     public CompanyCustomFieldSectionController(CompanyCustomFieldSectionService companyCustomFieldSectionService,
                                                CompanyCustomFieldSectionMapper companyCustomFieldSectionMapper,
                                                CustomFieldSectionDtoValidator customFieldSectionDtoValidator) {

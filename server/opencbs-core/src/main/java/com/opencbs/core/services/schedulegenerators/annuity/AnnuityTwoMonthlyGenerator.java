@@ -13,7 +13,7 @@ public class AnnuityTwoMonthlyGenerator extends AbstractAnnuityGenerator {
     private static final int DAYS_IN_PERIOD = 60;
 
 
-    @Autowired
+    //@Autowired
     protected AnnuityTwoMonthlyGenerator(@NonNull HolidayService holidayService) {
         super(holidayService,  2);
     }

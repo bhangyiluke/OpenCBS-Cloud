@@ -36,7 +36,7 @@ public class CollateralMapper {
     private final TypeOfCollateralMapper typeOfCollateralMapper;
     private final LookupService lookupService;
 
-    @Autowired
+    //@Autowired
     public CollateralMapper(ModelMapper modelMapper,
                             TypeOfCollateralCustomFieldMapper typeOfCollateralCustomFieldMapper,
                             TypeOfCollateralService typeOfCollateralService,

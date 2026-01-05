@@ -11,7 +11,7 @@ public class DifferentialSemiAnnualGenerator extends AbstractDifferentialGenerat
     private static final int DAYS_IN_PERIOD = 30;
 
 
-    @Autowired
+    //@Autowired
     protected DifferentialSemiAnnualGenerator(@NonNull HolidayService holidayService) {
         super(holidayService, 6, 1);
     }

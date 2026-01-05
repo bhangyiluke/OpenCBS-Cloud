@@ -30,7 +30,7 @@ public class PersonCustomFieldSectionController extends BaseController {
     private final PersonCustomFieldSectionMapper personCustomFieldSectionMapper;
     private final CustomFieldSectionDtoValidator customFieldSectionDtoValidator;
 
-    @Autowired
+    //@Autowired
     public PersonCustomFieldSectionController(
             PersonCustomFieldSectionService personCustomFieldSectionService,
             PersonCustomFieldSectionMapper personCustomFieldSectionMapper,

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Mapper
 public class LoanApplicationCustomFieldSectionMapper extends CustomFieldSectionMapper<LoanApplicationCustomFieldSection, LoanApplicationCustomFieldMapper> {
 
-    @Autowired
+    //@Autowired
     protected LoanApplicationCustomFieldSectionMapper(LoanApplicationCustomFieldMapper customFieldMapper) {
         super(customFieldMapper);
     }

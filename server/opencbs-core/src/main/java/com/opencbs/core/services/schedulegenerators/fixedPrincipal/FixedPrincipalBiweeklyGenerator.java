@@ -13,7 +13,7 @@ public class FixedPrincipalBiweeklyGenerator extends AbstractFixedPrincipalGener
     private static final int DAYS_IN_PERIOD = 14;
 
 
-    @Autowired
+    //@Autowired
     protected FixedPrincipalBiweeklyGenerator(@NonNull HolidayService holidayService) {
         super(holidayService, 0, DAYS_IN_PERIOD);
     }

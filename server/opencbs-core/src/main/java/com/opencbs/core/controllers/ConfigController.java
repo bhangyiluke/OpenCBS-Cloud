@@ -13,7 +13,7 @@ public class ConfigController extends BaseController {
 
     private final ConfigService configService;
 
-    @Autowired
+    //@Autowired
     public ConfigController(ConfigService configService) {
         this.configService = configService;
     }

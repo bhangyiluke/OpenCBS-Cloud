@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @ConditionalOnMissingBean(annotation = CustomLoanRepaymentRestController.class)
 public class LoanRepaymentController extends AbstractLoanRepaymentController<RepaymentSplit> {
 
-    @Autowired
+    //@Autowired
     public LoanRepaymentController(LoanService loanService,
                                    LoanRepaymentServiceFactory loanRepaymentServiceFactory,
                                    LoanScheduleMapper loanScheduleMapper,

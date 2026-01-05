@@ -10,7 +10,7 @@ public class CompanyDtoValidator {
 
     private final CompanyCustomFieldValueDtoValidator companyCustomFieldValueDtoValidator;
 
-    @Autowired
+    //@Autowired
     public CompanyDtoValidator(CompanyCustomFieldValueDtoValidator companyCustomFieldValueDtoValidator) {
         this.companyCustomFieldValueDtoValidator = companyCustomFieldValueDtoValidator;
     }

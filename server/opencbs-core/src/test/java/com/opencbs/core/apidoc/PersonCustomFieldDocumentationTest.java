@@ -38,10 +38,10 @@ public class PersonCustomFieldDocumentationTest extends BaseCustomFieldSectionDo
 
     private String authHeader;
 
-    @Autowired
+    //@Autowired
     private PersonCustomFieldSectionService personCustomFieldSectionService;
 
-    @Autowired
+    //@Autowired
     private PersonCustomFieldService personCustomFieldService;
 
     @Before

@@ -23,7 +23,7 @@ public class ActualizeHelper implements ApplicationContextAware {
     private static DayClosureContractService dayClosureContractService;
     private static ApplicationContext context;
 
-    @Autowired
+    //@Autowired
     public ActualizeHelper(DayClosureContractService dayClosureContractService) {
         ActualizeHelper.dayClosureContractService = dayClosureContractService;
     }

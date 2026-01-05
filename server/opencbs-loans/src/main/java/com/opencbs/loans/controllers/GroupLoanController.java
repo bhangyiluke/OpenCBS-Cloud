@@ -27,7 +27,7 @@ public class GroupLoanController extends BaseController {
     private final LoanWorker loanWorker;
     private final LoanApplicationService loanApplicationService;
 
-    @Autowired
+    //@Autowired
     public GroupLoanController(ProfileService profileService,
                                LoanWorker loanWorker,
                                LoanApplicationService loanApplicationService) {

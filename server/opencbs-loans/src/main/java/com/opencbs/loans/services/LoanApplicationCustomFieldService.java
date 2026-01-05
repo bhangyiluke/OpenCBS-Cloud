@@ -22,7 +22,7 @@ public class LoanApplicationCustomFieldService extends CustomFieldService<LoanAp
     private final LoanApplicationCustomFieldValueRepository loanApplicationCustomFieldValueRepository;
     private final LoanApplicationCustomFieldRepository loanApplicationCustomFieldRepository;
 
-    // @Autowired
+    // //@Autowired
     LoanApplicationCustomFieldService(LoanApplicationCustomFieldRepository repository,
                                       LoanApplicationCustomFieldValueRepository customFieldValueRepository) {
         super(repository, customFieldValueRepository);

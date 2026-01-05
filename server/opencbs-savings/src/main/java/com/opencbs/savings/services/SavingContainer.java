@@ -24,7 +24,7 @@ public class SavingContainer implements Container {
     private final ApplicationContext context;
     private static List<DayClosureProcessor> savingDayClosureProcessorList;
 
-    @Autowired
+    //@Autowired
     protected SavingContainer(SavingService savingService,
                               ApplicationContext context) {
         this.savingService = savingService;

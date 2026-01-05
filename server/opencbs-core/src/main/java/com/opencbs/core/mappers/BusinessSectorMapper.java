@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper
 public class BusinessSectorMapper extends TreeEntityMapper<BusinessSectorService, BusinessSector> {
-    @Autowired
+    //@Autowired
     public BusinessSectorMapper(BusinessSectorService service) {
         super(service, BusinessSector.class);
     }
