@@ -54,7 +54,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     TableModule,
     ScheduleModule,
     SharedModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    TranslateModule
   ],
   declarations: COMPONENTS
 })

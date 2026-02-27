@@ -11,11 +11,11 @@ import { ManageEventModalComponent } from './components/manage-event-popup/manag
 import { EventService } from './event.service';
 import { RouteGuard } from '../../core/guards/route-guard.service';
 
-const eventManagerRouting: ModuleWithProviders = RouterModule.forChild([{
+const eventManagerRouting: ModuleWithProviders<any> = RouterModule.forChild([{
   path: 'event-manager',
   component: EventManagerComponent,
   canActivate: [RouteGuard],
-  data: {groupName: 'TASKS_MANAGEMENT'}
+  data: { groupName: 'TASKS_MANAGEMENT' }
 }]);
 
 @NgModule({

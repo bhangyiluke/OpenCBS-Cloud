@@ -4,9 +4,7 @@
     "outDir": "../out-tsc/app",
     "module": "ES2022",
     "baseUrl": "",
-    "types": [
-      "moment"
-    ]
+    "types": []
   },
   "exclude": [
     "test.ts",

@@ -30,7 +30,8 @@ import { StompRService } from '@stomp/ng2-stompjs';
   ],
   exports: [
     COMPONENTS,
-    CbsSharedModule
+    CbsSharedModule,
+    TranslateModule
   ],
   providers: [StompRService]
 })

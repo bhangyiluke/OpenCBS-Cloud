@@ -25,7 +25,7 @@ import { SavingEntriesComponent } from './saving-entries/saving-entries.componen
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    TranslateModule,
+    TranslateModule.forChild(),
     CoreModule,
     NglModule,
     SavingsRoutingModule

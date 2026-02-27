@@ -6,19 +6,15 @@
                 <span #dropdown>
                     <form novalidate [formGroup]="form" class="slds-form--stacked">
                         <div class="cbs-controls-container">
-                            <cbs-form-date-control
-                                class="slds-m-right--x-small"
-                                formControlName="start"
+                            <cbs-form-date-control class="slds-m-right--x-small" formControlName="start"
                                 [hasError]="form.get('start').errors && form.get('start').touched"
                                 [requiredField]="true"></cbs-form-date-control>
                             <span class="cbs-long-dash">&#8212;</span>
-                            <cbs-form-date-control
-                                formControlName="end"
+                            <cbs-form-date-control formControlName="end"
                                 [hasError]="form.get('end').errors && form.get('end').touched"
                                 [requiredField]="true"></cbs-form-date-control>
-                            <button class="slds-button slds-button--neutral filter"
-                                    (click)="filter()"
-                                    aria-live="assertive">
+                            <button class="slds-button slds-button--neutral filter" (click)="filter()"
+                                aria-live="assertive">
                                 <span class="slds-text-not-selected">
                                     {{ 'FILTER' | translate }}
                                 </span>
@@ -26,16 +22,13 @@
                         </div>
                     </form>
                     <div class="slds-p-top_x-small">
-                        <button (click)="filterByPeriod(2)"
-                                class="cbs-period-button slds-button period">
+                        <button (click)="filterByPeriod(2)" class="cbs-period-button slds-button period">
                             {{ 'LAST_2_DAYS' | translate }}
                         </button>
-                        <button (click)="filterByPeriod(7)"
-                                class="cbs-period-button slds-button period">
+                        <button (click)="filterByPeriod(7)" class="cbs-period-button slds-button period">
                             {{ 'CURRENT_WEEK' | translate }}
                         </button>
-                        <button (click)="filterByPeriod('month')"
-                                class="cbs-period-button slds-button period">
+                        <button (click)="filterByPeriod('month')" class="cbs-period-button slds-button period">
                             {{ 'CURRENT_MONTH' | translate }}
                         </button>
                     </div>
@@ -51,68 +44,50 @@
             <div class="cbs-fixed-header">
                 <table class="slds-table slds-table--bordered slds-table--cell-buffer">
                     <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>{{ 'DATE' | translate }}</th>
-                        <th>{{ 'DEPOSIT' | translate }}</th>
-                        <th>{{ 'WITHDRAW' | translate }}</th>
-                        <th>{{ 'BALANCE' | translate }}</th>
-                        <th>{{ 'SOURCE_CODE' | translate }}</th>
-                        <th>{{ 'DESCRIPTION' | translate }}</th>
-                    </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>{{ 'DATE' | translate }}</th>
+                            <th>{{ 'DEPOSIT' | translate }}</th>
+                            <th>{{ 'WITHDRAW' | translate }}</th>
+                            <th>{{ 'BALANCE' | translate }}</th>
+                            <th>{{ 'SOURCE_CODE' | translate }}</th>
+                            <th>{{ 'DESCRIPTION' | translate }}</th>
+                        </tr>
                     </thead>
                 </table>
             </div>
-            <div infiniteScroll
-                 [infiniteScrollDistance]="1"
-                 [infiniteScrollThrottle]="300"
-                 [infiniteScrollDisabled]="transactions?.termDepositPage == transactions?.totalPages"
-                 (scrolled)="onScroll({page: transactions?.termDepositPage})"
-                 [scrollWindow]="false"
-                 class="cbs-scrollable-table">
-                <p-dataTable
-                    emptyMessage="{{ 'NO_RECORDS_FOUND' | translate}}"
-                    [value]="transactions?.transactions"
-                    [tableStyleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'">
-                    <p-column field="id">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <span>{{ row['id'] }}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="date">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <span>{{ row['date'] | cbsDateFormat }} {{ row['date'] | cbsTimeFormat }}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="deposit">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <span *ngIf="row['deposit']; else nodata">{{ row['deposit'] | cbsNumberFormat }}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="withdraw">
-                        <ng-template let-row="rowData" pTemplate="body">
-                                <span
-                                    *ngIf="row['withdraw']; else nodata">{{ row['withdraw'] | cbsNumberFormat }}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="balance">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <span>{{ row['balance'] | cbsNumberFormat }}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="balance">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <span>{{ row['source']['number'] }}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="description">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <div class="slds-truncate" [attr.title]="row['description']">
-                                <span *ngIf="row['description']; else nodata">{{ row['description'] }}</span>
-                            </div>
-                        </ng-template>
-                    </p-column>
-                </p-dataTable>
+            <div infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300"
+                [infiniteScrollDisabled]="transactions?.termDepositPage == transactions?.totalPages"
+                (scrolled)="onScroll({page: transactions?.termDepositPage})" [scrollWindow]="false"
+                class="cbs-scrollable-table">
+                <p-table [value]="transactions?.transactions"
+                    [styleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'">
+                    <ng-template pTemplate="body" let-row>
+                        <tr>
+                            <td>{{ row['id'] }}</td>
+                            <td>{{ row['date'] | cbsDateFormat }} {{ row['date'] | cbsTimeFormat }}</td>
+                            <td>
+                                <span *ngIf="row['deposit']; else nodata">{{ row['deposit'] | cbsNumberFormat }}</span>
+                            </td>
+                            <td>
+                                <span *ngIf="row['withdraw']; else nodata">{{ row['withdraw'] | cbsNumberFormat
+                                    }}</span>
+                            </td>
+                            <td>{{ row['balance'] | cbsNumberFormat }}</td>
+                            <td>{{ row['source']['number'] }}</td>
+                            <td>
+                                <div class="slds-truncate" [attr.title]="row['description']">
+                                    <span *ngIf="row['description']; else nodata">{{ row['description'] }}</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="7">{{ 'NO_RECORDS_FOUND' | translate }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </div>
         </div>
         <cbs-loading-indicator [isFixed]="true" [showLoader]="!transactions?.loaded"></cbs-loading-indicator>
