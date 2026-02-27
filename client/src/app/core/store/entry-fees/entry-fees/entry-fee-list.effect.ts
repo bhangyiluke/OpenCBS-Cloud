@@ -1,0 +1,33 @@
+import { Observable, of as observableOf } from 'rxjs';
+
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
+
+
+import * as entryFeeListActions from './entry-fee-list.actions';
+import { EntryFeeListService } from './entry-fee-list.service';
+import { Action } from '@ngrx/store';
+import { HttpErrorResponse } from '@angular/common/http';
+
+
+@Injectable()
+export class EntryFeeListEffects {
+
+  load_entryFees$= createEffect(() => this.actions$
+    .pipe(ofType(entryFeeListActions.LOAD_ENTRY_FEES),
+      switchMap((action) => {
+        return this.entryFeeListService.getEntryFeeList().pipe(
+          map(
+            res => new entryFeeListActions.LoadEntryFeesSuccess(res)),
+          catchError((err: HttpErrorResponse) => {
+            const errObj = new entryFeeListActions.LoadEntryFeesFailure(err.error);
+            return observableOf(errObj);
+          }));
+      })));
+
+  constructor(
+    private entryFeeListService: EntryFeeListService,
+    private actions$: Actions) {
+  }
+}

@@ -1,0 +1,5 @@
+<select [(ngModel)]="pick" (ngModelChange)="selectEntryFee($event)" [disabled]="!entryFees.length || disablePickList"
+    class="slds-select">
+    <option [ngValue]="null" disabled selected>{{ selectDataLabel | translate }}</option>
+    <option *ngFor="let entryFee of entryFees" [ngValue]="entryFee">{{ entryFee?.name }}</option>
+</select>

@@ -1,0 +1,357 @@
+2026-01-19T13:08:10.630+03:00  INFO 29459 --- [opencbs-server] [main] com.opencbs.OpencbsServerApplication     : Starting OpencbsServerApplication using Java 21.0.9 with PID 29459 (/home/luke/workspace/bhangyi/OpenCBS-Cloud/server/opencbs-server/target/classes started by luke in /home/luke/workspace/bhangyi/OpenCBS-Cloud)
+2026-01-19T13:08:10.656+03:00  INFO 29459 --- [opencbs-server] [main] com.opencbs.OpencbsServerApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-01-19T13:08:11.840+03:00  INFO 29459 --- [opencbs-server] [main] org.reflections.Reflections              : Reflections took 590 ms to scan 1 urls, producing 296 keys and 2330 values
+2026-01-19T13:08:12.576+03:00  INFO 29459 --- [opencbs-server] [main] org.reflections.Reflections              : Reflections took 366 ms to scan 1 urls, producing 296 keys and 2330 values
+2026-01-19T13:08:12.880+03:00  INFO 29459 --- [opencbs-server] [main] org.reflections.Reflections              : Reflections took 247 ms to scan 1 urls, producing 296 keys and 2330 values
+2026-01-19T13:08:13.125+03:00  INFO 29459 --- [opencbs-server] [main] org.reflections.Reflections              : Reflections took 222 ms to scan 1 urls, producing 296 keys and 2330 values
+2026-01-19T13:08:13.342+03:00  INFO 29459 --- [opencbs-server] [main] org.reflections.Reflections              : Reflections took 205 ms to scan 1 urls, producing 296 keys and 2330 values
+2026-01-19T13:08:13.477+03:00  WARN 29459 --- [opencbs-server] [main] o.s.c.a.AnnotationBeanNameGenerator      : Support for convention-based @Component names is deprecated and will be removed in a future version of the framework. Please annotate the 'value' attribute in @com.opencbs.loans.annotations.repayment.DefaultRepaymentService with @AliasFor(annotation=Component.class) to declare an explicit alias for @Component's 'value' attribute.
+2026-01-19T13:08:13.985+03:00  INFO 29459 --- [opencbs-server] [main] org.reflections.Reflections              : Reflections took 146 ms to scan 1 urls, producing 296 keys and 2330 values
+2026-01-19T13:08:14.229+03:00  INFO 29459 --- [opencbs-server] [main] org.reflections.Reflections              : Reflections took 218 ms to scan 1 urls, producing 296 keys and 2330 values
+2026-01-19T13:08:14.464+03:00  INFO 29459 --- [opencbs-server] [main] org.reflections.Reflections              : Reflections took 228 ms to scan 1 urls, producing 296 keys and 2330 values
+2026-01-19T13:08:15.504+03:00  INFO 29459 --- [opencbs-server] [main] org.reflections.Reflections              : Reflections took 124 ms to scan 1 urls, producing 296 keys and 2330 values
+2026-01-19T13:08:15.742+03:00  INFO 29459 --- [opencbs-server] [main] org.reflections.Reflections              : Reflections took 174 ms to scan 1 urls, producing 296 keys and 2330 values
+2026-01-19T13:08:15.911+03:00  INFO 29459 --- [opencbs-server] [main] org.reflections.Reflections              : Reflections took 166 ms to scan 1 urls, producing 296 keys and 2330 values
+2026-01-19T13:08:16.557+03:00  INFO 29459 --- [opencbs-server] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-19T13:08:17.126+03:00  INFO 29459 --- [opencbs-server] [main] org.reflections.Reflections              : Reflections took 150 ms to scan 1 urls, producing 296 keys and 2330 values
+2026-01-19T13:08:17.561+03:00  INFO 29459 --- [opencbs-server] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 992 ms. Found 137 JPA repository interfaces.
+2026-01-19T13:08:17.893+03:00  INFO 29459 --- [opencbs-server] [main] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'rabbitTemplateCustomizer' with a different definition: replacing [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=org.springframework.modulith.events.amqp.RabbitJackson2Configuration; factoryMethodName=rabbitTemplateCustomizer; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [org/springframework/modulith/events/amqp/RabbitJackson2Configuration.class]] with [Root bean: class=null; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; fallback=false; factoryBeanName=org.springframework.modulith.events.amqp.RabbitJacksonConfiguration; factoryMethodName=rabbitTemplateCustomizer; initMethodNames=null; destroyMethodNames=[(inferred)]; defined in class path resource [org/springframework/modulith/events/amqp/RabbitJacksonConfiguration.class]]
+2026-01-19T13:08:19.362+03:00  INFO 29459 --- [opencbs-server] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-01-19T13:08:19.381+03:00  INFO 29459 --- [opencbs-server] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-19T13:08:19.382+03:00  INFO 29459 --- [opencbs-server] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-01-19T13:08:19.539+03:00  INFO 29459 --- [opencbs-server] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 8796 ms
+2026-01-19T13:08:20.571+03:00  INFO 29459 --- [opencbs-server] [main] com.zaxxer.hikari.HikariDataSource       : opencbs-server -hikari-connection-pool - Starting...
+2026-01-19T13:08:20.964+03:00  INFO 29459 --- [opencbs-server] [main] com.zaxxer.hikari.pool.HikariPool        : opencbs-server -hikari-connection-pool - Added connection org.postgresql.jdbc.PgConnection@5aefdb9e
+2026-01-19T13:08:20.966+03:00  INFO 29459 --- [opencbs-server] [main] com.zaxxer.hikari.HikariDataSource       : opencbs-server -hikari-connection-pool - Start completed.
+2026-01-19T13:08:21.055+03:00  INFO 29459 --- [opencbs-server] [main] o.f.c.i.resource.ResourceNameValidator   : 68 SQL migrations were detected but not run because they did not follow the filename convention.
+2026-01-19T13:08:21.058+03:00  INFO 29459 --- [opencbs-server] [main] o.f.c.i.resource.ResourceNameValidator   : Set 'validateMigrationNaming' to true to fail fast and see a list of the invalid file names.
+2026-01-19T13:08:21.078+03:00  INFO 29459 --- [opencbs-server] [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/opencbs (PostgreSQL 18.1)
+2026-01-19T13:08:21.701+03:00  INFO 29459 --- [opencbs-server] [main] o.f.core.internal.command.DbValidate     : Successfully validated 329 migrations (execution time 00:00.436s)
+2026-01-19T13:08:21.801+03:00  INFO 29459 --- [opencbs-server] [main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 357
+2026-01-19T13:08:21.816+03:00  INFO 29459 --- [opencbs-server] [main] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2026-01-19T13:08:22.224+03:00  INFO 29459 --- [opencbs-server] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-01-19T13:08:22.426+03:00  INFO 29459 --- [opencbs-server] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-01-19T13:08:22.863+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.boot.internal.EnversServiceImpl    : Envers integration enabled? : true
+2026-01-19T13:08:23.209+03:00  INFO 29459 --- [opencbs-server] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-19T13:08:23.383+03:00  INFO 29459 --- [opencbs-server] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/opencbs]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 18.1
+	Default catalog/schema: opencbs/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-19T13:08:24.617+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.deposits.domain.TermDepositProduct
+2026-01-19T13:08:24.619+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.accounting.domain.Account
+2026-01-19T13:08:24.620+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.domain.customfields.BranchCustomField
+2026-01-19T13:08:24.621+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.domain.profiles.Profile
+2026-01-19T13:08:24.621+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.domain.customfields.GroupCustomField
+2026-01-19T13:08:24.622+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.savings.domain.SavingProduct
+2026-01-19T13:08:24.623+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.domain.Role
+2026-01-19T13:08:24.624+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.domain.profiles.GroupMember
+2026-01-19T13:08:24.625+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.domain.profiles.CompanyMember
+2026-01-19T13:08:24.625+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.domain.customfields.GroupCustomFieldValue
+2026-01-19T13:08:24.626+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.domain.customfields.CompanyCustomFieldValue
+2026-01-19T13:08:24.626+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.domain.customfields.PersonCustomFieldValue
+2026-01-19T13:08:24.628+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.domain.profiles.Group
+2026-01-19T13:08:24.628+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.domain.attachments.GroupAttachment
+2026-01-19T13:08:24.629+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.domain.User
+2026-01-19T13:08:24.629+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.domain.profiles.Company
+2026-01-19T13:08:24.630+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.domain.customfields.CompanyCustomField
+2026-01-19T13:08:24.630+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.domain.customfields.PersonCustomField
+2026-01-19T13:08:24.631+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.domain.profiles.Person
+2026-01-19T13:08:24.631+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.domain.customfields.BranchCustomFieldValue
+2026-01-19T13:08:24.632+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.core.domain.attachments.PersonAttachment
+2026-01-19T13:08:24.632+03:00  INFO 29459 --- [opencbs-server] [main] o.h.e.c.i.m.AuditMetadataGenerator       : Adding properties for entity: com.opencbs.loans.domain.products.LoanProduct
+2026-01-19T13:08:27.872+03:00  INFO 29459 --- [opencbs-server] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-19T13:08:27.876+03:00  INFO 29459 --- [opencbs-server] [main] org.hibernate.orm.jdbc.batch             : HHH100501: Automatic JDBC statement batching enabled (maximum batch size 30)
+2026-01-19T13:08:27.885+03:00  INFO 29459 --- [opencbs-server] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-19T13:08:28.239+03:00  INFO 29459 --- [opencbs-server] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-19T13:08:34.699+03:00  WARN 29459 --- [opencbs-server] [main] c.o.c.o.services.JasperReportService     : Directory for JASPER reports with name classpath:/templates/jasper not found
+2026-01-19T13:08:35.102+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : select at1_0.id,at1_0.name from account_tags at1_0 order by at1_0.id
+2026-01-19T13:08:38.006+03:00  INFO 29459 --- [opencbs-server] [main] org.reflections.Reflections              : Reflections took 224 ms to scan 1 urls, producing 24 keys and 7512 values
+2026-01-19T13:08:38.026+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : select p1_0.id,p1_0.description,p1_0.module_type,p1_0.name,p1_0.permanent from permissions p1_0
+2026-01-19T13:08:38.093+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : select p1_0.id,p1_0.description,p1_0.module_type,p1_0.name,p1_0.permanent from permissions p1_0
+2026-01-19T13:08:38.205+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : select pr1_0.id,pr1_0.permission_id,pr1_0.role_id from roles_permissions pr1_0 where pr1_0.role_id=?
+2026-01-19T13:08:38.277+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.285+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.286+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.287+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.287+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.288+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.288+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.288+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.288+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.291+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.292+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.294+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.295+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.296+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.297+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.302+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.303+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.306+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.307+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.307+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.308+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.308+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.309+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.309+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.309+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.310+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.317+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.317+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.319+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.322+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.337+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.338+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.339+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.340+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.341+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.342+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.344+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.345+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.346+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.347+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.348+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.349+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.350+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.351+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.352+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.353+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.354+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.355+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.355+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.355+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.355+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.357+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.359+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.360+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.361+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.362+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.362+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.363+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.363+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.363+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.366+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.367+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.367+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.368+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.368+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.369+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.369+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.369+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.370+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.370+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.370+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.370+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.371+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.371+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.371+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.372+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.372+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.372+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.373+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.373+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.374+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.374+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.375+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.376+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.376+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.377+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.378+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.378+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.379+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.379+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.383+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.383+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.383+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.384+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.384+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.385+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.385+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.385+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.385+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.386+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.386+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.386+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.386+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.387+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : delete from roles_permissions where id=?
+2026-01-19T13:08:38.401+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : select p1_0.id,p1_0.description,p1_0.module_type,p1_0.name,p1_0.permanent from permissions p1_0
+2026-01-19T13:08:38.445+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.502+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.508+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.513+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.522+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.526+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.531+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.532+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.534+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.536+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.538+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.540+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.542+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.545+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.547+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.550+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.554+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.557+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.560+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.562+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.565+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.571+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.574+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.577+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.580+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.582+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.584+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.587+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.590+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.591+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.593+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.596+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.603+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.606+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.608+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.609+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.612+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.615+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.617+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.620+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.622+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.625+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.628+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.631+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.633+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.635+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.637+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.640+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.642+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.645+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.648+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.650+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.656+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.658+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.662+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.665+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.669+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.671+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.673+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.675+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.677+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.679+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.681+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.683+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.686+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.688+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.690+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.692+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.694+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.697+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.701+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.704+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.706+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.709+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.716+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.719+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.721+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.725+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.733+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.735+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.739+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.742+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.745+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.749+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.754+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.759+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.761+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.764+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.768+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.770+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.772+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.774+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.777+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.779+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.784+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.786+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.790+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.792+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.794+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.796+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.799+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.801+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.808+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:38.810+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : insert into roles_permissions (permission_id,role_id) values (?,?)
+2026-01-19T13:08:43.101+03:00  WARN 29459 --- [opencbs-server] [main] o.s.b.f.a.FreeMarkerAutoConfiguration    : Cannot find template location: [classpath:/templates/] (please add some templates, check your FreeMarker configuration, or set spring.freemarker.check-template-location=false)
+2026-01-19T13:08:43.316+03:00 DEBUG 29459 --- [opencbs-server] [main] org.hibernate.SQL                        : select djep1_0.id,djep1_0.completion_attempts,djep1_0.completion_date,djep1_0.event_type,djep1_0.last_resubmission_date,djep1_0.listener_id,djep1_0.publication_date,djep1_0.serialized_event,djep1_0.status from event_publication djep1_0 where djep1_0.completion_date is null order by djep1_0.publication_date
+2026-01-19T13:08:43.353+03:00  INFO 29459 --- [opencbs-server] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-01-19T13:08:43.384+03:00  INFO 29459 --- [opencbs-server] [main] com.opencbs.OpencbsServerApplication     : Started OpencbsServerApplication in 33.961 seconds (process running for 34.998)
+2026-01-19T15:25:27.986+03:00  INFO 29459 --- [opencbs-server] [tomcat-handler-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-19T15:25:27.987+03:00  INFO 29459 --- [opencbs-server] [tomcat-handler-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-01-19T15:25:27.990+03:00  INFO 29459 --- [opencbs-server] [tomcat-handler-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-01-19T15:25:43.170+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-2] org.hibernate.SQL                        : insert into user_sessions (ip,last_entry_time,login_action_type,login_status_type,user_name) values (?,?,?,?,?)
+2026-01-19T15:25:43.340+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-2] org.hibernate.SQL                        : select u1_0.id,u1_0.address,u1_0.branch_id,u1_0.email,u1_0.password_expire_date,u1_0.first_login,u1_0.first_name,u1_0.id_number,u1_0.is_system_user,u1_0.last_entry_time,u1_0.last_name,u1_0.password_hash,u1_0.phone_number,u1_0.position,u1_0.role_id,u1_0.status,u1_0.time_zone_name,u1_0.username from users u1_0 where u1_0.username=?
+2026-01-19T15:25:43.379+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-2] org.hibernate.SQL                        : select b1_0.id,b1_0.name from branches b1_0 where b1_0.id=?
+2026-01-19T15:25:43.402+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-2] org.hibernate.SQL                        : select r1_0.id,r1_0.is_system,r1_0.name,p1_0.role_id,p1_1.id,p1_1.description,p1_1.module_type,p1_1.name,p1_1.permanent,r1_0.status from roles r1_0 left join roles_permissions p1_0 on r1_0.id=p1_0.role_id left join permissions p1_1 on p1_1.id=p1_0.permission_id where r1_0.id=?
+2026-01-19T15:25:43.545+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-2] org.hibernate.SQL                        : select ss1_0.id,ss1_0.name,ss1_0.section,ss1_0.type,ss1_0.value from system_settings ss1_0 where ss1_0.name=?
+2026-01-19T15:26:19.049+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-3] org.hibernate.SQL                        : insert into user_sessions (ip,last_entry_time,login_action_type,login_status_type,user_name) values (?,?,?,?,?)
+2026-01-19T15:26:19.076+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-3] org.hibernate.SQL                        : select u1_0.id,u1_0.address,u1_0.branch_id,u1_0.email,u1_0.password_expire_date,u1_0.first_login,u1_0.first_name,u1_0.id_number,u1_0.is_system_user,u1_0.last_entry_time,u1_0.last_name,u1_0.password_hash,u1_0.phone_number,u1_0.position,u1_0.role_id,u1_0.status,u1_0.time_zone_name,u1_0.username from users u1_0 where u1_0.username=?
+2026-01-19T15:26:19.091+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-3] org.hibernate.SQL                        : select b1_0.id,b1_0.name from branches b1_0 where b1_0.id=?
+2026-01-19T15:26:19.097+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-3] org.hibernate.SQL                        : select r1_0.id,r1_0.is_system,r1_0.name,p1_0.role_id,p1_1.id,p1_1.description,p1_1.module_type,p1_1.name,p1_1.permanent,r1_0.status from roles r1_0 left join roles_permissions p1_0 on r1_0.id=p1_0.role_id left join permissions p1_1 on p1_1.id=p1_0.permission_id where r1_0.id=?
+2026-01-19T15:26:19.207+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-3] org.hibernate.SQL                        : select ss1_0.id,ss1_0.name,ss1_0.section,ss1_0.type,ss1_0.value from system_settings ss1_0 where ss1_0.name=?
+2026-01-19T17:12:00.356+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-6] org.hibernate.SQL                        : insert into user_sessions (ip,last_entry_time,login_action_type,login_status_type,user_name) values (?,?,?,?,?)
+2026-01-19T17:12:00.367+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-6] org.hibernate.SQL                        : select u1_0.id,u1_0.address,u1_0.branch_id,u1_0.email,u1_0.password_expire_date,u1_0.first_login,u1_0.first_name,u1_0.id_number,u1_0.is_system_user,u1_0.last_entry_time,u1_0.last_name,u1_0.password_hash,u1_0.phone_number,u1_0.position,u1_0.role_id,u1_0.status,u1_0.time_zone_name,u1_0.username from users u1_0 where u1_0.username=?
+2026-01-19T17:12:00.376+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-6] org.hibernate.SQL                        : select b1_0.id,b1_0.name from branches b1_0 where b1_0.id=?
+2026-01-19T17:12:00.379+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-6] org.hibernate.SQL                        : select r1_0.id,r1_0.is_system,r1_0.name,p1_0.role_id,p1_1.id,p1_1.description,p1_1.module_type,p1_1.name,p1_1.permanent,r1_0.status from roles r1_0 left join roles_permissions p1_0 on r1_0.id=p1_0.role_id left join permissions p1_1 on p1_1.id=p1_0.permission_id where r1_0.id=?
+2026-01-19T17:12:00.486+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-6] org.hibernate.SQL                        : select ss1_0.id,ss1_0.name,ss1_0.section,ss1_0.type,ss1_0.value from system_settings ss1_0 where ss1_0.name=?
+2026-01-19T17:12:00.507+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-6] org.hibernate.SQL                        : update users set address=?,branch_id=?,email=?,password_expire_date=?,first_login=?,first_name=?,id_number=?,is_system_user=?,last_entry_time=?,last_name=?,password_hash=?,phone_number=?,position=?,role_id=?,status=?,time_zone_name=?,username=? where id=?
+2026-01-19T17:12:00.601+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-6] org.hibernate.SQL                        : select u1_0.id,u1_0.address,u1_0.branch_id,u1_0.email,u1_0.password_expire_date,u1_0.first_login,u1_0.first_name,u1_0.id_number,u1_0.is_system_user,u1_0.last_entry_time,u1_0.last_name,u1_0.password_hash,u1_0.phone_number,u1_0.position,u1_0.role_id,u1_0.status,u1_0.time_zone_name,u1_0.username from users u1_0 where u1_0.username=?
+2026-01-19T17:12:00.603+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-6] org.hibernate.SQL                        : select b1_0.id,b1_0.name from branches b1_0 where b1_0.id=?
+2026-01-19T17:12:00.604+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-6] org.hibernate.SQL                        : select r1_0.id,r1_0.is_system,r1_0.name,p1_0.role_id,p1_1.id,p1_1.description,p1_1.module_type,p1_1.name,p1_1.permanent,r1_0.status from roles r1_0 left join roles_permissions p1_0 on r1_0.id=p1_0.role_id left join permissions p1_1 on p1_1.id=p1_0.permission_id where r1_0.id=?
+2026-01-19T17:12:00.623+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-6] org.hibernate.SQL                        : select us1_0.id,us1_0.ip,us1_0.last_entry_time,us1_0.login_action_type,us1_0.login_status_type,us1_0.user_name from user_sessions us1_0 where us1_0.user_name=? and us1_0.ip=? order by us1_0.last_entry_time desc fetch first ? rows only
+2026-01-19T17:12:00.632+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-6] org.hibernate.SQL                        : select us1_0.id,us1_0.ip,us1_0.last_entry_time,us1_0.login_action_type,us1_0.login_status_type,us1_0.user_name from user_sessions us1_0 where us1_0.id=?
+2026-01-19T17:12:00.635+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-6] org.hibernate.SQL                        : update user_sessions set ip=?,last_entry_time=?,login_action_type=?,login_status_type=?,user_name=? where id=?
+2026-01-19T17:15:49.492+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-9] org.hibernate.SQL                        : select u1_0.id,u1_0.address,u1_0.branch_id,u1_0.email,u1_0.password_expire_date,u1_0.first_login,u1_0.first_name,u1_0.id_number,u1_0.is_system_user,u1_0.last_entry_time,u1_0.last_name,u1_0.password_hash,u1_0.phone_number,u1_0.position,u1_0.role_id,u1_0.status,u1_0.time_zone_name,u1_0.username from users u1_0 where u1_0.username=?
+2026-01-19T17:15:49.499+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-9] org.hibernate.SQL                        : select b1_0.id,b1_0.name from branches b1_0 where b1_0.id=?
+2026-01-19T17:15:49.504+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-9] org.hibernate.SQL                        : select r1_0.id,r1_0.is_system,r1_0.name,p1_0.role_id,p1_1.id,p1_1.description,p1_1.module_type,p1_1.name,p1_1.permanent,r1_0.status from roles r1_0 left join roles_permissions p1_0 on r1_0.id=p1_0.role_id left join permissions p1_1 on p1_1.id=p1_0.permission_id where r1_0.id=?
+2026-01-19T17:15:49.521+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-9] org.hibernate.SQL                        : select ss1_0.id,ss1_0.name,ss1_0.section,ss1_0.type,ss1_0.value from system_settings ss1_0 where ss1_0.name=?
+2026-01-19T17:15:49.535+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-9] org.hibernate.SQL                        : select u1_0.id,u1_0.address,b1_0.id,b1_0.name,cfv1_0.owner_id,cfv1_0.id,cfv1_0.created_at,cfv1_0.created_by_id,cfv1_0.field_id,cfv1_0.status,cfv1_0.value,cfv1_0.verified_at,cfv1_0.verified_by_id,u1_0.email,u1_0.password_expire_date,u1_0.first_login,u1_0.first_name,u1_0.id_number,u1_0.is_system_user,u1_0.last_entry_time,u1_0.last_name,u1_0.password_hash,u1_0.phone_number,u1_0.position,u1_0.role_id,r1_0.id,r1_0.is_system,r1_0.name,r1_0.status,u1_0.status,u1_0.time_zone_name,u1_0.username from users u1_0 left join branches b1_0 on b1_0.id=u1_0.branch_id left join branch_custom_fields_values cfv1_0 on b1_0.id=cfv1_0.owner_id join roles r1_0 on r1_0.id=u1_0.role_id where u1_0.id=?
+2026-01-19T17:15:49.551+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-9] org.hibernate.SQL                        : select p1_0.role_id,p1_1.id,p1_1.description,p1_1.module_type,p1_1.name,p1_1.permanent from roles_permissions p1_0 join permissions p1_1 on p1_1.id=p1_0.permission_id where p1_0.role_id=?
+2026-01-19T17:15:49.562+03:00 DEBUG 29459 --- [opencbs-server] [tomcat-handler-9] org.hibernate.SQL                        : update users set address=?,branch_id=?,email=?,password_expire_date=?,first_login=?,first_name=?,id_number=?,is_system_user=?,last_entry_time=?,last_name=?,password_hash=?,phone_number=?,position=?,role_id=?,status=?,time_zone_name=?,username=? where id=?
+2026-01-19T18:02:02.001+03:00 DEBUG 29459 --- [opencbs-server] [scheduling-7] org.hibernate.SQL                        : select c1_0.id,c1_0.code,c1_0.is_main,c1_0.name from currencies c1_0 where c1_0.name=?
+2026-01-19T18:02:02.012+03:00 ERROR 29459 --- [opencbs-server] [scheduling-7] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+java.util.NoSuchElementException: No value present
+	at java.base/java.util.Optional.get(Optional.java:143) ~[na:na]
+	at com.opencbs.bonds.services.DefaultExchangeRateService.getCurrencies(DefaultExchangeRateService.java:49) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:370) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:118) ~[spring-tx-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.2.jar:7.0.2]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719) ~[spring-aop-7.0.2.jar:7.0.2]
+	at com.opencbs.bonds.services.DefaultExchangeRateService$$SpringCGLIB$$0.getCurrencies(<generated>) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:128) ~[spring-context-7.0.2.jar:7.0.2]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$1(ScheduledMethodRunnable.java:122) ~[spring-context-7.0.2.jar:7.0.2]
+	at io.micrometer.observation.Observation.observe(Observation.java:498) ~[micrometer-observation-1.16.1.jar:1.16.1]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:122) ~[spring-context-7.0.2.jar:7.0.2]
+	at org.springframework.scheduling.config.Task$OutcomeTrackingRunnable.run(Task.java:88) ~[spring-context-7.0.2.jar:7.0.2]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-7.0.2.jar:7.0.2]
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:329) ~[na:na]
+
+2026-01-19T18:42:07.614+03:00  INFO 29459 --- [opencbs-server] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-01-19T18:42:07.624+03:00  INFO 29459 --- [opencbs-server] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-01-19T18:42:07.663+03:00 DEBUG 29459 --- [opencbs-server] [SpringApplicationShutdownHook] org.hibernate.SQL                        : select djep1_0.id,djep1_0.completion_attempts,djep1_0.completion_date,djep1_0.event_type,djep1_0.last_resubmission_date,djep1_0.listener_id,djep1_0.publication_date,djep1_0.serialized_event,djep1_0.status from event_publication djep1_0 where djep1_0.completion_date is null order by djep1_0.publication_date
+2026-01-19T18:42:07.684+03:00  INFO 29459 --- [opencbs-server] [SpringApplicationShutdownHook] .s.m.e.c.DefaultEventPublicationRegistry : No publications outstanding!
+2026-01-19T18:42:07.921+03:00  INFO 29459 --- [opencbs-server] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-01-19T18:42:07.925+03:00  INFO 29459 --- [opencbs-server] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : opencbs-server -hikari-connection-pool - Shutdown initiated...
+2026-01-19T18:42:07.932+03:00  INFO 29459 --- [opencbs-server] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : opencbs-server -hikari-connection-pool - Shutdown completed.

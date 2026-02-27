@@ -1,0 +1,253 @@
+spring:
+  application:
+    name: opencbs-server
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    # url: jdbc:h2:file:./data/testdb
+    # driver-class-name: org.h2.Driver
+    # username: sa
+    # password: ""
+    # url: jdbc:sqlserver://${DB_HOST:localhost}:${DB_PORT:1433};databaseName=${DB_NAME:afrogenius_erp_db};encrypt=true;trustServerCertificate=true
+    # url: jdbc:oracle:thin:@//${DB_HOST:localhost}:${DB_PORT:1521}:${DB_NAME:afrogenius_erp_db}
+    # url: jdbc:oracle:thin:@//${DB_HOST:localhost}:${DB_PORT:1521}/${DB_NAME:opencbs_db}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:opencbs}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:OpenCBS@2025!}
+    hikari:
+      pool-name: ${spring.application.name} -hikari-connection-pool
+      maximum-pool-size: 200
+      minimum-idle: 50
+      idle-timeout: 30000
+      connection-timeout: 20000
+      max-lifetime: 1800000
+      auto-commit: false
+  jpa:
+    # database-platform: org.hibernate.dialect.SQLServerDialect
+    hibernate:
+      # dialect: org.hibernate.dialect.SQLServerDialect
+      ddl-auto: none # Use 'validate' or 'update' or 'none' in production
+    open-in-view: true
+    show-sql: true
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 30
+          fetch_size: 50
+          order_inserts: true
+          order_updates: true
+        order_by:
+          default_null_handling: none
+        session:
+          events:
+            log:
+              LOG_SLOW_QUERY: true
+              SLOW_QUERY_THRESHOLD_MS: 1000
+        query:
+          warn_on_n_plus_one: true
+        org:
+          hibernate:
+            envers:
+              # Globally enable/disable auditing (Default: true)
+              # NOTE: To stop all auditing, set to false
+              enabled: true
+              # Keep data of removed entities in audit tables
+              store_data_at_delete: true
+              # Track which entity names changed in each revision
+              # track_entities_changed_in_revision: true
+              # Custom naming conventions
+              # audit_table_suffix: _history
+              # revision_field_name: revision
+              # revision_type_field_name: revision_type
+  aot:
+    repositories:
+      enabled: true
+  mvc:
+    apiversion:
+      use:
+        # path-segment: 1
+        header: version # Request header versioning (e.g., version: 1.0)
+        query-parameter: version # Query parameter versioning (e.g., ?version=1.0)
+        media-type-parameter[application/json]: version # Media type parameter versioning (e.g., Accept: application/json;version=1.0)
+      supported: 1.0,2.0,3.0
+      default: 1.0
+      version-required: false
+  threads:
+    virtual:
+      enabled: true
+  jackson:
+    serialization:
+      fail-on-empty-beans: false # Can be useful in general
+      # The key property to manage recursion behavior:
+      # This disables the feature that throws an exception on self-references/infinite recursion.
+      # When false, Jackson typically outputs "null" for the back-reference, breaking the loop.
+      fail-on-self-references: false
+        # Optimization: Do not serialize null fields (matches @JsonInclude(NON_NULL))
+      # write-null-map-values: false
+      # You can specify a general inclusion strategy (NON_NULL is good for performance)
+      # inclusion: non_null # use this for class-level default inclusion
+    deserialization:
+      fail-on-unknown-properties: false # Common feature, not strictly performance
+    mapper:
+      default-view-inclusion: false # Only serialize fields with @JsonView
+        # Example of a specific feature flag
+    features:
+      serialize:
+        # Prevents Jackson from using getters to find properties if they are not specifically annotated
+        # Useful if you have many non-property getters you want to ignore
+        AUTO_DETECT_GETTERS: false
+  mail:
+    host: smtp.your-provider.com
+    port: 587
+    username: your-username
+    password: your-password
+    sender: Administrator
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  web:
+      error:
+        include-message: always
+        include-binding-errors: always
+        include-stacktrace: never
+        include-exception: false
+  # Config for Spring Modulith
+  modulith:
+    scan:
+      base-packages: com.afrogenius.erp # Adjust to your base package
+    events:
+      externalization:
+        enabled: true
+      republish-outstanding-events-on-restart: true
+      jdbc:
+        schema-initialization:
+          enabled: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    baseline-version: 1
+    baseline-description: Initial audit schema
+# Choose ONE cache provider. Uncomment the one you want.
+
+# Redis cache (recommended for production)
+  # cache:
+  #   type: redis
+  # redis:
+  #   host: localhost
+  #   port: 6379
+  #   password:${REDIS_PASSWORD:S3cr3t!}
+
+# Or simple in-memory cache using Caffeine
+  cache:
+    type: caffeine
+    caffeine:
+      cache-names: ${spring.application.name}-cache
+      spec: maximumSize=500,expireAfterWrite=300s
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    frontHost: ${RABBITMQ_FRONT_HOST:localhost}
+    username: ${RABBITMQ_USERNAME:admin}
+    password: ${RABBITMQ_PASSWORD:admin123!}
+    virtual-host: /
+    direct-exchange: front-direct-exchange
+    fanout-exchange: front-fanout-exchange
+account-balance-calculation:
+  exchange: account-balance-exchange
+  queue: account-balance-queue
+  routing-key: account-balance-routing-key
+task-executor:
+  min-pool-size: 5
+  max-pool-size: 20
+# OpenAPI/Swagger Configuration
+springdoc:
+  show-login-endpoint: true
+  swagger-ui:
+    path: /api/swagger-ui.html
+    operationsSorter: method
+    enabled: true #Set to false to disable Swagger UI in production
+  api-docs:
+    path: /api/v3/api-docs
+    enabled: true #Set to false to disable API docs in production
+# JWT Configuration
+jwt:
+  keystore:
+    password: ${JWT_KEYSTORE_PASSWORD:mypassword}
+    alias: ${JWT_KEYSTORE_ALIAS:jwt}
+    # path: jwt-keystore.jks
+    type: ${JWT_KEYSTORE_TYPE:PKCS12}
+    path: ${JWT_KEYSTORE_PATH:classpath:jwt-keystore.p12}
+  token:
+    expiration: 900000  # 15 minutes in milliseconds
+  refresh-token:
+    expiration: 604800000  # 7 days in milliseconds
+  secret-key: ${JWT_SECRET_KEY:BNSQDTXekPD0PxHz9gDlTZwMqxTf0P6Q} #XmQ0LndBa1lRbFVzTXp4cWJALjk7LFY5e15LUDAmLGM=
+# Token Blacklist Configuration
+token:
+  blacklist:
+    cleanup-interval: 86400000  # 24 hours in millisecondsserver:
+server:
+  port: 8080
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json,application/xml
+    min-response-size: 1024 # bytes
+  # http2:
+  #   enabled: true
+  forward-headers-strategy: framework
+
+# Logging Configuration
+logging:
+  file:
+    name: logs/${spring.application.name}.log
+  logback:
+    rollingpolicy:
+      file-name-pattern: logs/${spring.application.name}-%d{yyyy-MM-dd}.%i.gz
+      max-file-size: 20MB
+      max-history: 3
+  level:
+    root: INFO
+    com.afrogenius.erp: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.stat: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,modulith
+# Global application of the security scheme
+security:
+  - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth: # Arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT # Optional, but good practice to specify
+app:
+  executor:
+    type: virtual   # options: virtual, fixed
+    max-concurrency: 100   # only used if type=fixed
+    core-pool-size: 20     # only used if type=fixed
+# trusted proxies for audit logging
+audit:
+  trusted-proxies: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 127.0.0.1
+net:
+  sf:
+    jasperreports:
+      awt:
+        ignore:
+          missing:
+            font: true
+      default:
+        font:
+          name: SansSerif
+template:
+  location: classpath:/templates/
+day-closure:
+  auto-start-time: "@midnight"
