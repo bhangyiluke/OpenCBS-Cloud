@@ -65,5 +65,5 @@ return l_irr;
 END
 $$;
 
-alter function xirr_from_schedule(bigint, timestamp) owner to postgres;
+alter function xirr_from_schedule(bigint, timestamp) owner to opencbs;
 

@@ -74,7 +74,7 @@ create table audit.branch_custom_fields_history
     primary key (id, rev)
 );
 
-alter table audit.branch_custom_fields_history owner to postgres;
+alter table audit.branch_custom_fields_history owner to opencbs;
 
 create table audit.branch_custom_fields_values_history
 (
@@ -93,4 +93,4 @@ create table audit.branch_custom_fields_values_history
     primary key (id, rev)
 );
 
-alter table audit.branch_custom_fields_values_history owner to postgres;
+alter table audit.branch_custom_fields_values_history owner to opencbs;

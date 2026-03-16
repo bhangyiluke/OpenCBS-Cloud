@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   standalone: false,
-  selector: 'cbs-loan-info',
+  selector: 'cbs-loan-dashboard',
   templateUrl: 'loan-dashboard.component.html',
   styleUrls: ['loan-dashboard.component.scss']
 })
@@ -28,28 +28,28 @@ export class LoanDashboardComponent implements OnInit, OnDestroy {
   private loanInfoSub: Subscription;
 
   constructor(private loanStore$: Store<ILoanInfo>,
-              private store$: Store<fromRoot.State>,
-              private loanDashboardService: LoanDashboardService,
-              public toastrService: ToastrService,
-              public translate: TranslateService,
-              public route: ActivatedRoute) {
+    private store$: Store<fromRoot.State>,
+    private loanDashboardService: LoanDashboardService,
+    public toastrService: ToastrService,
+    public translate: TranslateService,
+    public route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.isLoading = true;
     this.routeSub = this.route.parent.params.subscribe((params: { id: number, loanType }) => {
-      if ( params && params.id ) {
-        this.loanStore$.dispatch(new fromStore.LoadLoanInfo({id: params.id, loanType: params.loanType}));
+      if (params && params.id) {
+        this.loanStore$.dispatch(new fromStore.LoadLoanInfo({ id: params.id, loanType: params.loanType }));
         this.getReportData({
           reportName: 'loan_dashboard',
-          fieldsValues: {loanId: params.id, format: 'HTML'}
-          })
+          fieldsValues: { loanId: params.id, format: 'HTML' }
+        })
       }
     });
 
     this.loanInfoSub = this.store$.pipe(select(fromRoot.getLoanInfoState))
       .subscribe(loan => {
-        if ( loan['loaded'] && !loan['error'] && loan['success'] ) {
+        if (loan['loaded'] && !loan['error'] && loan['success']) {
           const loanId = loan['loan']['loanApplicationId'];
           this.loanProfile = loan['loan']['profile'];
           this.profileType = this.loanProfile['type'] === 'PERSON' ? 'people'
@@ -86,7 +86,7 @@ export class LoanDashboardComponent implements OnInit, OnDestroy {
   getReportData(objToSend) {
     this.isLoading = true;
     this.loanDashboardService.getHtmlFile(objToSend).subscribe(a => {
-      if ( a['err'] ) {
+      if (a['err']) {
         this.isLoading = false;
         this.translate.get('CREATE_ERROR').subscribe((res: string) => {
           this.toastrService.error(a['err'], res, environment.ERROR_TOAST_CONFIG);

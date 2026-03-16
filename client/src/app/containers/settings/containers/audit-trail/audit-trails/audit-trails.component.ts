@@ -11,7 +11,7 @@ const SVG_DATA = {
 
 @Component({
   standalone: false,
-  selector: 'cbs-audit-trails',
+  selector: 'cbs-audit-trails-list',
   templateUrl: 'audit-trails.component.html',
   styleUrls: ['./audit-trails.component.scss']
 })
@@ -35,7 +35,7 @@ export class AuditTrailsComponent implements OnDestroy {
   constructor(private store$: Store<fromRoot.State>) {
     this.currentUserSub = this.store$.pipe(select(fromRoot.getCurrentUserState))
       .subscribe(user => {
-        if ( user.loaded && user.success && !user.error ) {
+        if (user.loaded && user.success && !user.error) {
           this.currentUser = user;
         }
       });
@@ -46,28 +46,28 @@ export class AuditTrailsComponent implements OnDestroy {
       name: 'AUDIT_TRAIL_BUSINESS_OBJECTS',
       link: '/audit-trail/business-objects',
       disabled: this.hasPermission('AUDIT_TRAIL_BUSINESS_OBJECTS'),
-      icon: {collection: 'standard', name: 'social', className: 'social'}
+      icon: { collection: 'standard', name: 'social', className: 'social' }
     }, {
       name: 'AUDIT_TRAIL_EVENTS',
       link: '/audit-trail/events',
       disabled: this.hasPermission('AUDIT_TRAIL_EVENTS'),
-      icon: {collection: 'standard', name: 'event', className: 'event'}
+      icon: { collection: 'standard', name: 'event', className: 'event' }
     }, {
       name: 'AUDIT_TRAIL_TRANSACTIONS',
       link: '/audit-trail/transactions',
       disabled: this.hasPermission('AUDIT_TRAIL_TRANSACTIONS'),
-      icon: {collection: 'custom', name: 'custom41', className: 'custom41'}
+      icon: { collection: 'custom', name: 'custom41', className: 'custom41' }
     }, {
       name: 'AUDIT_TRAIL_USER_SESSIONS',
       link: '/audit-trail/user-sessions',
       disabled: this.hasPermission('AUDIT_TRAIL_USER_SESSIONS'),
-      icon: {collection: 'standard', name: 'sossession', className: 'sossession'}
+      icon: { collection: 'standard', name: 'sossession', className: 'sossession' }
     }];
   }
 
   hasPermission(permission) {
     return this.currentUser['permissions'].some((a) => {
-      if ( a['group'] === 'AUDIT_TRAIL' ) {
+      if (a['group'] === 'AUDIT_TRAIL') {
         return !a['permissions'].includes(permission);
       }
     });

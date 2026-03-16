@@ -13,7 +13,7 @@ import { ParseDateFormatService } from '../../../../core/services';
 
 @Component({
   standalone: false,
-  selector: 'cbs-special-operations',
+  selector: 'cbs-saving-special-operations',
   templateUrl: 'special-operations.component.html',
   styleUrls: ['special-operations.component.scss']
 })

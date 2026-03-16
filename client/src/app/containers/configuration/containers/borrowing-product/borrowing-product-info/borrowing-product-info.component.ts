@@ -8,11 +8,11 @@ import {
 } from '../../../../../core/store/borrowing-products/borrowing-product-info';
 import { Subscription } from 'rxjs';
 
-const SVG_DATA = {collection: 'standard', class: 'calibration', name: 'calibration'};
+const SVG_DATA = { collection: 'standard', class: 'calibration', name: 'calibration' };
 
 @Component({
   standalone: false,
-  selector: 'cbs-borrowing-product',
+  selector: 'cbs-borrowing-product-info',
   templateUrl: './borrowing-product-info.component.html',
   styleUrls: ['./borrowing-product-info.component.scss']
 })
@@ -33,14 +33,14 @@ export class BorrowingProductInfoComponent implements OnInit {
   private routeSub: Subscription;
 
   constructor(private borrowingProductStore$: Store<IBorrowingProductInfo>,
-              private borrowingProductInfoActions: BorrowingProductInfoActions,
-              private route: ActivatedRoute,
-              private store$: Store<fromRoot.State>) {
+    private borrowingProductInfoActions: BorrowingProductInfoActions,
+    private route: ActivatedRoute,
+    private store$: Store<fromRoot.State>) {
     this.borrowingProductsSub = this.store$.pipe(select(fromRoot.getBorrowingProductInfoState))
       .subscribe((borrowingProductState: IBorrowingProductInfo) => {
         this.borrowingProductState = borrowingProductState;
         this.borrowingProduct = borrowingProductState['data'];
-        if ( borrowingProductState.success && borrowingProductState.loaded && !borrowingProductState.error ) {
+        if (borrowingProductState.success && borrowingProductState.loaded && !borrowingProductState.error) {
           this.breadcrumbLinks[1] = {
             name: `${borrowingProductState['data']['name']}`,
             link: ''
@@ -53,7 +53,7 @@ export class BorrowingProductInfoComponent implements OnInit {
     this.routeSub = this.route.params
       .subscribe(params => {
         const id = params['id'];
-        if ( id && id > 0 ) {
+        if (id && id > 0) {
           this.borrowingProductId = id;
           this.borrowingProductStore$.dispatch(this.borrowingProductInfoActions.fireInitialAction(id));
         }

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {select, Store} from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import * as fromRoot from '../../../../../core/core.reducer';
@@ -17,18 +17,18 @@ import { environment } from '../../../../../../environments/environment';
 import { EditBorrowingProductFormComponent } from '../shared/edit-borrowing-product-form/edit-borrowing-product-form.component';
 import { Subscription } from 'rxjs';
 
-const SVG_DATA = {collection: 'standard', class: 'calibration', name: 'calibration'};
+const SVG_DATA = { collection: 'standard', class: 'calibration', name: 'calibration' };
 
 @Component({
   standalone: false,
-  selector: 'cbs-borrowing-product',
+  selector: 'cbs-borrowing-product-update',
   templateUrl: 'borrowing-product-update.component.html',
   styleUrls: ['borrowing-product-update.component.scss']
 })
 
 export class BorrowingProductUpdateComponent implements OnInit, AfterViewInit {
-  @ViewChild(EditBorrowingProductFormComponent, {static: false}) editLoanProductForm: EditBorrowingProductFormComponent;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild(EditBorrowingProductFormComponent, { static: false }) editLoanProductForm: EditBorrowingProductFormComponent;
+  @ViewChild('submitButton', { static: false }) submitButton: ElementRef;
   public svgData = SVG_DATA;
   public isOpen = false;
   private borrowingProductSub: any;
@@ -53,20 +53,20 @@ export class BorrowingProductUpdateComponent implements OnInit, AfterViewInit {
   private loanProductUpdateSub: Subscription;
 
   constructor(private route: ActivatedRoute,
-              private router: Router,
-              private borrowingProductStore$: Store<IBorrowingProductInfo>,
-              private borrowingProductActions: BorrowingProductInfoActions,
-              private borrowingProductUpdateStore$: Store<IUpdateBorrowingProduct>,
-              private borrowingProductUpdateActions: BorrowingProductUpdateActions,
-              private store$: Store<fromRoot.State>,
-              private toastrService: ToastrService,
-              private translate: TranslateService,
-              private renderer2: Renderer2) {
+    private router: Router,
+    private borrowingProductStore$: Store<IBorrowingProductInfo>,
+    private borrowingProductActions: BorrowingProductInfoActions,
+    private borrowingProductUpdateStore$: Store<IUpdateBorrowingProduct>,
+    private borrowingProductUpdateActions: BorrowingProductUpdateActions,
+    private store$: Store<fromRoot.State>,
+    private toastrService: ToastrService,
+    private translate: TranslateService,
+    private renderer2: Renderer2) {
     this.borrowingProductSub = this.store$.pipe(select(fromRoot.getBorrowingProductInfoState))
       .subscribe((borrowingProductState: IBorrowingProductInfo) => {
-        if ( borrowingProductState.success && borrowingProductState.loaded && !borrowingProductState.error ) {
+        if (borrowingProductState.success && borrowingProductState.loaded && !borrowingProductState.error) {
           this.cachedLoanProduct = borrowingProductState.data;
-          if ( this.editLoanProductForm && this.editLoanProductForm.form ) {
+          if (this.editLoanProductForm && this.editLoanProductForm.form) {
             this.editLoanProductForm.populateFields(this.cachedLoanProduct);
           }
           this.breadcrumbLinks[1] = {
@@ -85,7 +85,7 @@ export class BorrowingProductUpdateComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
       const id = +params['id'];
-      if ( id === +params['id'] ) {
+      if (id === +params['id']) {
         this.borrowingProductId = +params['id'];
         this.borrowingProductStore$.dispatch(this.borrowingProductActions.fireInitialAction(this.borrowingProductId));
       }
@@ -93,7 +93,7 @@ export class BorrowingProductUpdateComponent implements OnInit, AfterViewInit {
     this.loanProductUpdateSub = this.borrowingProductUpdateStore$.pipe(select(fromRoot.getBorrowingProductUpdateState))
       .subscribe((loanProductUpdateState: IUpdateBorrowingProduct) => {
         this.borrowingProductUpdateState = loanProductUpdateState;
-        if ( loanProductUpdateState.loaded && loanProductUpdateState.success && !loanProductUpdateState.error ) {
+        if (loanProductUpdateState.loaded && loanProductUpdateState.success && !loanProductUpdateState.error) {
           this.toastrService.clear();
           this.translate.get('UPDATE_SUCCESS')
             .subscribe((res: string) => {
@@ -101,7 +101,7 @@ export class BorrowingProductUpdateComponent implements OnInit, AfterViewInit {
             });
           this.resetState();
           this.goToViewLoanProducts();
-        } else if ( loanProductUpdateState.loaded && !loanProductUpdateState.success && loanProductUpdateState.error ) {
+        } else if (loanProductUpdateState.loaded && !loanProductUpdateState.success && loanProductUpdateState.error) {
           this.toastrService.clear();
           this.translate.get('UPDATE_ERROR')
             .subscribe((res: string) => {
@@ -121,7 +121,7 @@ export class BorrowingProductUpdateComponent implements OnInit, AfterViewInit {
   };
 
   ngAfterViewInit() {
-    if ( this.editLoanProductForm && this.editLoanProductForm.form ) {
+    if (this.editLoanProductForm && this.editLoanProductForm.form) {
       this.editLoanProductForm.form.valueChanges
         .subscribe(data => {
           this.formChanged = (this.checkFormChanges(data, this.cachedLoanProduct));
@@ -130,7 +130,7 @@ export class BorrowingProductUpdateComponent implements OnInit, AfterViewInit {
   }
 
   submitForm() {
-    if ( this.editLoanProductForm.form.valid ) {
+    if (this.editLoanProductForm.form.valid) {
       this.editLoanProductForm.form.value.accountList = Object.assign({}, ...this.editLoanProductForm.form.value['accountList']);
       this.borrowingProductUpdateStore$
         .dispatch(this.borrowingProductUpdateActions.fireInitialAction({
@@ -146,17 +146,17 @@ export class BorrowingProductUpdateComponent implements OnInit, AfterViewInit {
 
   checkFormChanges(loanProductData, cachedData) {
     let status = false;
-    if ( loanProductData ) {
+    if (loanProductData) {
       for (const key in loanProductData) {
-        if ( loanProductData.hasOwnProperty(key) ) {
-          if ( key === 'currencyId' ) {
-            if ( loanProductData[key] !== cachedData['currency']['id'] ) {
+        if (loanProductData.hasOwnProperty(key)) {
+          if (key === 'currencyId') {
+            if (loanProductData[key] !== cachedData['currency']['id']) {
               status = true;
             }
           } else {
             for (const k in cachedData) {
-              if ( cachedData.hasOwnProperty(k) ) {
-                if ( key === k && loanProductData[key] !== cachedData[k] ) {
+              if (cachedData.hasOwnProperty(k)) {
+                if (key === k && loanProductData[key] !== cachedData[k]) {
                   status = true;
                 }
               }
@@ -164,9 +164,9 @@ export class BorrowingProductUpdateComponent implements OnInit, AfterViewInit {
           }
         }
       }
-      if ( this.cachedAccountList ) {
+      if (this.cachedAccountList) {
         for (const key in loanProductData.accountList) {
-          if ( loanProductData.accountList[key] !== this.cachedAccountList[key] ) {
+          if (loanProductData.accountList[key] !== this.cachedAccountList[key]) {
             status = true;
           }
         }

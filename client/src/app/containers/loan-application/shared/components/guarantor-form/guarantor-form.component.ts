@@ -8,7 +8,7 @@ import * as fromRoot from '../../../../../core/core.reducer';
 
 @Component({
   standalone: false,
-  selector: 'cbs-guarantor-form',
+  selector: 'cbs-loan-app-guarantor-form',
   templateUrl: 'guarantor-form.component.html',
   styleUrls: ['guarantor-form.component.scss']
 })
@@ -16,8 +16,8 @@ import * as fromRoot from '../../../../../core/core.reducer';
 export class GuarantorFormComponent implements OnInit {
   @Input() loanAppId: number;
   public configs = {
-    relationshipLookupUrl: {url: `${environment.API_ENDPOINT}relationships`},
-    profileLookupUrl: {url: `${environment.API_ENDPOINT}profiles`}
+    relationshipLookupUrl: { url: `${environment.API_ENDPOINT}relationships` },
+    profileLookupUrl: { url: `${environment.API_ENDPOINT}profiles` }
   };
   public form: FormGroup;
   public relationshipsSub: any;
@@ -25,9 +25,9 @@ export class GuarantorFormComponent implements OnInit {
   public reg = new RegExp('^[0-9.]+$');
 
   constructor(private profilesStore$: Store<IProfileList>,
-              private store$: Store<fromRoot.State>,
-              private relationshipsStore$: Store<IRelationshipList>,
-              private loanAppGuarantorsStore$: Store<ILoanAppGuarantorList>) {
+    private store$: Store<fromRoot.State>,
+    private relationshipsStore$: Store<IRelationshipList>,
+    private loanAppGuarantorsStore$: Store<ILoanAppGuarantorList>) {
     this.relationshipsSub = this.store$.select(fromRoot.getRelationshipListState);
   }
 

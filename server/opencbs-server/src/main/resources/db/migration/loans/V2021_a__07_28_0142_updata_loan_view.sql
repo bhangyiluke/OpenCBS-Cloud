@@ -93,4 +93,4 @@ from (
      ) t;
 
 alter table view_loans
-    owner to postgres;
+    owner to opencbs;

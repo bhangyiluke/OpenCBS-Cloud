@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   standalone: false,
-  selector: 'cbs-liability-loan-operations',
+  selector: 'cbs-bond-operations-wrap',
   template: '<router-outlet></router-outlet>'
 })
 

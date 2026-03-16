@@ -21,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -36,7 +37,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 @SuppressWarnings("unused")
 @RequiredArgsConstructor
 public class UserController {
-
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
     private final UserMapper userMapper;
     private final UserDtoValidator userDtoValidator;
@@ -66,8 +67,10 @@ public class UserController {
         return detailsDto;
     }
 
-    @RequestMapping(path = "current", method = GET)
-    public UserDetailsDto getCurrent(Authentication authentication) {
+    @RequestMapping(path = "/current", method = GET)
+    public UserDetailsDto getCurrent() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        logger.info("Getting current user details for user: {}", authentication);
         return this.userMapper.mapToDto((User) authentication.getPrincipal());
     }
 

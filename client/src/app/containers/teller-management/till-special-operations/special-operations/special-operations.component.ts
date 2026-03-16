@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   standalone: false,
-  selector: 'cbs-special-operations',
+  selector: 'cbs-teller-special-operations',
   templateUrl: 'special-operations.component.html',
   styleUrls: ['special-operations.component.scss']
 })
@@ -17,10 +17,10 @@ export class TellerSpecialOperationComponent implements OnInit, OnDestroy {
   public breadcrumb = [];
   public currentInstance: string;
   public tillId: number
-  public repayIcon = {collection: 'standard', name: 'product_request', className: 'product-request'};
-  public depositToCurrentAccountIcon = {collection: 'custom', name: 'custom17', className: 'custom17'};
-  public withdrawFromCurrentAccountIcon = {collection: 'standard', name: 'client', className: 'client'};
-  public depositToSavingAccountIcon = {collection: 'custom', name: 'custom41', className: 'custom41'};
+  public repayIcon = { collection: 'standard', name: 'product_request', className: 'product-request' };
+  public depositToCurrentAccountIcon = { collection: 'custom', name: 'custom17', className: 'custom17' };
+  public withdrawFromCurrentAccountIcon = { collection: 'standard', name: 'client', className: 'client' };
+  public depositToSavingAccountIcon = { collection: 'custom', name: 'custom41', className: 'custom41' };
   public withdrawFromSavingAccountIcon = {
     collection: 'standard', name: 'product_request_line_item', className: 'product-request-line-item'
   };
@@ -28,8 +28,8 @@ export class TellerSpecialOperationComponent implements OnInit, OnDestroy {
   private routeSub: Subscription;
 
   constructor(private tellerStore$: Store<TellerListState>,
-              private route: ActivatedRoute,
-              private commonService: CommonService) {
+    private route: ActivatedRoute,
+    private commonService: CommonService) {
   }
 
   ngOnInit() {

@@ -22,7 +22,7 @@ const LOAN_OPERATIONS = ['REPAYMENT', 'OTHER_FEES', 'RESCHEDULE', 'WRITE_OFF', '
 
 @Component({
   standalone: false,
-  selector: 'cbs-special-operations',
+  selector: 'cbs-loan-special-operations',
   templateUrl: 'special-operations.component.html',
   styleUrls: ['special-operations.component.scss']
 })

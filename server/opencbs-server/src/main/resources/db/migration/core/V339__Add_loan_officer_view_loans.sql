@@ -52,4 +52,4 @@ from ((((((loans l
          left join branches b on ((a.branch_id = b.id)))
 where (((p.type)::text <> 'GROUP'::text) and ((a.status)::text <> 'PENDING'::text));
 
-alter table public.view_loans owner to postgres;
+alter table public.view_loans owner to opencbs;

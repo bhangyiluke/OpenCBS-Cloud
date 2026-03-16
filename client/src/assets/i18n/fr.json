@@ -171,6 +171,9 @@
   "SIGN_OUT": "Déconnexion",
   "REMEMBER": "Remember",
   "FORGET": "Oublier votre mot de passe?",
+  "RECOVER": "Récupérer mot de passe",
+  "RECOVER_PASSWORD_DESCRIPTION": "Entrez votre nom d'utilisateur ou votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+  "BACK_TO_LOGIN": "Retour à la connexion",
   "CURRENT_USER_SETTINGS": "Paramètres utilisateur",
   "CREATE_USER": "Créer un utilisateur",
   "USER": "Utilisateur",
@@ -275,7 +278,7 @@
   "PHONE_NUMBER": "Numéro de téléphone",
   "SELL": "Vendre",
   "ACTUALIZE_BONDS": "Actualize Bonds",
-  "SCHEDULE_BASED_TYPE":"Schedule based type",
+  "SCHEDULE_BASED_TYPE": "Schedule based type",
   "PENALTY_WRITE_OFF_ACCOUNT": "Write off account",
   "EARLY_PARTIAL_REPAYMENT_FEE_INCOME": "Early partial repayment fee income",
   "EARLY_TOTAL_REPAYMENT_FEE_INCOME": "Early total repayment fee income"

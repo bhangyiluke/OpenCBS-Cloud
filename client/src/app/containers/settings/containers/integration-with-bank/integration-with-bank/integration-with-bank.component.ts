@@ -11,7 +11,7 @@ const SVG_DATA = {
 
 @Component({
   standalone: false,
-  selector: 'cbs-audit-trails',
+  selector: 'cbs-bank-integration',
   templateUrl: 'integration-with-bank.component.html',
   styleUrls: ['./integration-with-bank.component.scss']
 })
@@ -35,7 +35,7 @@ export class IntegrationWithBankComponent {
   constructor(private store$: Store<fromRoot.State>) {
     this.currentUserSub = this.store$.pipe(select(fromRoot.getCurrentUserState))
       .subscribe(user => {
-        if ( user.loaded && user.success && !user.error ) {
+        if (user.loaded && user.success && !user.error) {
           this.currentUser = user;
         }
       });
@@ -46,18 +46,18 @@ export class IntegrationWithBankComponent {
       name: 'EXPORT',
       link: '/integration-with-bank/integration-with-bank-export-file-list',
       disabled: this.hasPermission('SEPA'),
-      icon: {collection: 'standard', name: 'sales_path', className: 'sales-path'},
+      icon: { collection: 'standard', name: 'sales_path', className: 'sales-path' },
     }, {
       name: 'IMPORT',
       link: '/integration-with-bank/integration-with-bank-import-file-list',
       disabled: this.hasPermission('SEPA'),
-      icon: {collection: 'standard', name: 'product_consumed', className: 'product-consumed'}
+      icon: { collection: 'standard', name: 'product_consumed', className: 'product-consumed' }
     }];
   }
 
   hasPermission(permission) {
     return this.currentUser['permissions'].some((a) => {
-      if ( a['group'] === 'SEPA' ) {
+      if (a['group'] === 'SEPA') {
         return !a['permissions'].includes(permission);
       }
     });

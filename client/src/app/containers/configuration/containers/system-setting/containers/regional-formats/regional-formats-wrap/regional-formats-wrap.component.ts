@@ -12,11 +12,11 @@ import { FieldConfig } from '../../../../../../../shared/modules/cbs-form/models
 import { UpdateSystemSettingState } from '../../../../../../../core/store';
 import { ShareService } from '../shared/services/share.service';
 
-const SVG_DATA = {collection: 'standard', class: 'event', name: 'event'};
+const SVG_DATA = { collection: 'standard', class: 'event', name: 'event' };
 
 @Component({
   standalone: false,
-  selector: 'cbs-regional-formats-date',
+  selector: 'cbs-regional-formats-wrap',
   templateUrl: 'regional-formats-wrap.component.html',
   styleUrls: ['./regional-formats-wrap.component.scss']
 })
@@ -34,14 +34,14 @@ export class RegionalFormatsWrapComponent implements OnInit {
   private fieldsSub: Subscription;
 
   constructor(private navElement: NavElements,
-              private router: Router,
-              private store$: Store<fromRoot.State>,
-              private authStore$: Store<AuthAppState>,
-              private settingStateStore$: Store<ISystemSettingState>,
-              private fb: FormBuilder,
-              public shareService: ShareService,
-              private updateSystemSettingStateStore: Store<UpdateSystemSettingState>,
-              private systemSettingStore$: Store<ISystemSettingState>) {
+    private router: Router,
+    private store$: Store<fromRoot.State>,
+    private authStore$: Store<AuthAppState>,
+    private settingStateStore$: Store<ISystemSettingState>,
+    private fb: FormBuilder,
+    public shareService: ShareService,
+    private updateSystemSettingStateStore: Store<UpdateSystemSettingState>,
+    private systemSettingStore$: Store<ISystemSettingState>) {
   }
 
   ngOnInit() {
@@ -54,25 +54,25 @@ export class RegionalFormatsWrapComponent implements OnInit {
     this.systemSettingStore$.dispatch(new fromStore.LoadSystemSetting());
     this.fieldsSub = this.store$.pipe(select(fromRoot.getSystemSettingState))
       .subscribe((response: any) => {
-        if ( response.systemSetting.length ) {
+        if (response.systemSetting.length) {
           this.breadcrumb = response.breadcrumb;
           const fieldsArray = [];
           const fieldData = response.systemSetting;
           fieldData.map(item => {
             const tempObj = {};
-            if ( item['value'] ) {
+            if (item['value']) {
               tempObj['value'] = item['value'] === 'TRUE' ? true : item['value'] === 'FALSE' ? false : item['value'];
             }
 
             let fieldMeta;
-            if ( item['customField'] ) {
+            if (item['customField']) {
               fieldMeta = item['customField'];
             } else {
               fieldMeta = item;
             }
 
             for (const key in fieldMeta) {
-              if ( fieldMeta.hasOwnProperty(key) ) {
+              if (fieldMeta.hasOwnProperty(key)) {
                 tempObj[key] = fieldMeta[key];
               }
             }
@@ -94,7 +94,7 @@ export class RegionalFormatsWrapComponent implements OnInit {
 
           const sections = <FormArray>this.dateFormatSettingForm.controls['fieldSections'];
 
-          if ( sections.length ) {
+          if (sections.length) {
             sections.value.map(item => {
               sections.removeAt(sections.controls.indexOf(item));
             });
@@ -111,7 +111,7 @@ export class RegionalFormatsWrapComponent implements OnInit {
   generateCustomFields(fields, index) {
     const section = <FormArray>this.dateFormatSettingForm.controls['fieldSections']['controls'][index];
 
-    if ( section.length ) {
+    if (section.length) {
       section.value.map(item => {
         section.removeAt(section.controls.indexOf(item));
       });
@@ -125,12 +125,12 @@ export class RegionalFormatsWrapComponent implements OnInit {
   }
 
   createControl(config: FieldConfig) {
-    const {disabled, validation, value, required} = config;
+    const { disabled, validation, value, required } = config;
     const validationOptions = validation || [];
-    if ( required ) {
+    if (required) {
       validationOptions.push(Validators.required);
     }
-    return this.fb.control({disabled, value}, validationOptions);
+    return this.fb.control({ disabled, value }, validationOptions);
   }
 
   cancel() {
@@ -141,10 +141,10 @@ export class RegionalFormatsWrapComponent implements OnInit {
   flattenArray(array, selector?) {
     let tempArray = [];
     array.map(item => {
-      if ( Array.isArray(item) ) {
+      if (Array.isArray(item)) {
         tempArray = [...tempArray, ...item];
       }
-      if ( selector && !Array.isArray(item) ) {
+      if (selector && !Array.isArray(item)) {
         tempArray = [...tempArray, ...item[selector]];
       }
     });
@@ -161,7 +161,7 @@ export class RegionalFormatsWrapComponent implements OnInit {
   }
 
   submitForm() {
-    if ( this.sendData.valid ) {
+    if (this.sendData.valid) {
       const systemSettingDataToSend = [];
       const valueArray = this.flattenArray(this.sendData.value.fieldSections);
       const fieldsMeta = this.flattenArray(this.settingsFieldSections, 'values');
@@ -169,7 +169,7 @@ export class RegionalFormatsWrapComponent implements OnInit {
       fieldsMeta.map(field => {
         valueArray.map(valItem => {
           const key = Object.keys(valItem)[0];
-          if ( key === field.name ) {
+          if (key === field.name) {
             systemSettingDataToSend.push({
               customField: {
                 caption: field.caption,

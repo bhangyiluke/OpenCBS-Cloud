@@ -7,57 +7,62 @@ import com.opencbs.core.services.UserService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * Created by Pavel Bastov on 12/01/2017.
  */
+public class AuthenticationTokenFilter extends OncePerRequestFilter {
 
-public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFilter {
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AuthenticationTokenFilter.class);
 
-    @Autowired
-    private TokenHelper tokenUtils;
+    private final TokenHelper tokenUtils;
+    private final UserService userService;
 
-    @Autowired
-    private UserService userService;
+    public AuthenticationTokenFilter(TokenHelper tokenUtils, UserService userService) {
+        this.tokenUtils = tokenUtils;
+        this.userService = userService;
+    }
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest httpRequest = new MultiReadRequest((HttpServletRequest) req);
+    public void doFilterInternal(HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain)
+            throws IOException, ServletException {
+        HttpServletRequest httpRequest = new MultiReadRequest((HttpServletRequest) request);
         String authorizationHeader = httpRequest.getHeader("Authorization");
 
         if (authorizationHeader == null) {
-            chain.doFilter(httpRequest, res);
+            filterChain.doFilter(httpRequest, response);
             return;
         }
         String token = authorizationHeader.substring("Bearer ".length());
         String username = this.tokenUtils.getUsernameFromToken(token);
+
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            User user = this.userService.findByUsername(username).orElseThrow(()-> new BadCredentialsException("Invalid user name and password. Please try again"));
+            User user = this.userService.findByUsername(username)
+                    .orElseThrow(() -> new BadCredentialsException("Invalid user name and password. Please try again"));
             if (StatusType.ACTIVE.equals(user.getStatusType()) && this.tokenUtils.verifyToken(token, user)) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null,
+                        user.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));
-                SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
                 tokenUtils.setEventInformation(user);
+                logger.info("Validating jwt for user: " + username + " - SUCCESS");
+            } else {
+                logger.info("Validating jwt for user: " + username + " - FAILED");
             }
         }
 
-        chain.doFilter(httpRequest, res);
+        filterChain.doFilter(httpRequest, response);
     }
 }

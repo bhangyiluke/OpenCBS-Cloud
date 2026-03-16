@@ -11,9 +11,9 @@ spring:
     # url: jdbc:sqlserver://${DB_HOST:localhost}:${DB_PORT:1433};databaseName=${DB_NAME:afrogenius_erp_db};encrypt=true;trustServerCertificate=true
     # url: jdbc:oracle:thin:@//${DB_HOST:localhost}:${DB_PORT:1521}:${DB_NAME:afrogenius_erp_db}
     # url: jdbc:oracle:thin:@//${DB_HOST:localhost}:${DB_PORT:1521}/${DB_NAME:opencbs_db}
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:opencbs}
-    username: ${DB_USER:postgres}
-    password: ${DB_PASSWORD:OpenCBS@2025!}
+    url: ${OPENCBS_DB_URL:jdbc:postgresql://localhost:5432/opencbs}
+    username: ${OPENCBS_DB_USERNAME:opencbs}
+    password: ${OPENCBS_DB_PASSWORD:OpenCBS@2025!}
     hikari:
       pool-name: ${spring.application.name} -hikari-connection-pool
       maximum-pool-size: 200
@@ -251,3 +251,9 @@ template:
   location: classpath:/templates/
 day-closure:
   auto-start-time: "@midnight"
+cors:
+  allowed-origins: "http://localhost:4200,http://localhost:3000"
+  allowed-methods: "GET,POST,PUT,DELETE,OPTIONS,PATCH"
+  allowed-headers: "*"
+  allow-credentials: true
+  max-age: 3600

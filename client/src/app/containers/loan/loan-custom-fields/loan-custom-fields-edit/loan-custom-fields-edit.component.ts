@@ -13,11 +13,11 @@ import { CustomFieldSectionValue } from '../../../../core/models/customField.mod
 import { Subscription } from 'rxjs';
 import { ILoanInfo } from '../../../../core/store/loans/loan';
 
-const SVG_DATA = {collection: 'custom', class: 'custom41', name: 'custom41'};
+const SVG_DATA = { collection: 'custom', class: 'custom41', name: 'custom41' };
 
 @Component({
   standalone: false,
-  selector: 'cbs-loan-application-custom-field-add',
+  selector: 'cbs-loan-custom-field-edit',
   templateUrl: './loan-custom-fields-edit.component.html',
   styleUrls: ['./loan-custom-fields-edit.component.scss']
 })
@@ -42,11 +42,11 @@ export class LoanCustomFieldsEditComponent implements OnInit, OnDestroy {
   private loanSub: Subscription;
 
   constructor(private loanStore$: Store<ILoanInfo>,
-              private fb: FormBuilder,
-              private translate: TranslateService,
-              private toastrService: ToastrService,
-              private router: Router,
-              private loanAppCustomFieldService: LoanAppCustomFieldsService) {
+    private fb: FormBuilder,
+    private translate: TranslateService,
+    private toastrService: ToastrService,
+    private router: Router,
+    private loanAppCustomFieldService: LoanAppCustomFieldsService) {
   }
 
   ngOnInit() {
@@ -56,7 +56,7 @@ export class LoanCustomFieldsEditComponent implements OnInit, OnDestroy {
 
     this.loanSub = this.loanStore$.pipe(select(fromRoot.getLoanInfoState))
       .subscribe(loan => {
-        if ( loan['loaded'] && !loan['error'] && loan['success'] ) {
+        if (loan['loaded'] && !loan['error'] && loan['success']) {
           this.loan = loan.loan;
           this.loanId = this.loan.id;
           this.loanStatus = this.loan.status;
@@ -90,7 +90,7 @@ export class LoanCustomFieldsEditComponent implements OnInit, OnDestroy {
                 return {
                   ...section,
                   values: _.map(section.values, (field: any) => {
-                    if ( field.customField.fieldType === 'LOOKUP' && field.customField.extra && field.customField.extra.key ) {
+                    if (field.customField.fieldType === 'LOOKUP' && field.customField.extra && field.customField.extra.key) {
                       field.customField.extra.url = `${environment.API_ENDPOINT}${field.customField.extra.key}/lookup`;
                     }
                     return {
@@ -110,7 +110,7 @@ export class LoanCustomFieldsEditComponent implements OnInit, OnDestroy {
 
               const sections = <FormArray>this.form.controls['fieldSections'];
 
-              if ( sections.length ) {
+              if (sections.length) {
                 sections.value.map(item => {
                   sections.removeAt(sections.controls.indexOf(item));
                 });
@@ -133,7 +133,7 @@ export class LoanCustomFieldsEditComponent implements OnInit, OnDestroy {
 
   canDeactivate(url?) {
     this.nextRoute = url;
-    if ( !this.isSubmitting ) {
+    if (!this.isSubmitting) {
       this.isOpen = true;
       return this.isLeaving;
     } else {
@@ -150,8 +150,8 @@ export class LoanCustomFieldsEditComponent implements OnInit, OnDestroy {
     this.isOpen = false;
   }
 
-  submitForm({valid, value}) {
-    if ( valid ) {
+  submitForm({ valid, value }) {
+    if (valid) {
       const dataToSend = {
         fieldValues: []
       };
@@ -161,7 +161,7 @@ export class LoanCustomFieldsEditComponent implements OnInit, OnDestroy {
       fieldsMeta.map(field => {
         valueArray.map(valItem => {
           const key = Object.keys(valItem)[0];
-          if ( key === field.name ) {
+          if (key === field.name) {
             dataToSend.fieldValues.push({
               fieldId: field.id,
               value: valItem[key] ? valItem[key] : ''
@@ -171,7 +171,7 @@ export class LoanCustomFieldsEditComponent implements OnInit, OnDestroy {
       });
       this.loanAppCustomFieldService.updateCustomFields(this.loanAppId, dataToSend)
         .subscribe(res => {
-          if ( res.error ) {
+          if (res.error) {
             this.toastrService.clear();
             this.toastrService.error(res.message ? res.message : 'ERROR', '', environment.ERROR_TOAST_CONFIG);
           } else {
@@ -189,10 +189,10 @@ export class LoanCustomFieldsEditComponent implements OnInit, OnDestroy {
   flattenArray(array, selector?) {
     let tempArray = [];
     array.map(item => {
-      if ( Array.isArray(item) ) {
+      if (Array.isArray(item)) {
         tempArray = [...tempArray, ...item];
       }
-      if ( selector && !Array.isArray(item) ) {
+      if (selector && !Array.isArray(item)) {
         tempArray = [...tempArray, ...item[selector]];
       }
     });
@@ -202,7 +202,7 @@ export class LoanCustomFieldsEditComponent implements OnInit, OnDestroy {
   generateCustomFields(fields, index) {
     const section = <FormArray>this.form.controls['fieldSections']['controls'][index];
 
-    if ( section.length ) {
+    if (section.length) {
       section.value.map(item => {
         section.removeAt(section.controls.indexOf(item));
       });
@@ -216,12 +216,12 @@ export class LoanCustomFieldsEditComponent implements OnInit, OnDestroy {
   }
 
   createControl(config: FieldConfig) {
-    const {disabled, validation, value, required} = config;
+    const { disabled, validation, value, required } = config;
     const validationOptions = validation || [];
-    if ( required ) {
+    if (required) {
       validationOptions.push(Validators.required);
     }
-    return this.fb.control({disabled, value}, validationOptions);
+    return this.fb.control({ disabled, value }, validationOptions);
   }
 
   ngOnDestroy() {

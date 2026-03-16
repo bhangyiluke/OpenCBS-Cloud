@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   standalone: false,
-  selector: 'cbs-special-operations-wrap',
+  selector: 'cbs-term-deposit-special-operations-wrap',
   template: '<router-outlet></router-outlet>'
 })
 

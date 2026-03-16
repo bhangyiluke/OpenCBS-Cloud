@@ -3,6 +3,8 @@ package com.opencbs.core.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.opencbs.core.domain.enums.StatusType;
 import lombok.Data;
+
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,6 +29,7 @@ import static org.hibernate.envers.RelationTargetAuditMode.NOT_AUDITED;
 @Audited
 @Entity
 @Table(name = "users")
+@DynamicUpdate
 public class User extends BaseEntity implements UserDetails, NamedEntity {
 
     public static final String TELLER = "TELLER";

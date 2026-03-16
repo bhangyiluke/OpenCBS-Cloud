@@ -8,7 +8,7 @@ import * as fromStore from '../../../../../core/store';
 import { NavigationExtras, Router } from '@angular/router';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+(pdfMake as any).vfs = pdfFonts;
 import { IAuditTrailObjects } from '../../../../../core/store/audit-trail';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';

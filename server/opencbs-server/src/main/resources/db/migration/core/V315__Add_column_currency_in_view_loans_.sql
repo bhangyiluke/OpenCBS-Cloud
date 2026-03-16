@@ -53,5 +53,5 @@ FROM ((((((loans l
 WHERE (((p.type)::text <> 'GROUP'::text) AND ((a.status)::text <> 'PENDING'::text));
 
 alter table view_loans
-    owner to postgres;
+    owner to opencbs;
 

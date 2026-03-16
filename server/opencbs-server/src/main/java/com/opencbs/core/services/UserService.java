@@ -16,6 +16,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +30,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService extends BaseHistoryService<User, Long, Integer> implements CrudService<User> {
+public class UserService extends BaseHistoryService<User, Long, Integer> implements CrudService<User>, UserDetailsService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -134,5 +137,15 @@ public class UserService extends BaseHistoryService<User, Long, Integer> impleme
     // @Override
     public Class getTargetClass() {
         return User.class;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // TODO Auto-generated method stub
+        Optional<User> user = this.userRepository.findByUsername(username);
+        if (!user.isPresent()) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return user.get();
     }
 }

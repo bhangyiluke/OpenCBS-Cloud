@@ -8,10 +8,12 @@ import * as fromStore from '../../../../../core/store';
 import { NavigationExtras, Router } from '@angular/router';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+(pdfMake as any).vfs = pdfFonts;
 import { IAuditTrailObjects } from '../../../../../core/store/audit-trail';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+
 
 const SVG_DATA = {
   collection: 'standard',

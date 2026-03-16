@@ -301,7 +301,7 @@ from loans
 where loans.id = _loanId;
 $$;
 
-alter function _calculate_analitic_(bigint, timestamp) owner to postgres;
+alter function _calculate_analitic_(bigint, timestamp) owner to opencbs;
 
 -------------------
 
@@ -377,4 +377,4 @@ begin
 end;
 $$;
 
-alter function _calculate_analitic_by_date(timestamp) owner to postgres;
+alter function _calculate_analitic_by_date(timestamp) owner to opencbs;

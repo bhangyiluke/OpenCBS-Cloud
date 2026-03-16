@@ -13,11 +13,9 @@ import javax.crypto.SecretKey;
 import java.util.HashMap;
 import java.util.Map;
 
-import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
-import org.mapstruct.ap.internal.util.Collections;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -25,7 +23,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class TokenHelper {
-
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TokenHelper.class);
     private static final String ISSUER = "com.opencbs.core";
     private final String SECRET_KEY = "AAAAC3NzaC1lZDI1NTE5AAAAIFr0LN2jIm/UKrCCpXuOHv8Nsoq1NX8DakauWMQiaaZo";
     private static final long EXPIRATION_TIME = 86400000; // 1 day in milliseconds
@@ -55,6 +53,7 @@ public class TokenHelper {
 
     public Boolean verifyToken(String token, User user) {
         final String username = this.getUsernameFromToken(token);
+        logger.info("Verifying token for user: {}", username);
         if (username == null)
             return false;
         if (username.equals(user.getUsername()) && !IsSessionExpired(user)) {
@@ -77,7 +76,7 @@ public class TokenHelper {
         claims.put("id", user.getId());
         claims.put("username", user.getUsername());
         claims.put("permissions", user.getAuthorities());
-        claims.put("roles", Collections.asSet(user.getRole()));
+        claims.put("roles", Collections.singleton(user.getRole()));
         // byte[] secretKey = this.secretKeyProvider.getKey();
         SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
         return Jwts.builder()
@@ -108,7 +107,9 @@ public class TokenHelper {
     private boolean IsSessionExpired(User user) {
         Integer minutes = Integer
                 .valueOf(systemSettingsService.getValueByName(SystemSettingsName.EXPIRATION_SESSION_TIME_IN_MINUTES));
-        if (minutes == 0) { // session never ended
+        logger.info("Checking if session is expired for user: {}. Last entry time: {}, Expiration time in minutes: {}",
+                user.getUsername(), user.getLastEntryTime(), minutes);
+                if (minutes == 0) { // session never ended
             return false;
         }
         if (DateHelper.greater(DateHelper.getLocalDateTimeNow(), user.getLastEntryTime().plusMinutes(minutes))) {

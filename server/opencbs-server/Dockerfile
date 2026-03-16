@@ -1,4 +1,4 @@
-FROM java:8-jdk-alpine
+FROM java:21-jdk-alpine
 LABEL maintainer="Bektur Mambetov"
 WORKDIR /usr/app
 COPY ./target/*.jar /usr/app/cloud.jar

@@ -10,7 +10,7 @@ import { Observable, Subscription } from 'rxjs';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+(pdfMake as any).vfs = pdfFonts;
 import { IAuditTrailObjects } from '../../../../../core/store/audit-trail';
 import { RoleService } from '../../../../../core/store';
 import { TranslateService } from '@ngx-translate/core';

@@ -36,7 +36,7 @@ select
         end
 from accounts a where a.id = $1;
 $$;
-alter function get_in_cash_recursive(bigint, date, date) owner to postgres;
+alter function get_in_cash_recursive(bigint, date, date) owner to opencbs;
 
 create or replace function get_out_cash_recursive(bigint, date, date) returns numeric
     language sql
@@ -73,7 +73,7 @@ select
         end
 from accounts a where a.id = $1;
 $$;
-alter function get_out_cash_recursive(bigint, date, date) owner to postgres;
+alter function get_out_cash_recursive(bigint, date, date) owner to opencbs;
 
 ------------------------------------------------------------------------------------------------------------------------
 ------- EXTENDS ANALYTICS

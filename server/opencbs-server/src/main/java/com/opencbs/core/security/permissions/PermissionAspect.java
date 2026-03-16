@@ -13,16 +13,20 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 public class PermissionAspect {
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(PermissionAspect.class);
 
     @Before("@annotation(com.opencbs.core.security.permissions.PermissionRequired)")
     public void checkAllPermissions(JoinPoint joinPoint) {
         User currentUser = UserHelper.getCurrentUser();
-        if(currentUser.getId() == 2 || currentUser.getIsSystemUser())
+        logger.info("Checking permissions for user: {}", currentUser.getUsername());
+        if (currentUser.getId() == 2 || currentUser.getIsSystemUser())
             return;
 
         Method method = MethodSignature.class.cast(joinPoint.getSignature()).getMethod();
         if (!currentUser.hasPermission(method.getAnnotation(PermissionRequired.class).name())) {
-            throw new RuntimeException("You don't have permissions - " + method.getAnnotation(PermissionRequired.class).name());
+            logger.info("You don't have permissions - {}", method.getAnnotation(PermissionRequired.class).name());
+            throw new RuntimeException(
+                    "You don't have permissions - " + method.getAnnotation(PermissionRequired.class).name());
         }
     }
 }
