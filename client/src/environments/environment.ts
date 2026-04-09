@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-  API_ENDPOINT: `http://localhost:8080/api/`,
-  DOMAIN: 'http://localhost:8080',
+  API_ENDPOINT: `http://localhost:8090/api/`,
+  DOMAIN: 'http://localhost:8090',
   DATE_FORMAT: 'yyyy-MM-dd',
   DATE_FORMAT_MOMENT: 'YYYY-MM-DD',
   DATE_TIME_FORMAT: 'MMM dd, yyyy HH:mm',

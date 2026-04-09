@@ -79,7 +79,7 @@
 </div>
 
 <ngl-modal header="{{ 'CHANGE_PASSWORD' | translate }}" *ngIf="openModal" [(open)]="openModal">
-    <div body>
+    <div body class="cbs-change-password-modal__body">
         <form novalidate [formGroup]="changePasswordForm">
             <cbs-form-input-control [class.slds-has-error]="passwordNotMatch" [requiredField]="true"
                 [fieldLabel]="'PASSWORD' | translate"
@@ -92,14 +92,15 @@
                 [hasError]="changePasswordForm.get('confirmPassword').errors && changePasswordForm.get('confirmPassword').touched"
                 [formControlName]="'confirmPassword'" [inputType]="'password'" [showIconPreview]="true">
             </cbs-form-input-control>
+
+            <div class="cbs-change-password__actions">
+                <button class="slds-button slds-button--neutral" (click)="cancel()">{{ 'CANCEL' | translate }}</button>
+                <button [disabled]="changePasswordForm.invalid || passwordNotMatch" class="slds-button slds-button--success"
+                    (click)="submit()">{{ 'SUBMIT' | translate }}
+                </button>
+            </div>
         </form>
     </div>
-    <ng-template ngl-modal-footer>
-        <button class="slds-button slds-button--neutral" (click)="cancel()">{{ 'CANCEL' | translate }}</button>
-        <button [disabled]="changePasswordForm.invalid || passwordNotMatch" class="slds-button slds-button--success"
-            (click)="submit()">{{ 'SUBMIT' | translate }}
-        </button>
-    </ng-template>
 
 </ngl-modal>
 

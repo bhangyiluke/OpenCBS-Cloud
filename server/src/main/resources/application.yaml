@@ -191,7 +191,7 @@ token:
   blacklist:
     cleanup-interval: 86400000  # 24 hours in millisecondsserver:
 server:
-  port: 8080
+  port: 8090
   compression:
     enabled: true
     mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json,application/xml
@@ -212,7 +212,7 @@ logging:
   level:
     root: INFO
     com.afrogenius.erp: DEBUG
-    org.hibernate.SQL: DEBUG
+    org.hibernate.SQL: ERROR
     org.hibernate.stat: DEBUG
 
 management:

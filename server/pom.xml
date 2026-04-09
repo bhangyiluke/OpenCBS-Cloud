@@ -347,7 +347,7 @@
 					<failOnError>false</failOnError>
 					<filesets>
 						<fileset>
-							<directory>../../client</directory>
+							<directory>../client</directory>
 							<includes>
 								<include>dist/</include>
 							</includes>
@@ -388,14 +388,14 @@
 							<outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
 							<resources>
 								<resource>
-									<directory>../../client/dist</directory>
+									<directory>../client/dist</directory>
 								</resource>
 							</resources>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>3.4.1</version>
@@ -410,9 +410,9 @@
 							<executable>npm</executable>
 							<arguments>
 								<argument>install</argument>
-								<argument>--legacy-peer-deps</argument>
+								<argument>**legacy-peer-deps</argument>
 							</arguments>
-							<workingDirectory>../../client</workingDirectory>
+							<workingDirectory>../client</workingDirectory>
 						</configuration>
 					</execution>
 					<execution>
@@ -427,12 +427,12 @@
 								<argument>run</argument>
 								<argument>build</argument>
 							</arguments>
-							<workingDirectory>../../client</workingDirectory>
+							<workingDirectory>../client</workingDirectory>
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
+			</plugin> -->
+			<!-- <plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<executions>
 					<execution>
@@ -440,13 +440,13 @@
 						<configuration>
 							<target>
 								<copy todir="${project.build.directory}/classes/public">
-									<fileset dir="../../client/dist" />
+									<fileset dir="../client/dist" />
 								</copy>
 							</target>
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 		</plugins>
 	</build>
 

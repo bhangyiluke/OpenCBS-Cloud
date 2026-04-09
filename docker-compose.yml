@@ -1,0 +1,27 @@
+version: '3'
+services:
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: rabbitmq-stomp
+    command: sh -c "rabbitmq-plugins enable rabbitmq_web_stomp && rabbitmq-server"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin123!
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "15674:15674"
+  server:
+    build: ./server
+    container_name: opencbs-server
+    depends_on:
+      - rabbitmq
+    ports:
+      - "8080:8080"
+  client:
+    build: ./client
+    container_name: opencbs-client
+    depends_on:
+      - server
+    ports:
+      - "80:80"
