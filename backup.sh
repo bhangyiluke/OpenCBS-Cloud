@@ -1,1 +1,1 @@
-tar  --exclude='./server/opencbs-server/target' --exclude='./.github' --exclude='./client/node_modules' --exclude='./client/dist' --exclude='./client/build' -cvf ../OpenCBS-Cloud-$(date +%Y%m%d-%H%M%S).tar.gz .
+tar  --exclude='./server/opencbs-server/target' --exclude='./.git' --exclude='**/logs' --exclude='./.github' --exclude='./client/node_modules' --exclude='./client/.angular' --exclude='./client/dist' --exclude='./client/build' -cvf ../OpenCBS-Cloud-$(date +%Y%m%d-%H%M%S).tar.gz .
