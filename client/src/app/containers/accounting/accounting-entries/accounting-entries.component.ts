@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { findIndex } from 'lodash'
 
-const SVG_DATA = {collection: 'standard', class: 'social', name: 'social'};
+const SVG_DATA = { collection: 'standard', class: 'social', name: 'social' };
 
 @Component({
   standalone: false,
@@ -26,9 +26,9 @@ const SVG_DATA = {collection: 'standard', class: 'social', name: 'social'};
   styleUrls: ['./accounting-entries.component.scss']
 })
 export class AccountingEntriesComponent implements OnInit, OnDestroy {
-  @ViewChild('lookupDebitAccount', {static: false}) lookupDebitAccount!: FormLookupControlComponent;
-  @ViewChild('lookupCreditAccount', {static: false}) lookupCreditAccount!: FormLookupControlComponent;
-  @ViewChild('lookupTransactionTemplate', {static: false}) lookupTransactionTemplate!: FormLookupControlComponent;
+  @ViewChild('lookupDebitAccount', { static: false }) lookupDebitAccount!: FormLookupControlComponent;
+  @ViewChild('lookupCreditAccount', { static: false }) lookupCreditAccount!: FormLookupControlComponent;
+  @ViewChild('lookupTransactionTemplate', { static: false }) lookupTransactionTemplate!: FormLookupControlComponent;
   public svgData = SVG_DATA;
   public entries!: IAccountingEntries;
   public singleTransactionForm!: FormGroup;
@@ -69,14 +69,14 @@ export class AccountingEntriesComponent implements OnInit, OnDestroy {
   private currentPageSub!: Subscription;
 
   constructor(private entries$: Store<IAccountingEntries>,
-              private store$: Store<fromRoot.State>,
-              private router: Router,
-              private fb: FormBuilder,
-              private toastrService: ToastrService,
-              private printingFormService: PrintOutService,
-              private translate: TranslateService,
-              private parseDateFormatService: ParseDateFormatService,
-              private accountingEntriesTransactionService: AccountingEntriesTransactionService) {
+    private store$: Store<fromRoot.State>,
+    private router: Router,
+    private fb: FormBuilder,
+    private toastrService: ToastrService,
+    private printingFormService: PrintOutService,
+    private translate: TranslateService,
+    private parseDateFormatService: ParseDateFormatService,
+    private accountingEntriesTransactionService: AccountingEntriesTransactionService) {
   }
 
   ngOnInit() {
@@ -130,15 +130,15 @@ export class AccountingEntriesComponent implements OnInit, OnDestroy {
       bankAccountId: new FormControl('', Validators.required)
     });
 
-    this.printingFormService.getForms('GENERAL_LEDGER')
-      .subscribe(res => {
-        if ( res.err ) {
-          this.toastrService.error(res.err, '', environment.ERROR_TOAST_CONFIG);
-        } else {
-          this.receiptFormId = res[0]['id'];
-          this.receiptFormLabel = res[0]['label'];
-        }
-      });
+    this.printingFormService?.getForms('GENERAL_LEDGER')?.subscribe(res => {
+      if (res.err) {
+        this.toastrService?.error(res.err, '', environment.ERROR_TOAST_CONFIG);
+      } else {
+        console.log("Printing forms: ", res);
+        this.receiptFormId = res[0]?.id;
+        this.receiptFormLabel = res[0]?.label;
+      }
+    });
   }
 
   getLoansCurrentPage = () => {
@@ -177,19 +177,19 @@ export class AccountingEntriesComponent implements OnInit, OnDestroy {
   }
 
   openTransactionModal(value: any) {
-    if ( value === 'SINGLE' ) {
+    if (value === 'SINGLE') {
       this.isSingleTransactionModalOpened = true;
     } else {
       this.isMultipleTransactionModalOpened = true;
     }
-    this.singleTransactionForm.reset();
-    this.multipleTransactionForm.reset();
+    this.singleTransactionForm?.reset();
+    this.multipleTransactionForm?.reset();
     const dateNow = moment().format(environment.DATE_FORMAT_MOMENT);
-    this.singleTransactionForm.controls['createdAt'].setValue(dateNow);
-    this.multipleTransactionForm.controls['dateTime'].setValue(dateNow);
-    this.lookupDebitAccount.onClearLookup();
-    this.lookupCreditAccount.onClearLookup();
-    this.lookupTransactionTemplate.onClearLookup();
+    this.singleTransactionForm?.controls['createdAt'].setValue(dateNow);
+    this.multipleTransactionForm?.controls['dateTime'].setValue(dateNow);
+    this.lookupDebitAccount?.onClearLookup();
+    this.lookupCreditAccount?.onClearLookup();
+    this.lookupTransactionTemplate?.onClearLookup();
     this.multipleTransactionDebitAccounts = [];
     this.multipleTransactionCreditAccounts = [];
     this.multipleTransactionDebitAccountsValue = [];
@@ -203,10 +203,10 @@ export class AccountingEntriesComponent implements OnInit, OnDestroy {
 
   submitSingleTransaction() {
     this.isLoading = true;
-    const dateNow = moment(this.singleTransactionForm.controls['createdAt'].value)
+    const dateNow = moment(this.singleTransactionForm?.controls['createdAt']?.value)
       .format(environment.DATE_FORMAT_MOMENT) + moment().format('THH:mm:ss');
-    this.singleTransactionForm.controls['createdAt'].setValue(dateNow);
-    this.accountingEntriesTransactionService.addSingleTransaction(this.singleTransactionForm.value)
+    this.singleTransactionForm?.controls['createdAt']?.setValue(dateNow);
+    this.accountingEntriesTransactionService?.addSingleTransaction(this.singleTransactionForm?.value)
       .subscribe(res => {
         this.submitTransactionResponseValue(res, this.singleTransactionForm);
       });
@@ -222,33 +222,33 @@ export class AccountingEntriesComponent implements OnInit, OnDestroy {
 
   debitAccountsValue(accountId: any, value: any) {
     value = parseFloat(value);
-    if ( !this.isDebitTransactionAccount ) {
+    if (!this.isDebitTransactionAccount) {
       this.accountsValue(this.multipleTransactionDebitAccountsValue, accountId, value);
     } else {
       this.multipleTransactionDebitAccountsValue = [];
-        this.multipleTransactionDebitAccountsValue.push({
-          amount: value,
-          accountId: accountId
-        });
+      this.multipleTransactionDebitAccountsValue?.push({
+        amount: value,
+        accountId: accountId
+      });
     }
   }
 
   creditAccountsValue(accountId: any, value: any) {
     value = parseFloat(value);
-    if ( this.isDebitTransactionAccount ) {
+    if (this.isDebitTransactionAccount) {
       this.accountsValue(this.multipleTransactionCreditAccountsValue, accountId, value);
     } else {
       this.multipleTransactionCreditAccountsValue = [];
-        this.multipleTransactionCreditAccountsValue.push({
-          amount: value,
-          accountId: accountId
-        });
+      this.multipleTransactionCreditAccountsValue?.push({
+        amount: value,
+        accountId: accountId
+      });
     }
   }
 
   accountsValue(multipleTransactionAccountsValue: any[], accountId: any, value: any) {
-    const indexValue = findIndex(multipleTransactionAccountsValue, {'accountId': accountId});
-    if ( indexValue !== -1 ) {
+    const indexValue = findIndex(multipleTransactionAccountsValue, { 'accountId': accountId });
+    if (indexValue !== -1) {
       multipleTransactionAccountsValue.splice(indexValue, 1, {
         amount: value,
         accountId: accountId
@@ -265,12 +265,12 @@ export class AccountingEntriesComponent implements OnInit, OnDestroy {
 
   getAccountsValue() {
     this.totalAmountAccounts = 0
-    if ( this.isDebitTransactionAccount  ) {
-      this.multipleTransactionCreditAccountsValue.map(value => {
+    if (this.isDebitTransactionAccount) {
+      this.multipleTransactionCreditAccountsValue?.map(value => {
         this.totalAmountAccounts += parseFloat(value.amount);
       });
     } else {
-      this.multipleTransactionDebitAccountsValue.map(value => {
+      this.multipleTransactionDebitAccountsValue?.map(value => {
         this.totalAmountAccounts += parseFloat(value.amount);
       })
     }
@@ -280,18 +280,18 @@ export class AccountingEntriesComponent implements OnInit, OnDestroy {
 
   submitMultipleTransaction() {
     this.isLoading = true;
-    const dateNow = moment(this.multipleTransactionForm.controls['dateTime'].value)
+    const dateNow = moment(this.multipleTransactionForm?.controls['dateTime']?.value)
       .format(environment.DATE_FORMAT_MOMENT) + moment().format('THH:mm:ss');
-    this.multipleTransactionForm.controls['dateTime'].setValue(dateNow);
-    this.multipleTransactionForm.controls['accountWillBeDebit'].setValue(this.isDebitTransactionAccount)
-    if ( this.isDebitTransactionAccount ) {
-      this.multipleTransactionForm.controls['accountId'].setValue(this.multipleTransactionDebitAccounts[0].id);
-      this.multipleTransactionForm.controls['amounts'].setValue(this.multipleTransactionCreditAccountsValue);
+    this.multipleTransactionForm?.controls['dateTime']?.setValue(dateNow);
+    this.multipleTransactionForm?.controls['accountWillBeDebit']?.setValue(this.isDebitTransactionAccount)
+    if (this.isDebitTransactionAccount) {
+      this.multipleTransactionForm?.controls['accountId']?.setValue(this.multipleTransactionDebitAccounts[0].id);
+      this.multipleTransactionForm?.controls['amounts']?.setValue(this.multipleTransactionCreditAccountsValue);
     } else {
-      this.multipleTransactionForm.controls['accountId'].setValue(this.multipleTransactionCreditAccounts[0].id);
-      this.multipleTransactionForm.controls['amounts'].setValue(this.multipleTransactionDebitAccountsValue);
+      this.multipleTransactionForm?.controls['accountId']?.setValue(this.multipleTransactionCreditAccounts[0].id);
+      this.multipleTransactionForm?.controls['amounts']?.setValue(this.multipleTransactionDebitAccountsValue);
     }
-    this.accountingEntriesTransactionService.addMultipleTransaction(this.multipleTransactionForm.value)
+    this.accountingEntriesTransactionService?.addMultipleTransaction(this.multipleTransactionForm.value)
       .subscribe(res => {
         this.submitTransactionResponseValue(res, this.multipleTransactionForm);
         this.loadAccountingEntries();
@@ -299,12 +299,12 @@ export class AccountingEntriesComponent implements OnInit, OnDestroy {
   }
 
   submitTransactionResponseValue(response: any, transactionForm: any) {
-    if ( response.error ) {
-      this.toastrService.clear();
-      this.toastrService.error(response.message, '', environment.ERROR_TOAST_CONFIG);
+    if (response.error) {
+      this.toastrService?.clear();
+      this.toastrService?.error(response.message, '', environment.ERROR_TOAST_CONFIG);
       this.isLoading = false;
     } else {
-      if ( transactionForm.controls['autoPrint'].value ) {
+      if (transactionForm?.controls['autoPrint'].value) {
         const objToSend = {
           entityId: response.id,
           templateId: this.receiptFormId
@@ -313,9 +313,9 @@ export class AccountingEntriesComponent implements OnInit, OnDestroy {
           this.downloadPrintingForm(objToSend);
         }, 500)
       }
-      this.toastrService.clear();
-      this.translate.get('CREATE_SUCCESS').subscribe((message: string) => {
-        this.toastrService.success(message, '', environment.SUCCESS_TOAST_CONFIG);
+      this.toastrService?.clear();
+      this.translate?.get('CREATE_SUCCESS').subscribe((message: string) => {
+        this.toastrService?.success(message, '', environment.SUCCESS_TOAST_CONFIG);
       });
       this.isLoading = false;
       this.isSingleTransactionModalOpened = false;
@@ -339,9 +339,9 @@ export class AccountingEntriesComponent implements OnInit, OnDestroy {
   downloadPrintingForm(objToSend: any) {
     this.printingFormService.downloadForm(objToSend, 'GENERAL_LEDGER')
       .subscribe(res => {
-        if ( res.err ) {
-          this.translate.get('CREATE_ERROR').subscribe((response: string) => {
-            this.toastrService.error(res.err, response, environment.ERROR_TOAST_CONFIG);
+        if (res.err) {
+          this.translate?.get('CREATE_ERROR').subscribe((response: string) => {
+            this.toastrService?.error(res.err, response, environment.ERROR_TOAST_CONFIG);
             this.isLoading = false;
           });
         } else {
@@ -352,8 +352,8 @@ export class AccountingEntriesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.entriesSub.unsubscribe();
+    this.entriesSub?.unsubscribe();
     this.entries$.dispatch(new fromStore.ResetAccountingEntries());
-    this.currentPageSub.unsubscribe();
+    this.currentPageSub?.unsubscribe();
   }
 }

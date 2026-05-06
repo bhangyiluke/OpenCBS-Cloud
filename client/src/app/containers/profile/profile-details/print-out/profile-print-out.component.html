@@ -17,8 +17,8 @@
             <div class="slds-grid slds-grid--vertical-align-center">
                 <div class="slds-text-heading--large slds-m-right--medium">{{ (profile | async)?.name }}</div>
                 <div scope="row">
-                    <ngl-badge type="success" *ngIf="(profile | async)?.status === 'LIVE'">{{'LIVE' | translate}}</ngl-badge>
-                    <ngl-badge type="info" *ngIf="(profile | async)?.status === 'PENDING'">{{'PENDING' | translate}}</ngl-badge>
+                    <mat-chip color="primary" *ngIf="(profile | async)?.status === 'LIVE'">{{'LIVE' | translate}}</mat-chip>
+                    <mat-chip color="accent" *ngIf="(profile | async)?.status === 'PENDING'">{{'PENDING' | translate}}</mat-chip>
                 </div>
             </div>
         </div>
@@ -98,7 +98,7 @@
 </main>
 
 <ngl-modal header="{{ reportName | translate }}" *ngIf="isOpen" [(open)]="isOpen">
-    <div body>
+    <div class="slds-p-around_medium">
         <cbs-loading-indicator [showLoader]="fieldsReady"></cbs-loading-indicator>
         <form novalidate [formGroup]="reportForm" class="slds-form--stacked">
             <div [hidden]="fieldsReady" formArrayName="fieldValues" class="cbs-collateral-form__fields">
@@ -112,7 +112,7 @@
         </form>
 
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button *ngIf="!fieldsReady" class="slds-button slds-button--neutral" (click)="cancel()">{{ 'CANCEL' | translate
             }}
         </button>

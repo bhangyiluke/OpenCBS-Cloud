@@ -9,6 +9,7 @@ import com.opencbs.core.mappers.customFields.CompanyCustomFieldSectionMapper;
 import com.opencbs.core.services.customFields.CompanyCustomFieldSectionService;
 import com.opencbs.core.validators.customfields.CustomFieldSectionDtoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +41,7 @@ public class CompanyCustomFieldSectionController extends BaseController {
     }
 
     @RequestMapping(method = GET)
+    @Transactional(readOnly = true)
     public List<CustomFieldSectionDto> get() {
         return this.getSections();
     }

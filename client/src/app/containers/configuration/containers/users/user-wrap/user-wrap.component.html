@@ -105,7 +105,7 @@
 </main>
 
 <ngl-modal header="{{ 'CHANGE_PASSWORD' | translate }}" *ngIf="openModal" [(open)]="openModal">
-    <div body>
+    <div class="slds-p-around_medium">
         <form novalidate [formGroup]="changePasswordForm">
             <cbs-form-input-control
                 [class.slds-has-error]="passwordNotMatch"
@@ -129,7 +129,7 @@
         </form>
     </div>
 
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="cancel()">{{ 'CANCEL' | translate }}</button>
         <button [disabled]="changePasswordForm.invalid || passwordNotMatch" class="slds-button slds-button--success"
                 (click)="submit()">{{ 'SUBMIT' | translate }}

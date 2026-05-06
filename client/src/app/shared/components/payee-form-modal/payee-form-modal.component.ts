@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild, Inject } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { environment } from '../../../../environments/environment';
 import { IPayeeItem } from '../../../core/store/loan-application';
 import moment from 'moment';
@@ -15,14 +16,18 @@ import { FormLookupControlComponent } from '../../modules/cbs-form/components';
 
 export class PayeeFormModalComponent implements OnInit {
   @ViewChild('payee', { static: false }) payee: FormLookupControlComponent;
-  @Input() headerTitle: string;
-  @Output() onSubmit = new EventEmitter();
-  public isOpen = false;
   public form: any;
   public payeeLookupUrl = {
     url: `${environment.API_ENDPOINT}payees/lookup`
   };
   public plannedDisbursementDate = moment().format(environment.DATE_FORMAT_MOMENT);
+
+  constructor(
+    public dialogRef: MatDialogRef<PayeeFormModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { headerTitle: string }
+  ) {}
+
+
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -33,21 +38,20 @@ export class PayeeFormModalComponent implements OnInit {
       amount: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required)
     });
-  }
 
-  openCreateModal() {
-    this.payee.onClearLookup();
-    this.form.reset();
-    this.isOpen = true;
+    if (this.data && this.data.headerTitle) {
+      // Handle dialog data if needed
+    }
   }
 
   submit() {
-    this.isOpen = false;
-    this.onSubmit.emit(this.form.value);
+    if (this.form.valid) {
+      this.dialogRef.close(this.form.value);
+    }
   }
 
   cancel() {
-    this.isOpen = false;
+    this.dialogRef.close();
   }
 
   setPayeeDetails(payee) {
@@ -55,14 +59,19 @@ export class PayeeFormModalComponent implements OnInit {
     this.form.controls['plannedDisbursementDate'].setValue(this.plannedDisbursementDate);
   }
 
-  openEditModal(data: IPayeeItem) {
-    this.form.controls['id'].setValue(data.id);
-    this.form.controls['payee'].setValue(data.payee);
-    this.form.controls['payeeId'].setValue(data.payeeId);
-    this.form.controls['plannedDisbursementDate'].setValue(data.plannedDisbursementDate);
-    this.form.controls['amount'].setValue(data.amount);
-    this.form.controls['description'].setValue(data.description);
+  setFormData(data: IPayeeItem) {
+    if (data) {
+      this.form.controls['id'].setValue(data.id);
+      this.form.controls['payee'].setValue(data.payee);
+      this.form.controls['payeeId'].setValue(data.payeeId);
+      this.form.controls['plannedDisbursementDate'].setValue(data.plannedDisbursementDate);
+      this.form.controls['amount'].setValue(data.amount);
+      this.form.controls['description'].setValue(data.description);
+    }
+  }
 
-    this.isOpen = true;
+  clearForm() {
+    this.payee?.onClearLookup();
+    this.form.reset();
   }
 }

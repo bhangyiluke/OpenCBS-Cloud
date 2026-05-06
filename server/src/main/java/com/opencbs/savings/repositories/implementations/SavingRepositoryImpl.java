@@ -58,7 +58,8 @@ public class SavingRepositoryImpl extends BaseRepository<Saving> implements Savi
                 savingOfficer.get("id").alias("savingOfficerId"),
                 root.get("openDate").alias("openDate"),
                 product.get("name").alias("productName"),
-                product.get("id").alias("productId")
+                product.get("id").alias("productId"),
+                root.get("createdAt")
         );
         if (predicate != null) cq.where(predicate);
         cq.orderBy(cb.desc(root.get("createdAt")));

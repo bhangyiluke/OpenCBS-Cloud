@@ -187,7 +187,7 @@ export class ProfileInfoEditComponent implements OnInit, OnDestroy {
     if (this.formSub) { this.formSub.unsubscribe() }
     this.profileSub.unsubscribe();
     this.statusSub.unsubscribe();
-    this.permissionSub.unsubscribe();
+    this.permissionSub?.unsubscribe();
 
     // Clear form section data
     const sections = <FormArray>this.profileForm.controls['fieldSections'];

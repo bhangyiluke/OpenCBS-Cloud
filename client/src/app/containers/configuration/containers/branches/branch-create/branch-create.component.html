@@ -8,20 +8,20 @@
         <!--/cbs-page-header-layout = left-->
 
         <div cbs-page-header-layout="right">
-            <button type="button" nglButton="neutral" (click)="goToViewCCRules()">
-                <ngl-icon icon="close" align="center" [svgClass]="'slds-button__icon--left'">{{ 'CANCEL' | translate
-                    }}
-                </ngl-icon>
+            <button routerLink="/configuration/branches" class="slds-button slds-button--neutral" aria-live="assertive">
+                <span class="slds-text-not-selected">
+                    <svg aria-hidden="true" class="slds-button__icon--stateful slds-button__icon--left">
+                        <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+                    </svg>{{ 'CANCEL' | translate }}
+                </span>
             </button>
-            <button type="button"
-                    nglButton="success"
-                    [disabled]="form?.invalid"
-                    class="slds-button--success"
-                    #submitButton
-                    (click)="submitForm(form)">
-                <ngl-icon icon="check" align="'center'" [svgClass]="'slds-button__icon--left'">{{ 'SAVE' | translate
-                    }}
-                </ngl-icon>
+            <button (click)="submitForm(form)" #submitButton
+                    class="slds-button slds-button--success" aria-live="assertive"
+                    [disabled]="form.invalid">
+                <span class="slds-text-not-selected">
+                    <svg aria-hidden="true" class="slds-button__icon--stateful slds-button__icon--left">
+                        <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                    </svg>{{ 'SAVE' | translate }}</span>
             </button>
         </div>
         <!--/cbs-page-header-layout = right-->

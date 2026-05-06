@@ -66,13 +66,13 @@
 </cbs-loan-layout>
 
 <ngl-modal [header]="'ACTUALIZE_LOAN' | translate" [(open)]="isOpenActualize">
-    <div body>
+    <div class="slds-p-around_medium">
         <p class="slds-accordion__section slds-align--absolute-center slds-text-color--error slds-text-heading--small">
             The contract (code = {{loanCode}}) is not actualized.</p>
         <p class="slds-accordion__section slds-align--absolute-center slds-text-color--weak slds-text-heading--small">
             Do you want to actualize it to {{ this.rescheduleFormComponent.rescheduleForm.value.rescheduleDate }}?</p>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="isOpenActualize = false">{{ 'NO' | translate }}
         </button>
         <button class="slds-button slds-button--success" (click)="submitActualizeLoan()">{{ 'YES' | translate }}

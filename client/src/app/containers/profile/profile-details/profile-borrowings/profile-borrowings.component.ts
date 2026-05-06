@@ -107,7 +107,7 @@ export class ProfileBorrowingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.permissionSub.unsubscribe();
+    this.permissionSub?.unsubscribe();
     this.routeSub.unsubscribe();
     this.statusSub.unsubscribe();
     if ( this.profileSub ) {

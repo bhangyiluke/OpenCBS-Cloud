@@ -16,8 +16,8 @@
             <div class="slds-grid slds-grid--vertical-align-center">
                 <div class="slds-text-heading--large slds-m-right--medium">{{ profile?.name }}</div>
                 <div scope="row">
-                    <ngl-badge type="success" *ngIf="profile?.status === 'LIVE'">{{'LIVE' | translate}}</ngl-badge>
-                    <ngl-badge type="info" *ngIf="profile?.status === 'PENDING'">{{'PENDING' | translate}}</ngl-badge>
+                    <mat-chip color="primary" *ngIf="profile?.status === 'LIVE'">{{'LIVE' | translate}}</mat-chip>
+                    <mat-chip color="accent" *ngIf="profile?.status === 'PENDING'">{{'PENDING' | translate}}</mat-chip>
                 </div>
             </div>
         </div>
@@ -115,7 +115,7 @@
 <cbs-loading-indicator [isFixed]="true"
                        [showLoader]="profile?.loading || (profileCurrentAccounts | async)?.loading"></cbs-loading-indicator>
 <ngl-modal [header]="'ADD_ACCOUNT' | translate" [(open)]="isOpen">
-    <div body>
+    <div class="slds-p-around_medium">
 
         <form novalidate [formGroup]="form" class="slds-form--stacked">
             <cbs-form-select-control
@@ -128,7 +128,7 @@
             </cbs-form-select-control>
         </form>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="isOpen = false">{{ 'CANCEL' | translate }}</button>
         <button [disabled]="form.invalid" class="slds-button slds-button--success" (click)="createAccount()">{{ 'SAVE' |
             translate }}
@@ -137,7 +137,7 @@
 </ngl-modal>
 
 <ngl-modal [(open)]="opened" (openChange)="resetModal()">
-    <div body>
+    <div class="slds-p-around_medium">
         <img [src]="imageUrl" alt="">
     </div>
 </ngl-modal>

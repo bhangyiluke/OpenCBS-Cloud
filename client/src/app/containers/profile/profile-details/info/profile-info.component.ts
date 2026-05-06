@@ -114,7 +114,7 @@ export class ProfileInfoComponent implements OnInit, OnDestroy {
     this.fieldsSub.unsubscribe();
     this.statusSub.unsubscribe();
     this.profile.unsubscribe();
-    this.permissionSub.unsubscribe();
+    this.permissionSub?.unsubscribe();
     if ( this.profileSub ) {
       this.profileSub.unsubscribe();
     }

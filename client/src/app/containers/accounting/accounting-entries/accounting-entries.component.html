@@ -168,7 +168,7 @@
 </main>
 <!-- ./cbs-main -->
 <ngl-modal [header]="'ADD_SINGLE_TRANSACTION' | translate" [(open)]="isSingleTransactionModalOpened">
-    <div body>
+    <div class="slds-p-around_medium">
         <div class="slds-form--stacked">
             <form novalidate [formGroup]="singleTransactionForm">
                 <cbs-form-lookup-control #lookupDebitAccount
@@ -215,7 +215,7 @@
             </form>
         </div>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="cancel()">{{ 'CANCEL' | translate }}</button>
         <button [disabled]="singleTransactionForm.invalid" class="slds-button slds-button--success"
             (click)="submitSingleTransaction()">{{ 'SAVE' | translate }}
@@ -224,7 +224,7 @@
 </ngl-modal>
 
 <ngl-modal [header]="'ADD_MULTIPLE_TRANSACTION' | translate" [(open)]="isMultipleTransactionModalOpened">
-    <div body>
+    <div class="slds-p-around_medium">
         <div class="slds-form--stacked">
             <form novalidate [formGroup]="multipleTransactionForm">
                 <cbs-form-lookup-control #lookupTransactionTemplate
@@ -286,7 +286,7 @@
             </form>
         </div>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="cancel()">{{ 'CANCEL' | translate }}
         </button>
         <button [disabled]="multipleTransactionForm.invalid" class="slds-button slds-button--success"

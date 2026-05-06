@@ -184,7 +184,7 @@ export class CurrentAccountTransactionsComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.printingFormService.getForms('GENERAL_LEDGER').subscribe(res => {
+    this.printingFormService.getForms('GENERAL_LEDGER')?.subscribe(res => {
       if (res.err) {
         this.toastrService.error(res.err, '', environment.ERROR_TOAST_CONFIG);
       } else {
@@ -334,7 +334,7 @@ export class CurrentAccountTransactionsComponent implements OnInit, OnDestroy {
     this.routeSub.unsubscribe();
     this.routeParentSub.unsubscribe();
     this.transactionsSub.unsubscribe();
-    this.permissionSub.unsubscribe();
+    this.permissionSub?.unsubscribe();
     this.statusSub.unsubscribe();
     this.currentPageSub.unsubscribe();
     this.currentAccountTransactionsStore$

@@ -39,7 +39,7 @@
 
 
 <ngl-modal header="{{ reportName | translate }}" *ngIf="isOpen" [(open)]="isOpen">
-    <div body>
+    <div class="slds-p-around_medium">
         <cbs-loading-indicator [showLoader]="fieldsReady"></cbs-loading-indicator>
         <form novalidate [formGroup]="reportForm" class="slds-form--stacked">
             <div [hidden]="fieldsReady" formArrayName="fieldValues" class="cbs-collateral-form__fields">
@@ -53,7 +53,7 @@
         </form>
 
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button *ngIf="!fieldsReady" class="slds-button slds-button--neutral" (click)="cancel()">{{ 'CANCEL' | translate
             }}
         </button>

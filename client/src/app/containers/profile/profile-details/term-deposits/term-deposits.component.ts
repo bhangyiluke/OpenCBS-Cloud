@@ -108,8 +108,7 @@ export class TermDepositsComponent implements OnInit, OnDestroy {
   }
 
   getCurrentPage = () => {
-    return state => state
-      .map(s => {
+    return state => state?.map(s => {
         return s.currentPage;
       });
   };
@@ -161,7 +160,7 @@ export class TermDepositsComponent implements OnInit, OnDestroy {
     if ( this.profileSub ) {
       this.profileSub.unsubscribe();
     }
-    this.permissionSub.unsubscribe();
+    this.permissionSub?.unsubscribe();
   }
 
   resetModal() {

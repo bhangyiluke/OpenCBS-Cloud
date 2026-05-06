@@ -4,11 +4,11 @@ import com.opencbs.core.domain.enums.AccountType;
 import com.opencbs.core.dto.BaseDto;
 import com.opencbs.core.dto.BranchDto;
 import com.opencbs.core.dto.CurrencyDto;
-import com.opencbs.core.request.interfaces.BaseRequestDto;
+// import com.opencbs.core.request.interfaces.BaseRequestDto;
 import lombok.Data;
 
 @Data
-public class AccountDto extends BaseDto implements BaseRequestDto {
+public class AccountDto extends BaseDto {
 
     private String number;
     private String name;

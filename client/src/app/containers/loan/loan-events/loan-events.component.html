@@ -137,7 +137,7 @@
 <p *ngIf="!events" class="slds-text-align--center slds-m-top--large">{{ 'NO_DATA' | translate }}</p>
 
 <ngl-modal [header]="'LOAN_ROLLBACK' | translate" [(open)]="isRollbackConfirmOpen">
-    <div body>
+    <div class="slds-p-around_medium">
         <div class="slds-form--stacked">
             <form novalidate [formGroup]="rollbackForm">
 
@@ -152,7 +152,7 @@
             </form>
         </div>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="closeModal()">{{ 'CANCEL' | translate }}</button>
         <button [disabled]="rollbackForm.invalid" class="slds-button slds-button--success"
             (click)="confirmRollback()">{{

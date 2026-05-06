@@ -2,7 +2,7 @@ import { Directive, ViewContainerRef, TemplateRef, Input, OnDestroy } from '@ang
 import { checkPermissions } from '../utils/common.utils';
 import { CurrentUserService } from '../store/users/current-user';
 import { Store } from '@ngrx/store';
-import * as fromStore from '../../core/store';
+// import * as fromStore from '../../core/store';
 import * as fromRoot from '../../core/core.reducer';
 
 @Directive({
@@ -15,6 +15,7 @@ export class VisibleByPermissionDirective implements OnDestroy {
   @Input() set cbsVisibleByPermission(data: { group: string, permissions?: any }) {
 
     this.permissionSub = this.currentUserService.currentUserPermissions$.subscribe(userPermissions => {
+      // console.log("User permissions:",data['group']['children'])
       if ( data && data['permissions'] ) {
         checkPermissions(userPermissions, data) ? this.view.createEmbeddedView(this.template) : this.view.clear();
       } else {
@@ -49,6 +50,6 @@ export class VisibleByPermissionDirective implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.permissionSub.unsubscribe();
+    this.permissionSub?.unsubscribe();
   }
 }

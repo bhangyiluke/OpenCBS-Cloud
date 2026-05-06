@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material/dialog';
 import * as fromRoot from '../../../core/core.reducer';
 import * as fromStore from '../../../core/store';
 import { ILoanAppState, ILoanInfo } from '../../../core/store';
@@ -19,7 +20,6 @@ import { Observable, Subscription } from 'rxjs';
 })
 
 export class LoanInfoComponent implements OnInit, OnDestroy {
-  @ViewChild(PayeeFormModalComponent, {static: false}) payeeFormComponent: PayeeFormModalComponent;
   public loanApp: any;
   public loanApplicationState: any;
   public breadcrumbPart: string;
@@ -46,7 +46,8 @@ export class LoanInfoComponent implements OnInit, OnDestroy {
               private translate: TranslateService,
               public route: ActivatedRoute,
               private loanApplicationStore$: Store<ILoanAppState>,
-              private router: Router) {
+              private router: Router,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -111,7 +112,16 @@ export class LoanInfoComponent implements OnInit, OnDestroy {
   }
 
   openAddPayeeModal() {
-    this.payeeFormComponent.openCreateModal();
+    const dialogRef = this.dialog.open(PayeeFormModalComponent, {
+      width: '500px',
+      data: { headerTitle: 'ADD' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.submitPayee(result);
+      }
+    });
   }
 
   submitPayee(payee) {

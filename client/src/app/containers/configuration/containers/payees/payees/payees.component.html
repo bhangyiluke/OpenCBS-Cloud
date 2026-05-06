@@ -108,7 +108,7 @@
 
 <ngl-modal [ngClass]="isExpanded ? 'form-expanded' : ''"
            header="{{ isNew ? ('PAYEE_NEW_TITLE' | translate) :  ('EDIT' | translate) }}" [(open)]="opened">
-    <div body>
+    <div class="slds-p-around_medium">
         <form novalidate [formGroup]="form" #formFocus>
             <cbs-form-input-control
                 [requiredField]="true"
@@ -140,7 +140,7 @@
             </cbs-form-textarea-control>
         </form>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="closeModal()">{{ 'CANCEL' | translate }}</button>
         <button class="slds-button slds-button--success"
                 [disabled]="form?.invalid || !formChanged"

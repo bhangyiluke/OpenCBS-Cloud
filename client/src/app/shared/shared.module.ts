@@ -21,6 +21,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   imports: [
@@ -42,7 +47,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatMomentDateModule,
     MatDatepickerModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatToolbarModule
   ],
   exports: [
     ...COMPONENTS,
@@ -55,6 +65,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     ScheduleModule,
     SharedModule,
     MatDatepickerModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatToolbarModule,
     TranslateModule
   ],
   declarations: COMPONENTS

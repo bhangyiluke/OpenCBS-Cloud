@@ -38,7 +38,7 @@
 <!-- cbs-header -->
 
 <ngl-modal [header]="'DISBURSE' | translate" [(open)]="openedDisburse">
-    <div body>
+    <div class="slds-p-around_medium">
         <form novalidate [formGroup]="form">
             <cbs-form-date-control
                 [formControlName]="'disbursementDate'"
@@ -57,7 +57,7 @@
             </cbs-form-input-control>
         </form>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="cancel()">{{ 'CANCEL' | translate }}</button>
         <button class="slds-button slds-button--success"
                 [disabled]="form.invalid"
@@ -67,7 +67,7 @@
 </ngl-modal>
 
 <ngl-modal [header]="'REFUND' | translate" [(open)]="openedRefund">
-    <div body>
+    <div class="slds-p-around_medium">
         <form novalidate [formGroup]="formRefund">
             <cbs-form-date-control
                 [formControlName]="'disbursementDate'"
@@ -84,7 +84,7 @@
             ></cbs-form-textarea-control>
         </form>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="cancel()">{{ 'CANCEL' | translate }}</button>
         <button class="slds-button slds-button--success"
                 [disabled]="formRefund.invalid"

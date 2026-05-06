@@ -16,8 +16,8 @@
             <div class="slds-grid slds-grid--vertical-align-center">
                 <div class="slds-text-heading--large slds-m-right--medium">{{ profileData?.name }}</div>
                 <div scope="row">
-                    <ngl-badge type="success" *ngIf="profileData?.status === 'LIVE'">{{'LIVE' | translate}}</ngl-badge>
-                    <ngl-badge type="info" *ngIf="profileData?.status === 'PENDING'">{{'PENDING'}}</ngl-badge>
+                    <mat-chip *ngIf="profileData?.status === 'LIVE'" color="primary">{{'LIVE' | translate}}</mat-chip>
+                    <mat-chip *ngIf="profileData?.status === 'PENDING'" color="accent">{{'PENDING' | translate}}</mat-chip>
                 </div>
             </div>
         </div>
@@ -138,7 +138,7 @@
 
 
 <ngl-modal [(open)]="opened" (openChange)="resetModal()">
-    <div body>
+    <div class="slds-p-around_medium">
         <img [src]="imageUrl" alt="">
     </div>
 </ngl-modal>

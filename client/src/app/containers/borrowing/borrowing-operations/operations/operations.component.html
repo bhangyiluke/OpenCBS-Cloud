@@ -13,7 +13,7 @@
 </div>
 
 <ngl-modal [header]="'ACTUALIZE_BORROWING' | translate" [(open)]="isOpenActualize">
-    <div body>
+    <div class="slds-p-around_medium">
         <cbs-form-date-control
             [(ngModel)]="borrowingDate"
             [enableDropdownPicker]="false"
@@ -22,7 +22,7 @@
             [requiredField]="true">
         </cbs-form-date-control>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="isOpenActualize = false">{{ 'CANCEL' | translate }}
         </button>
         <button class="slds-button slds-button--success" (click)="submitActualizeBorrowing()">{{ 'Start' | translate }}

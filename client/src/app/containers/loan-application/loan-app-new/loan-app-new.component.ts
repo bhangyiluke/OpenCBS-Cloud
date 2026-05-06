@@ -2,6 +2,7 @@ import { debounceTime } from 'rxjs/operators';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material/dialog';
 import { LoanDetailsFormComponent } from '../shared/components';
 import { PayeeFormModalComponent } from '../../../shared/components/payee-form-modal/payee-form-modal.component';
 import {
@@ -33,7 +34,6 @@ import { Validators } from '@angular/forms';
 
 export class LoanAppNewComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(LoanDetailsFormComponent, { static: true }) formComponent: LoanDetailsFormComponent;
-  @ViewChild(PayeeFormModalComponent, { static: false }) payeeFormComponent: PayeeFormModalComponent;
   @ViewChild(EntryFeesModalComponent, { static: false }) entryFeeModalComponent: EntryFeesModalComponent;
   public loanAppFormState: ILoanAppFormState;
   public formVisible = false;
@@ -56,7 +56,8 @@ export class LoanAppNewComponent implements OnInit, AfterViewInit, OnDestroy {
     private store$: Store<fromRoot.State>,
     private loanAppFormStore$: Store<ILoanAppFormState>,
     private loanAppFormExtraService: LoanAppFormExtraService,
-    private loanAppEntryFeeService: LoanAppEntryFeesService) {
+    private loanAppEntryFeeService: LoanAppEntryFeesService,
+    private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -345,12 +346,32 @@ export class LoanAppNewComponent implements OnInit, AfterViewInit, OnDestroy {
 
   openAddPayeeModal() {
     this.isCreatePayeeMode = true;
-    this.payeeFormComponent.openCreateModal();
+    const dialogRef = this.dialog.open(PayeeFormModalComponent, {
+      width: '500px',
+      data: { headerTitle: 'ADD' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.submitPayee(result);
+      }
+    });
   }
 
   openEditPayeeModal(payee) {
     this.isCreatePayeeMode = false;
-    this.payeeFormComponent.openEditModal(payee);
+    const dialogRef = this.dialog.open(PayeeFormModalComponent, {
+      width: '500px',
+      data: { headerTitle: 'EDIT' }
+    });
+
+    dialogRef.componentInstance.setFormData(payee);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.submitPayee(result);
+      }
+    });
   }
 
   checkStatus(rawValue) {

@@ -124,8 +124,7 @@ export class PenaltiesComponent implements OnInit, OnDestroy {
   }
 
   getCurrentPage = () => {
-    return state => state
-      .map(s => {
+    return state => state?.map(s => {
         return s.currentPage;
       });
   };

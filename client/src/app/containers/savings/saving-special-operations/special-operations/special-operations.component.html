@@ -50,7 +50,7 @@
 </div>
 
 <ngl-modal [header]="title | translate" [(open)]="opened" (openChange)="closeModal()">
-    <div body>
+    <div class="slds-p-around_medium">
         <div class="slds-form-element">
             <label class="slds-form-element__label">
                 <abbr class="slds-required" title="required">*</abbr>
@@ -81,7 +81,7 @@
             </cbs-form-date-control>
         </div>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="closeModal()">{{ 'CANCEL' | translate }}</button>
         <button [disabled]="fieldEmpty" class="slds-button slds-button--success"
                 (click)="submitDepositWithdrawSaving()">{{ title === 'Deposit' ? ('DEPOSIT' | translate) :
@@ -91,7 +91,7 @@
 </ngl-modal>
 
 <ngl-modal [header]="'ACTUALIZE_SAVING' | translate" [(open)]="isOpenActualize">
-    <div body>
+    <div class="slds-p-around_medium">
         <cbs-form-date-control
             [(ngModel)]="actualizeDate"
             [enableDropdownPicker]="true"
@@ -100,7 +100,7 @@
             [requiredField]="true">
         </cbs-form-date-control>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="isOpenActualize = false">{{ 'CANCEL' | translate }}
         </button>
         <button class="slds-button slds-button--success" (click)="submitActualizeLoan()">{{ 'Start' | translate }}
@@ -125,7 +125,7 @@
 </main>
 
 <ngl-modal [header]="'CLOSE_SAVING' | translate" [(open)]="closeSaving">
-    <div body>
+    <div class="slds-p-around_medium">
         <cbs-form-date-control
             [(ngModel)]="closeDate"
             [enableDropdownPicker]="true"
@@ -134,7 +134,7 @@
             [requiredField]="true">
         </cbs-form-date-control>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="closeSaving = false">{{ 'CANCEL' | translate }}
         </button>
         <button class="slds-button slds-button--success" (click)="submitCloseSaving()">{{ 'OK' | translate }}

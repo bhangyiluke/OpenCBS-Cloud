@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { NglModule  } from 'ng-lightning';
+import { NGL_ICON_CONFIG, NglIconConfig, NglModule } from 'ng-lightning';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -67,7 +67,7 @@ export function createTranslateLoader(httpClient: HttpClient) {
     }),
     NglModule,
     ToastrModule.forRoot(),
-    StoreModule.forRoot({}, {metaReducers}),
+    StoreModule.forRoot({}, { metaReducers }),
     EffectsModule.forRoot(coreEffects),
     AppRoutingModule,
     ProfileModule,
@@ -96,6 +96,8 @@ export function createTranslateLoader(httpClient: HttpClient) {
     provide: HTTP_INTERCEPTORS,
     useClass: HttpHeaderInterceptorService,
     multi: true
+  }, {
+    provide: NGL_ICON_CONFIG, useValue: <NglIconConfig>{ svgPath: '/assets/icons' }
   }],
   bootstrap: [AppComponent]
 })

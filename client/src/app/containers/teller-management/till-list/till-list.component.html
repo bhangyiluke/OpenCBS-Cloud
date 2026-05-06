@@ -137,7 +137,7 @@
 
 
 <ngl-modal [header]="'OPEN_TILL' | translate" [(open)]="opened" [ngClass]="{'cbs-expanded-modal' : expanded}">
-    <div body>
+    <div class="slds-p-around_medium">
         <form novalidate [formGroup]="openTillForm">
             <cbs-form-lookup-control
                 [picklistFilterType]="'name'"
@@ -154,7 +154,7 @@
 
         </form>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="cancel()">{{ 'CANCEL' | translate }}</button>
         <button class="slds-button slds-button--success"
                 [disabled]="openTillForm.invalid"
@@ -164,7 +164,7 @@
 </ngl-modal>
 
 <ngl-modal [header]="'CLOSE_TILL' | translate" *ngIf="isOpened" [(open)]="isOpened">
-    <div body>
+    <div class="slds-p-around_medium">
         <cbs-loading-indicator [showLoader]="!balance.length"></cbs-loading-indicator>
 
         <cbs-form-readonly-control class="cbs-readonly-account" *ngFor="let account of balance"
@@ -172,7 +172,7 @@
                                    [fieldLabel]="account?.account?.currency?.name">
         </cbs-form-readonly-control>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="hideCloseModal()">{{ 'CANCEL' | translate }}
         </button>
         <button class="slds-button slds-button--success"

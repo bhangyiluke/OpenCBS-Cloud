@@ -17,8 +17,8 @@
             <div class="slds-grid slds-grid--vertical-align-center">
                 <div class="slds-text-heading--large slds-m-right--medium">{{ (profile | async)?.name }}</div>
                 <div scope="row">
-                    <ngl-badge type="success" *ngIf="(profile | async)?.status === 'LIVE'">{{'LIVE' | translate}}</ngl-badge>
-                    <ngl-badge type="info" *ngIf="(profile | async)?.status === 'PENDING'">{{'PENDING' | translate}}</ngl-badge>
+                    <mat-chip color="primary" *ngIf="(profile | async)?.status === 'LIVE'">{{'LIVE' | translate}}</mat-chip>
+                    <mat-chip color="accent" *ngIf="(profile | async)?.status === 'PENDING'">{{'PENDING' | translate}}</mat-chip>
                 </div>
             </div>
         </div>
@@ -117,7 +117,7 @@
     </div>
 </main>
 <ngl-modal [header]="'Add member'" [(open)]="isModalOpened">
-    <div body>
+    <div class="slds-p-around_medium">
         <div class="slds-form--stacked">
             <form novalidate [formGroup]="memberForm">
                 <cbs-form-lookup-control
@@ -133,7 +133,7 @@
             </form>
         </div>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="cancel()">{{ 'CANCEL' | translate }}</button>
         <button [disabled]="memberForm.invalid" class="slds-button slds-button--success" (click)="submit()">{{
             'SAVE' | translate }}

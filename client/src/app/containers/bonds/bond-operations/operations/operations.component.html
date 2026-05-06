@@ -28,7 +28,7 @@
 </div>
 
 <ngl-modal [header]="'ACTUALIZE_BONDS' | translate" [(open)]="isOpenActualize">
-    <div body>
+    <div class="slds-p-around_medium">
         <cbs-form-date-control
             [(ngModel)]="actualizeDate"
             [enableDropdownPicker]="true"
@@ -37,7 +37,7 @@
             [requiredField]="true">
         </cbs-form-date-control>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="isOpenActualize = false">{{ 'CANCEL' | translate }}
         </button>
         <button class="slds-button slds-button--success" [disabled]="!actualizeDate" (click)="submitActualize()">{{ 'Start' | translate }}
@@ -46,7 +46,7 @@
 </ngl-modal>
 
 <ngl-modal [header]="'VALUE_DATE' | translate" [(open)]="isOpenValueDate">
-    <div body>
+    <div class="slds-p-around_medium">
         <cbs-form-date-control
             [(ngModel)]="valueDate"
             [enableDropdownPicker]="true"
@@ -55,7 +55,7 @@
             [requiredField]="true">
         </cbs-form-date-control>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="isOpenValueDate = false">{{ 'CANCEL' | translate }}
         </button>
         <button class="slds-button slds-button--success" [disabled]="!valueDate" (click)="submitValueDate()">{{ 'OK' | translate }}

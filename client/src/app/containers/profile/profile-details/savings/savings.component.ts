@@ -60,7 +60,7 @@ export class SavingsComponent implements OnInit, OnDestroy {
     });
 
     this.savingData = this.store$.pipe(select(fromRoot.getSavingProfileListState));
-    this.currentPageSub = this.savingData.pipe((this.getCurrentPage())).subscribe((page: number) => {
+    this.currentPageSub = this.savingData?.pipe((this.getCurrentPage())).subscribe((page: number) => {
       this.queryObject = Object.assign({}, this.queryObject, {
         page: page + 1
       });
@@ -94,8 +94,7 @@ export class SavingsComponent implements OnInit, OnDestroy {
   }
 
   getCurrentPage = () => {
-    return state => state
-      .map(s => {
+    return state => state?.map(s => {
         return s.currentPage;
       });
   };
@@ -147,7 +146,7 @@ export class SavingsComponent implements OnInit, OnDestroy {
     if ( this.profileSub ) {
       this.profileSub.unsubscribe();
     }
-    this.permissionSub.unsubscribe();
+    this.permissionSub?.unsubscribe();
   }
 
   resetModal() {

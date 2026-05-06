@@ -19,7 +19,7 @@
                 </a>
                 <button (click)="submit(profileForm)" #submitButton
                         class="slds-button slds-button--success slds-not-selected" aria-live="assertive"
-                        [disabled]="profileForm.invalid">
+                        [disabled]="profileForm.invalid || profileFieldSections.length === 0">
                     <span class="slds-text-not-selected">
                         <svg aria-hidden="true" class="slds-button__icon--stateful slds-button__icon--left">
                             <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#check"></use>
@@ -49,12 +49,12 @@
             <div class="slds-form--horizontal cbs-pull-negative">
                 <form novalidate [formGroup]="profileForm" (submit)="submit(profileForm)">
                     <div formArrayName="fieldSections"
-                         *ngIf="!loading"
-                         cbsVisibleOnSroll
-                         [scrollableBlockId]="'#scrollable-section'"
-                         [visibilityTopOffset]="400"
-                         [visibilityBottomOffset]="400"
-                         (elementVisible)="informVisibleBlock($event)">
+                          *ngIf="!loading"
+                          cbsVisibleOnSroll
+                          [scrollableBlockId]="'#scrollable-section'"
+                          [visibilityTopOffset]="400"
+                          [visibilityBottomOffset]="400"
+                          (elementVisible)="informVisibleBlock($event)">
                         <div
                             *ngFor="let section of profileForm?.controls?.fieldSections?.controls; let i=index;"
                             class="slds-p-top--medium slds-p-bottom--large"
@@ -68,6 +68,10 @@
                                 [config]="field"
                                 [group]="section.controls[ind]">
                             </ng-container>
+                        </div>
+                        <!-- Show message if no sections are available -->
+                        <div *ngIf="profileFieldSections.length === 0" class="slds-text-align--center slds-m-top--large">
+                            <p>{{ 'NO_CUSTOM_FIELDS_AVAILABLE' | translate }}</p>
                         </div>
                     </div>
                 </form>

@@ -70,7 +70,7 @@
 
 
 <ngl-modal [header]="headerTitle | translate" [(open)]="isOpen">
-    <div body>
+    <div class="slds-p-around_medium">
         <form novalidate [formGroup]="form" class="slds-form--stacked">
 
             <cbs-form-input-control
@@ -96,7 +96,7 @@
         </form>
 
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="cancel()">{{ 'CANCEL' | translate }}</button>
         <button [disabled]="form.invalid" class="slds-button slds-button--success" (click)="submit()">{{ 'SAVE' |
             translate }}

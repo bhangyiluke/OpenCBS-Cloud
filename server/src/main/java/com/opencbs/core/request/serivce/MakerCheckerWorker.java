@@ -29,10 +29,9 @@ public class MakerCheckerWorker {
     private final PermissionService permissionService;
     private final List<HistoryService> historyServices;
 
-
     @Transactional
     public Request create(RequestType requestType, @NonNull BaseDto dto) throws Exception {
-        if (dto.getId()>0 && (this.requestService.isActiveRequest(requestType, dto.getId())
+        if (dto.getId() != null && dto.getId() > 0l && (this.requestService.isActiveRequest(requestType, dto.getId())
                 || this.requestService.isActiveRequestByModuleType(requestType.getType(), dto.getId()))) {
             throw new RuntimeException("This object has already active request!");
         }
@@ -48,7 +47,7 @@ public class MakerCheckerWorker {
         request.setDeleted(false);
         request.setBranch(UserHelper.getCurrentUser().getBranch());
         request.setModuleType(requestType.getType());
-        if (dto.getId()>0) {
+        if (dto.getId() != null && dto.getId() > 0l) {
             request.setEntityId(dto.getId());
         }
         request = this.requestService.save(request);
@@ -60,14 +59,15 @@ public class MakerCheckerWorker {
 
     @Transactional
     public Long approve(Request request) throws Exception {
-        Optional<HistoryService> historyService = this.getHistoryServiceByEntity(this.requestService.getTargetClassByRequestType(request.getType()));
+        Optional<HistoryService> historyService = this
+                .getHistoryServiceByEntity(this.requestService.getTargetClassByRequestType(request.getType()));
 
         Long entityId = this.requestService.approving(request);
 
         LocalDateTime approvedDateTime = DateHelper.getLocalDateTimeNow();
 
         if (historyService.isPresent()) {
-             approvedDateTime = historyService.get().getDateTimeLastRevision(entityId);
+            approvedDateTime = historyService.get().getDateTimeLastRevision(entityId);
         }
 
         request.setDeletedAt(approvedDateTime);
@@ -91,16 +91,25 @@ public class MakerCheckerWorker {
         return false;
     }
 
-    private Optional<HistoryService> getHistoryServiceByEntity(Class entityClass){
-        if (entityClass == null ){
+    private Optional<HistoryService> getHistoryServiceByEntity(Class entityClass) {
+        if (entityClass == null) {
             return Optional.empty();
         }
-        
+
+        System.out.println("Looking for history service for entity: " + entityClass.getName());
+        System.out.println("Available history services count: " + this.historyServices.size());
+
         for (HistoryService historyService : this.historyServices) {
+            System.out.println("Checking history service: " + historyService.getClass().getName() +
+                    ", target class: " + historyService.getTargetClass().getName() +
+                    ", is assignable: " + historyService.getTargetClass().isAssignableFrom(entityClass));
             if (historyService.getTargetClass().isAssignableFrom(entityClass)) {
+                System.out.println("Found matching history service: " + historyService.getClass().getName());
                 return Optional.of(historyService);
             }
         }
-        throw new UnsupportedOperationException(String.format("Not found History Service for Entity Type:%s", entityClass));
+        System.out.println("No history service found for: " + entityClass.getName());
+        throw new UnsupportedOperationException(
+                String.format("Not found History Service for Entity Type:%s", entityClass));
     }
 }

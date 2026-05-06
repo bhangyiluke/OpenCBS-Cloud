@@ -80,7 +80,7 @@
     </table>
 
     <ngl-modal [header]="headerTitle | translate" [(open)]="openedModal">
-        <div body>
+        <div class="slds-p-around_medium">
             <form novalidate [formGroup]="form" #formFocus>
                 <cbs-form-input-control
                     [formControlName]="'name'"
@@ -394,7 +394,7 @@
 
             </form>
         </div>
-        <ng-template ngl-modal-footer>
+        <ng-template nglModalFooter>
 
             <button class="slds-button slds-button--neutral"
                     (click)="cancel()">{{ 'CANCEL' | translate }}

@@ -41,7 +41,7 @@ export class SavingListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.savingStore$.dispatch(new fromStore.ResetSaving());
     this.savingData = this.store$.pipe(select(fromRoot.getSavingListState));
-    this.currentPageSub = this.savingData.pipe((this.getCurrentPage())).subscribe((page: number) => {
+    this.currentPageSub = this.savingData?.pipe((this.getCurrentPage())).subscribe((page: number) => {
       this.queryObject = Object.assign({}, this.queryObject, {
         page: page + 1
       });

@@ -33,7 +33,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
   public passwordNotMatch: boolean;
   private userFormSub$: any;
   public formConfig = {
-    url: `${environment.API_ENDPOINT}branches`
+    url: `${environment.API_ENDPOINT}branches/lookup`
   };
   public statusTypeData = [
     {

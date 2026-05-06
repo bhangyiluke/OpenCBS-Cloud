@@ -28,10 +28,7 @@
     [popupLabel]="'CONFIRMATION' | translate"
     [confirmText]="'DELETE' | translate"></cbs-confirm-popup>
 
-<cbs-payee-form-modal
-    headerTitle="{{ isCreatePayeeMode ? ('ADD' | translate) :  ('EDIT' | translate) }}"
-    (onSubmit)="submitPayee($event)">
-</cbs-payee-form-modal>
+
 
 <cbs-entry-fees-modal
     headerTitle="{{ 'ENTRY_FEES' | translate }}"

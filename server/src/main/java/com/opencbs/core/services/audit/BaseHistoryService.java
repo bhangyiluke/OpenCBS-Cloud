@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public abstract class BaseHistoryService<E extends BaseEntity, ID, N extends Number & Comparable<N>> {
+public abstract class BaseHistoryService<E extends BaseEntity, ID, N extends Number & Comparable<N>> implements HistoryService {
 
     private final RevisionRepository<E, ID, N> revisionRepository;
 
@@ -127,4 +127,7 @@ public abstract class BaseHistoryService<E extends BaseEntity, ID, N extends Num
                 .orElseThrow(() -> new IllegalArgumentException("No revisions found for entity with id:: " + entityId));
         return DateHelper.dateToLocalDateTime(lastRevision.getRevisionInstant().orElse(Instant.now()));
     }
+
+    @Override
+    public abstract Class getTargetClass();
 }

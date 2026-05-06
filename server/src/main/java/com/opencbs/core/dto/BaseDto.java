@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BaseDto implements BaseRequestDto {
 
-    private long id;
+    private Long id;
 }

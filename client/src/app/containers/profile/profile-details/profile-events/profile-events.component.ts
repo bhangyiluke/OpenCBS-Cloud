@@ -117,7 +117,7 @@ export class ProfileEventsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.permissionSub.unsubscribe();
+    this.permissionSub?.unsubscribe();
     this.routeSub.unsubscribe();
     this.statusSub.unsubscribe();
   }

@@ -38,9 +38,9 @@ export class PicklistComponent implements OnInit, OnChanges {
   @Output() onClear = new EventEmitter();
   @Output() onPicklistOpen = new EventEmitter();
   @Output() onPicklistClose = new EventEmitter();
-  @ViewChild('searchInput', {static: false}) searchInput: ElementRef;
-  @ViewChild('scrollBlock', {static: false}) scrollBlock: ElementRef;
-  @ViewChild('trigger', {static: false}) trigger: ElementRef;
+  @ViewChild('searchInput', { static: false }) searchInput: ElementRef;
+  @ViewChild('scrollBlock', { static: false }) scrollBlock: ElementRef;
+  @ViewChild('trigger', { static: false }) trigger: ElementRef;
 
   public noData = false;
   public isOpened = false;
@@ -60,17 +60,17 @@ export class PicklistComponent implements OnInit, OnChanges {
   private picklistData: LookupResponse;
 
   constructor(private httpClient: HttpClient,
-              private readonly sso: ScrollStrategyOptions) {
+    private readonly sso: ScrollStrategyOptions) {
     this.scrollStrategy = this.sso.block();
   }
 
   ngOnInit() {
-    if ( this.defaultValue ) {
+    if (this.defaultValue) {
       this.currentValue = this.defaultValue;
       this.valueString = this.defaultValue;
     }
-    if ( this.config && this.config.url ) {
-      if ( this.config.defaultQuery ) {
+    if (this.config && this.config.url) {
+      if (this.config.defaultQuery) {
         this.getData(this.config.url, 0, this.config.defaultQuery);
       } else if (this.config['defaultValue']) {
         this.getData(this.config.url, 0, this.config['defaultValue']['name']);
@@ -90,17 +90,17 @@ export class PicklistComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: { excludedItems: SimpleChange, value: SimpleChange, config: SimpleChange }) {
-    if ( changes['excludedItems'] && changes['excludedItems'].currentValue ) {
-      this.currentValue = changes['excludedItems'].currentValue;
-      this.removeExcludedItems(this.lookupList, changes['excludedItems'].currentValue);
+    if (changes['excludedItems'] && changes['excludedItems'].currentValue) {
+      this.currentValue = changes['excludedItems']?.currentValue;
+      this.removeExcludedItems(this.lookupList, changes['excludedItems']?.currentValue);
     }
     // Set value only when there is a change in value input
-    if ( changes.value && changes.value.currentValue ) {
+    if (changes.value && changes.value.currentValue) {
       this.assignSelected(changes.value.currentValue);
     }
     // Look for changes in defaultQuery and make request if it differs
-    if ( changes.config && changes.config.currentValue && changes.config.previousValue
-      && changes.config.currentValue.defaultQuery !== changes.config.previousValue.defaultQuery ) {
+    if (changes.config && changes.config.currentValue && changes.config.previousValue
+      && changes.config.currentValue.defaultQuery !== changes.config.previousValue.defaultQuery) {
       this.getData(changes.config.currentValue.url, 0, changes.config.currentValue.defaultQuery)
     }
   }
@@ -108,39 +108,42 @@ export class PicklistComponent implements OnInit, OnChanges {
   getData(url: string, page = 0, searchString?: string) {
     this.loading = true;
     let lookupUrl;
-    if ( searchString ) {
+    if (searchString) {
       lookupUrl = `${url}${this.hasQuery(url) ? '&' : '?'}search=${searchString}&page=${page}`;
     } else {
       lookupUrl = `${url}${this.hasQuery(url) ? '&' : '?'}page=${page}`;
     }
-    this.getLookupData(lookupUrl).subscribe(
+    this.getLookupData?.(lookupUrl).subscribe(
       (resp: LookupResponse) => {
         this.loading = false;
-        if ( this.config.scope ) {
-          resp = resp[this.config.scope];
+        console.log("Loading lookup data...", resp.content, url)
+        if (this.config?.scope) {
+          resp = resp[this.config?.scope];
         }
-        if ( resp && resp.content ) {
+        if (resp && resp.content) {
           this.picklistData = Object.assign({}, resp);
           this.currentPage = resp.number;
-          if ( this.hasAll ) {
-            this.lookupList.unshift({name: 'All'});
+          if (this.hasAll) {
+            this.lookupList?.unshift({ name: 'All' });
             this.selectPlaceholder = 'All';
           }
           this.lookupList = [...this.lookupList, ...resp.content];
-          if ( this.currentValue && this.lookupList ) {
+          if (this.currentValue && this.lookupList) {
             this.removeExcludedItems(this.lookupList, this.currentValue);
           }
-          if (!this.value && resp.content[0] && resp.content.length === 1 ) {
+          if (!this.value && resp.content[0] && resp.content.length === 1) {
             this.select(resp.content[0])
           }
-          if ( this.value && this.value > 0 ) {
+          if (this.value && this.value > 0) {
             this.assignSelected(this.value);
           } else {
             this.assignSelected();
           }
+
         } else {
           this.noData = true;
         }
+        // this.lookupList = resp?.content;
       },
       err => {
         console.warn('Error getting lookup data: ', err.error.message);
@@ -150,22 +153,22 @@ export class PicklistComponent implements OnInit, OnChanges {
   }
 
   hasQuery(url: string): boolean {
-    return url.indexOf('?') > 0;
+    return url && url?.indexOf('?') > 0;
   }
 
   assignSelected(value?) {
-    this.lookupList.map(item => {
-      if ( item.id === value ) {
+    this.lookupList?.map(item => {
+      if (item.id === value) {
         item['selected'] = true;
         this.valueString = item[this.filterType];
-        if ( this.code ) {
+        if (this.code) {
           this.selectedCode = item['number'];
         }
       } else {
         item['selected'] = false;
       }
     });
-    if ( !value || value === -1 ) {
+    if (!value || value === -1) {
       this.valueString = '';
     }
   }
@@ -178,17 +181,17 @@ export class PicklistComponent implements OnInit, OnChanges {
     this.selectPlaceholder = 'Select';
     this.value = -1;
     this.valueString = '';
-    this.lookupList.map(item => {
+    this.lookupList?.map(item => {
       item.selected = false;
     });
-    this.onSelect.emit();
+    this.onSelect?.emit();
     this.clear();
   }
 
   removeWithoutEmit() {
     this.value = -1;
     this.valueString = '';
-    this.lookupList.map(item => {
+    this.lookupList?.map(item => {
       item.selected = false;
     });
     this.clear();
@@ -218,8 +221,8 @@ export class PicklistComponent implements OnInit, OnChanges {
 
   onScroll() {
     const page = this.currentPage + 1;
-    if ( page < this.picklistData.totalPages ) {
-      if ( this.searchQuery ) {
+    if (page < this.picklistData.totalPages) {
+      if (this.searchQuery) {
         this.getData(this.config.url, page, this.searchQuery);
       } else {
         this.getData(this.config.url, page);
@@ -229,34 +232,34 @@ export class PicklistComponent implements OnInit, OnChanges {
 
   removeExcludedItems(lookupList, excludedItemIds) {
     excludedItemIds.map(id => {
-      lookupList.map(item => {
-        if ( +id === item['id'] ) {
-          lookupList.splice(lookupList.indexOf(item), 1);
+      lookupList?.map(item => {
+        if (+id === item['id']) {
+          lookupList?.splice(lookupList?.indexOf(item), 1);
         }
       });
     });
   }
 
   open() {
-    if ( this.disabled || this.isOpened ) {
+    if (this.disabled || this.isOpened) {
       return;
     }
     this.isOpened = true;
     // Focus search input
     setTimeout(() => {
-      if ( this.searchInput && this.searchInput.nativeElement ) {
-        this.searchInput.nativeElement.focus();
+      if (this.searchInput && this.searchInput?.nativeElement) {
+        this.searchInput?.nativeElement?.focus();
         this.scrollBlock.nativeElement.scrollTop = 0;
       }
     });
 
-    this.onPicklistOpen.emit();
+    this.onPicklistOpen?.emit();
 
-    this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+    this.triggerRect = this.trigger?.nativeElement?.getBoundingClientRect();
   }
 
   close() {
     this.isOpened = false;
-    this.onPicklistClose.emit();
+    this.onPicklistClose?.emit();
   }
 }

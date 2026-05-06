@@ -1,9 +1,10 @@
 version: '3'
 services:
   rabbitmq:
-    image: rabbitmq:4-management
-    container_name: rabbitmq-stomp
-    command: sh -c "rabbitmq-plugins enable rabbitmq_web_stomp && rabbitmq-server"
+    # image: rabbitmq:4-management
+    image: thinkco/rabbitmq:latest
+    container_name: rabbitmq
+    # command: sh -c "rabbitmq-plugins enable rabbitmq_web_stomp && rabbitmq-server"
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin123!

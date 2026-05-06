@@ -1,3 +1,39 @@
+::ng-deep input {
+  padding: 12px;
+  line-height: 1;
+  border-radius: 4px;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+
+  &:focus {
+    border-color: #1e97ce;
+    box-shadow: 0 0 0 2px rgba(30, 151, 206, 0.2);
+  }
+
+  &[type="submit"] {
+    width: 100%;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    height: 44px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+}
+
 ::ng-deep .cdk-overlay-container {
   z-index: 100000;
+}
+
+::ng-deep {
+  .slds-modal__close {
+    background-color: transparent; // Remove default background
+    .slds-button_icon {
+      color: #d93a3a; // Change icon color
+
+      &:hover {
+        background-color: #f0f0f0; // Change hover background
+      }
+    }
+  }
 }

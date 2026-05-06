@@ -108,7 +108,7 @@
 </cbs-form-layout>
 
 <ngl-modal header="{{ 'ENTRY_FEES' | translate }}" [(open)]="isOpen">
-    <div body>
+    <div class="slds-p-around_medium">
         <span *ngFor="let fee of loanAppState?.loanApplication?.entryFees">
             <cbs-form-readonly-control
                 [fieldLabel]="fee?.entryFee?.name"
@@ -123,7 +123,7 @@
             fieldLabel="{{ 'TOTAL' | translate }}"
             value="{{ totalEntryFees  | cbsNumberFormat }}"></cbs-form-readonly-control>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="isOpen = false">{{ 'CLOSE' | translate }}</button>
     </ng-template>
 </ngl-modal>

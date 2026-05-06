@@ -92,7 +92,7 @@ export class ProfileCreditLinesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.routeSub.unsubscribe();
-    this.permissionSub.unsubscribe();
+    this.permissionSub?.unsubscribe();
     this.statusSub.unsubscribe();
     if ( this.profileSub ) {
       this.profileSub.unsubscribe();

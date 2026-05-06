@@ -32,7 +32,7 @@
 </div>
 
 <ngl-modal [header]="'ACTUALIZE_TERM_DEPOSIT' | translate" [(open)]="isOpenActualize">
-    <div body>
+    <div class="slds-p-around_medium">
         <cbs-form-date-control
             [(ngModel)]="actualizeDate"
             [enableDropdownPicker]="true"
@@ -41,7 +41,7 @@
             [requiredField]="true">
         </cbs-form-date-control>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="closeModal()">{{ 'CANCEL' | translate }}
         </button>
         <button class="slds-button slds-button--success" (click)="submitActualize()">{{ 'Start' | translate }}
@@ -50,7 +50,7 @@
 </ngl-modal>
 
 <ngl-modal [header]="title | translate" [(open)]="closeTermDeposit">
-    <div body>
+    <div class="slds-p-around_medium">
         <cbs-form-date-control
             [(ngModel)]="closeDate"
             [enableDropdownPicker]="true"
@@ -59,7 +59,7 @@
             [requiredField]="true">
         </cbs-form-date-control>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="closeTermDeposit = false">{{ 'CANCEL' | translate }}
         </button>
         <button class="slds-button slds-button--success" (click)="submitCloseTermDeposit()">{{ 'OK' | translate }}

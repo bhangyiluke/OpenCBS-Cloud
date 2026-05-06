@@ -119,7 +119,7 @@
 
 
 <ngl-modal header="{{ 'ENTRY_FEES' | translate }}" [(open)]="isOpen">
-    <div body>
+    <div class="slds-p-around_medium">
         <span *ngFor="let fee of loanApp?.entryFees">
             <cbs-form-readonly-control
                 [fieldLabel]="fee?.entryFee?.name"
@@ -135,15 +135,12 @@
             fieldLabel="{{ 'TOTAL' | translate }}"
             [value]="totalEntryFees"></cbs-form-readonly-control>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="isOpen = false">{{ 'CLOSE' | translate }}</button>
     </ng-template>
 </ngl-modal>
 
-<cbs-payee-form-modal
-    headerTitle="{{ ('ADD' | translate) }}"
-    (onSubmit)="submitPayee($event)">
-</cbs-payee-form-modal>
+
 
 <cbs-confirm-popup [opened]="isVisible"
                    (onSubmitClick)="deleteCurrentPayee()"

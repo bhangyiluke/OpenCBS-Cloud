@@ -483,7 +483,7 @@
 </form>
 
 <ngl-modal [header]="'PROVISION_ON_OUTSTANDING_LOAN_PORTFOLIO' | translate" [(open)]="isOpenProvision">
-    <div body>
+    <div class="slds-p-around_medium">
         <div class="slds-form-element">
 
             <label class="slds-form-element__label slds-accordion__section">
@@ -522,7 +522,7 @@
         </div>
 
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="cancelModal()">{{ 'CANCEL' | translate }}
         </button>
         <button class="slds-button slds-button--success" (click)="addProvisioning()">{{ 'ADD' | translate }}

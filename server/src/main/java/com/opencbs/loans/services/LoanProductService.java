@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class LoanProductService extends BaseHistoryService implements CrudService<LoanProduct> {
+public class LoanProductService extends BaseHistoryService<LoanProduct, Long, Integer> implements CrudService<LoanProduct> {
 
     private final LoanProductRepository loanProductRepository;
 

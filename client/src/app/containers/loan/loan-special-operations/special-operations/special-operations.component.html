@@ -11,7 +11,7 @@
     </div>
 </div>
 <ngl-modal [header]="'WRITE_OFF' | translate" [(open)]="isOpenWriteOffModal">
-    <div body>
+    <div class="slds-p-around_medium">
         <form novalidate [formGroup]="writeOffForm" class="slds-form--stacked">
             <cbs-form-date-control
                 formControlName="date"
@@ -57,7 +57,7 @@
         </form>
 
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="cancel()">{{ 'CANCEL' | translate }}</button>
         <button [disabled]="writeOffForm.invalid" class="slds-button slds-button--success"
                 (click)="submitWriteOff()">{{ 'SAVE' |
@@ -68,7 +68,7 @@
 
 
 <ngl-modal [header]="'ACTUALIZE_LOAN' | translate" [(open)]="isOpenActualize">
-    <div body>
+    <div class="slds-p-around_medium">
         <cbs-form-date-control
             [(ngModel)]="loanDate"
             [enableDropdownPicker]="true"
@@ -77,7 +77,7 @@
             [requiredField]="true">
         </cbs-form-date-control>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="isOpenActualize = false">{{ 'CANCEL' | translate }}
         </button>
         <button class="slds-button slds-button--success" (click)="submitActualizeLoan()">{{ 'START' | translate }}
@@ -86,7 +86,7 @@
 </ngl-modal>
 
 <ngl-modal [header]="'REASSIGN_LOAN' | translate" [(open)]="isOpenReassignLoan">
-    <div body>
+    <div class="slds-p-around_medium">
         <cbs-form-readonly-control
             fieldLabel="{{ 'ASSIGN_FROM' | translate }}"
             [value]="currentLoanOfficer?.firstName + ' ' + currentLoanOfficer?.lastName">
@@ -101,7 +101,7 @@
             [picklistDataUrl]="userConfig">
         </cbs-form-lookup-control>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="isOpenReassignLoan = false">{{ 'CANCEL' | translate }}
         </button>
         <button class="slds-button slds-button--success" [disabled]="disabledReassignLoanBtn"

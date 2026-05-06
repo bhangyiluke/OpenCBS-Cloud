@@ -114,7 +114,7 @@ export class ProfileCurrentAccountsComponent implements OnInit, OnDestroy {
     this.routeSub.unsubscribe();
     this.statusSub.unsubscribe();
     this.profileSub.unsubscribe();
-    this.permissionSub.unsubscribe();
+    this.permissionSub?.unsubscribe();
   }
 
   resetModal() {

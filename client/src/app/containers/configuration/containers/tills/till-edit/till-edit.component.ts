@@ -20,7 +20,7 @@ import { environment } from '../../../../../../environments/environment';
 })
 
 export class TillEditComponent implements OnInit, OnDestroy {
-  @ViewChild(TillFormComponent, {static: false}) tillForm: TillFormComponent;
+  @ViewChild(TillFormComponent, { static: false }) tillForm: TillFormComponent;
   public breadcrumbLinks = [
     {
       name: 'CONFIGURATION',
@@ -51,48 +51,52 @@ export class TillEditComponent implements OnInit, OnDestroy {
   private tillUpdateSub: any;
 
   constructor(private tillInfoStore$: Store<ITillInfo>,
-              private tillInfoActions: TillInfoActions,
-              private tillUpdateStore$: Store<IUpdateTill>,
-              private toastrService: ToastrService,
-              private store$: Store<fromRoot.State>,
-              private translate: TranslateService,
-              private tillUpdateActions: TillUpdateActions,
-              private route: ActivatedRoute,
-              private router: Router) {
+    private tillInfoActions: TillInfoActions,
+    private tillUpdateStore$: Store<IUpdateTill>,
+    private toastrService: ToastrService,
+    private store$: Store<fromRoot.State>,
+    private translate: TranslateService,
+    private tillUpdateActions: TillUpdateActions,
+    private route: ActivatedRoute,
+    private router: Router) {
   }
 
   ngOnInit() {
     this.tillUpdateSub = this.store$.select(fromRoot.getTillUpdateState)
-    .subscribe((tillUpdate: IUpdateTill) => {
-      if (tillUpdate.loaded && tillUpdate.success && !tillUpdate.error) {
-        this.translate.get('UPDATE_SUCCESS').subscribe((res: string) => {
-          this.toastrService.success(res, '', environment.SUCCESS_TOAST_CONFIG);
-        });
-        this.goToViewInfo();
-      } else if (tillUpdate.loaded && !tillUpdate.success && tillUpdate.error) {
-        this.translate.get('UPDATE_ERROR').subscribe((res: string) => {
-          this.toastrService.error('', res, environment.ERROR_TOAST_CONFIG);
-        });
-        this.resetState();
-      }
-    });
+      .subscribe((tillUpdate: IUpdateTill) => {
+        if (tillUpdate.loaded && tillUpdate.success && !tillUpdate.error) {
+          this.translate.get('UPDATE_SUCCESS').subscribe((res: string) => {
+            this.toastrService.success(res, '', environment.SUCCESS_TOAST_CONFIG);
+          });
+          this.goToViewInfo();
+        } else if (tillUpdate.loaded && !tillUpdate.success && tillUpdate.error) {
+          this.translate.get('UPDATE_ERROR').subscribe((res: string) => {
+            this.toastrService.error('', res, environment.ERROR_TOAST_CONFIG);
+          });
+          this.resetState();
+        }
+      });
 
     this.routeSub = this.route.params.subscribe((params: { id }) => {
       if (params.id) {
         this.tillId = params.id;
-        this.tillInfoStore$.dispatch(this.tillInfoActions.fireInitialAction(params.id))
+        this.tillInfoStore$.dispatch(this.tillInfoActions?.fireInitialAction(params.id))
       }
     });
     this.tillSub = this.store$.select(fromRoot.getTillInfoState)
-    .subscribe((tillInfo: ITillInfo) => {
-      if (tillInfo.loaded && tillInfo.success && !tillInfo.error) {
-        this.tillForm.loadCurrencies(tillInfo);
-        this.breadcrumbLinks[2] = {
-          name: tillInfo['data']['name'],
-          link: ''
+      .subscribe((tillInfo: ITillInfo) => {
+        try {
+          if (tillInfo.loaded && tillInfo.success && !tillInfo.error) {
+            this.tillForm?.loadCurrencies(tillInfo);
+            this.breadcrumbLinks[2] = {
+              name: tillInfo['data']['name'],
+              link: ''
+            }
+          }
+        } catch (error) {
+          console.log("Error loading till form:- ", error)
         }
-      }
-    });
+      });
   }
 
   goToViewInfo() {
@@ -101,9 +105,9 @@ export class TillEditComponent implements OnInit, OnDestroy {
 
   submitForm() {
     this.tillForm.form.value['accounts'] = this.tillForm.form.value['accounts']
-    .map(currency => currency[Object.keys(currency)[0]]);
+      .map(currency => currency[Object.keys(currency)[0]]);
     this.tillUpdateStore$.dispatch(this.tillUpdateActions
-    .fireInitialAction({till: this.tillForm.form.value, id: this.tillId}));
+      .fireInitialAction({ till: this.tillForm.form.value, id: this.tillId }));
   }
 
   resetState() {

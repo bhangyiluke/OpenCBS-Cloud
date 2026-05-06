@@ -110,14 +110,18 @@ public class LoanRepositoryImpl extends BaseRepository<Loan> implements LoanRepo
         // select projection fields
         cq.multiselect(
                 root.get("id").alias("id"),
-                root.get("profileName").alias("profileName"),
+                // TODO: Fetch the loan profile name from here..., we shall use a join to get related objects
+                // root.get("profileName").alias("profileName"),
+
                 root.get("amount").alias("amount"),
                 root.get("code").alias("code"),
                 root.get("interestRate").alias("interestRate"),
-                root.get("applicationId").alias("applicationId"),
-                root.get("applicationCode").alias("applicationCode"),
+                // root.get("applicationId").alias("applicationId"),
+                root.get("id").alias("applicationId"),
+                // root.get("applicationCode").alias("applicationCode"),
                 root.get("type").alias("type"),
-                root.get("productName").alias("productName"),
+                // root.get("productName").alias("productName"),
+                // product.get("name").alias("productName"),
                 root.get("createdBy").alias("createdBy"),
                 root.get("status").alias("status"),
                 root.get("createdAt").alias("createdAt"),

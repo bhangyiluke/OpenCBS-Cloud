@@ -210,7 +210,7 @@
 
 <ngl-modal class="cbs-comment-modal" [header]="'CONFIRM' | translate"
            [directional]="directional" [(open)]="isOpened">
-    <div body>
+    <div class="slds-p-around_medium">
         <div class="slds-form-element">
             <div class="slds-form-element__control">
                     <textarea class="slds-textarea" #notes maxlength="255"
@@ -219,7 +219,7 @@
             </div>
         </div>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="cancel()">{{'CANCEL' | translate}}</button>
         <button class="slds-button slds-button--success" (click)="saveDecision(notes.value); isLoading = true;">
             {{'CONFIRM' | translate}}

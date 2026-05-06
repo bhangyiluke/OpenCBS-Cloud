@@ -18,6 +18,7 @@ export const getRole = (id) => {
 export const getRoles = () => {
   return state => state
     .pipe(map(s => {
+      // console.log("App state when loading roles",s['appStates'].roles.roles)
       if ( s['appStates'].roles.roles.length ) {
         return s['appStates'].roles.roles;
       } else {

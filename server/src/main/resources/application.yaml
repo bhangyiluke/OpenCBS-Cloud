@@ -3,17 +3,12 @@ spring:
     name: opencbs-server
   main:
     allow-bean-definition-overriding: true
+    # lazy-initialization: true
   datasource:
-    # url: jdbc:h2:file:./data/testdb
-    # driver-class-name: org.h2.Driver
-    # username: sa
-    # password: ""
-    # url: jdbc:sqlserver://${DB_HOST:localhost}:${DB_PORT:1433};databaseName=${DB_NAME:afrogenius_erp_db};encrypt=true;trustServerCertificate=true
-    # url: jdbc:oracle:thin:@//${DB_HOST:localhost}:${DB_PORT:1521}:${DB_NAME:afrogenius_erp_db}
-    # url: jdbc:oracle:thin:@//${DB_HOST:localhost}:${DB_PORT:1521}/${DB_NAME:opencbs_db}
     url: ${OPENCBS_DB_URL:jdbc:postgresql://localhost:5432/opencbs}
     username: ${OPENCBS_DB_USERNAME:opencbs}
     password: ${OPENCBS_DB_PASSWORD:OpenCBS@2025!}
+    
     hikari:
       pool-name: ${spring.application.name} -hikari-connection-pool
       maximum-pool-size: 200
@@ -45,22 +40,28 @@ spring:
               SLOW_QUERY_THRESHOLD_MS: 1000
         query:
           warn_on_n_plus_one: true
-        org:
-          hibernate:
-            envers:
-              # Globally enable/disable auditing (Default: true)
-              # NOTE: To stop all auditing, set to false
-              enabled: true
-              # Keep data of removed entities in audit tables
-              store_data_at_delete: true
-              # Track which entity names changed in each revision
-              # track_entities_changed_in_revision: true
-              # Custom naming conventions
-              # audit_table_suffix: _history
-              # revision_field_name: revision
-              # revision_type_field_name: revision_type
+      org:
+        hibernate:
+          envers:
+            # Globally enable/disable auditing (Default: true)
+            # NOTE: To stop all auditing, set to false
+            enabled: true
+            # Keep data of removed entities in audit tables
+            store_data_at_delete: true
+            # Track which entity names changed in each revision
+            # track_entities_changed_in_revision: true
+            # Custom naming conventions
+            audit_table_suffix: _history
+            default_schema: audit
+            # use_revision_entity_with_native_id: true
+            # Custom revision entity configuration (only if use_revision_entity_with_native_id is false)
+            # revision_field_name: revision
+            # revision_type_field_name: revision_type
   aot:
     repositories:
+      enabled: true
+  threads:
+    virtual:
       enabled: true
   mvc:
     apiversion:
@@ -72,9 +73,6 @@ spring:
       supported: 1.0,2.0,3.0
       default: 1.0
       version-required: false
-  threads:
-    virtual:
-      enabled: true
   jackson:
     serialization:
       fail-on-empty-beans: false # Can be useful in general
@@ -211,8 +209,7 @@ logging:
       max-history: 3
   level:
     root: INFO
-    com.afrogenius.erp: DEBUG
-    org.hibernate.SQL: ERROR
+    org.hibernate.SQL: DEBUG
     org.hibernate.stat: DEBUG
 
 management:
@@ -252,7 +249,7 @@ template:
 day-closure:
   auto-start-time: "@midnight"
 cors:
-  allowed-origins: "http://localhost:4200,http://localhost:3000"
+  allowed-origins: "http://localhost:4200,https://tz1sz9s8-4200.inc1.devtunnels.ms"
   allowed-methods: "GET,POST,PUT,DELETE,OPTIONS,PATCH"
   allowed-headers: "*"
   allow-credentials: true

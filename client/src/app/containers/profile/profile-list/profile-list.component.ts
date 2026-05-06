@@ -26,9 +26,9 @@ export class ProfileListComponent implements OnInit, OnDestroy {
   public svgData = SVG_DATA;
   public profilesData: any;
   public searchQuery = '';
-  public open = false;
   public profileType: string;
   public currentInstance: string;
+  public displayedColumns: string[] = ['fullName', 'type', 'status', 'branch'];
   public queryObject = {
     search: '',
     page: 1
@@ -104,9 +104,26 @@ export class ProfileListComponent implements OnInit, OnDestroy {
     this.router.navigate(['/profiles'], navigationExtras);
   }
 
+  onPageChange(event: any) {
+    this.queryObject.page = event.pageIndex + 1;
+    const navigationExtras: NavigationExtras = {
+      queryParams: this.queryObject
+    };
+    this.router.navigate(['/profiles'], navigationExtras);
+  }
+
   goToProfile(profile) {
     this.profileType = profile.type === 'PERSON' ? 'people' : profile.type === 'COMPANY' ? 'companies' : 'groups';
     this.router.navigate(['/profiles', this.profileType, profile['id'], 'info']);
     this.profileStore$.dispatch(new fromStore.LoadProfileInfo({id: profile['id'], type: this.profileType}));
+  }
+
+  getTypeColor(type: string): string {
+    switch (type) {
+      case 'PERSON': return 'warn';
+      case 'COMPANY': return 'primary';
+      case 'GROUP': return 'accent';
+      default: return '';
+    }
   }
 }

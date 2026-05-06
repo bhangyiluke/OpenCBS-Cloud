@@ -341,7 +341,7 @@
 				</configuration>
 			</plugin> -->
 
-			<plugin>
+			<!-- <plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<configuration>
 					<failOnError>false</failOnError>
@@ -355,7 +355,7 @@
 						</fileset>
 					</filesets>
 				</configuration>
-			</plugin>
+			</plugin> -->
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
@@ -400,7 +400,7 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>3.4.1</version>
 				<executions>
-					<execution>
+					<!.. <execution>
 						<id>npm install</id>
 						<phase>generate-resources</phase>
 						<goals>
@@ -414,7 +414,7 @@
 							</arguments>
 							<workingDirectory>../client</workingDirectory>
 						</configuration>
-					</execution>
+					</execution> ..>
 					<execution>
 						<id>npm run build</id>
 						<phase>generate-resources</phase>
@@ -432,21 +432,21 @@
 					</execution>
 				</executions>
 			</plugin> -->
-			<!-- <plugin>
+			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<executions>
 					<execution>
 						<phase>generate-resources</phase>
 						<configuration>
 							<target>
-								<copy todir="${project.build.directory}/classes/public">
+								<copy todir="${project.build.outputDirectory}/static">
 									<fileset dir="../client/dist" />
 								</copy>
 							</target>
 						</configuration>
 					</execution>
 				</executions>
-			</plugin> -->
+			</plugin>
 		</plugins>
 	</build>
 

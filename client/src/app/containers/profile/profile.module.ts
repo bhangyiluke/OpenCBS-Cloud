@@ -5,6 +5,12 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NglModule } from 'ng-lightning';
 import { CoreModule } from '../../core/core.module';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileListComponent } from './profile-list/profile-list.component';
@@ -51,7 +57,13 @@ import { LoanProductsModule } from '../configuration/containers/loan-products/lo
     NglModule,
     ProfileRoutingModule,
     EventManagerModule,
-    LoanProductsModule
+    LoanProductsModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatChipsModule
   ],
   declarations: [
     ProfileListComponent,

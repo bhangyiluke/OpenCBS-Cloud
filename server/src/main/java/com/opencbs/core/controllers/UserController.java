@@ -70,7 +70,7 @@ public class UserController {
     @RequestMapping(path = "/current", method = GET)
     public UserDetailsDto getCurrent() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        logger.info("Getting current user details for user: {}", authentication);
+        // logger.info("Getting current user details for user: {}", authentication);
         return this.userMapper.mapToDto((User) authentication.getPrincipal());
     }
 

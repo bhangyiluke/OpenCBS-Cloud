@@ -120,6 +120,8 @@ export class AuthComponent implements OnInit, OnDestroy {
     });
   }
 
+
+
   recoverOpenModal() {
     this.openRecoverModal = true;
   }

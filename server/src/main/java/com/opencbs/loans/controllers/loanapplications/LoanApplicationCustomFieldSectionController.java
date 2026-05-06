@@ -10,6 +10,7 @@ import com.opencbs.loans.domain.customfields.LoanApplicationCustomFieldSection;
 import com.opencbs.loans.mappers.LoanApplicationCustomFieldSectionMapper;
 import com.opencbs.loans.services.LoanApplicationCustomFieldSectionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,7 @@ public class LoanApplicationCustomFieldSectionController extends BaseController 
     }
 
     @RequestMapping(method = RequestMethod.GET)
+    @Transactional(readOnly = true)
     public List<CustomFieldSectionDto> get() {
         return this.getSections();
     }

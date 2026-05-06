@@ -15,10 +15,10 @@
             </nav>
             <div class="slds-grid slds-grid--vertical-align-center">
                 <div class="slds-text-heading--large slds-m-right--medium">{{ (profile | async)?.name }}</div>
-                <div scope="row">
-                    <ngl-badge type="success" *ngIf="(profile | async)?.status === 'LIVE'">Live</ngl-badge>
-                    <ngl-badge type="info" *ngIf="(profile | async)?.status === 'PENDING'">Pending</ngl-badge>
-                </div>
+                 <div scope="row">
+                     <mat-chip *ngIf="(profile | async)?.status === 'LIVE'" color="primary">Live</mat-chip>
+                     <mat-chip *ngIf="(profile | async)?.status === 'PENDING'" color="accent">Pending</mat-chip>
+                 </div>
             </div>
         </div>
 
@@ -132,7 +132,7 @@
                    [confirmText]="'UNSAVED_CHANGES' | translate"></cbs-confirm-popup>
 
 <ngl-modal [(open)]="opened" (openChange)="resetModal()">
-    <div body>
+    <div class="slds-p-around_medium">
         <img [src]="imageUrl" alt="">
     </div>
 </ngl-modal>

@@ -1,26 +1,39 @@
 :host {
-  .cbs-profiles {
-    .slds-icon-action-user {
-      position: relative;
-      height: 32px;
-      width: 32px;
-      vertical-align: middle;
-      margin-right: 4px;
-      .slds-icon {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+  .profile-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    mat-icon {
+      font-size: 20px;
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+  .mat-mdc-table {
+    .mat-mdc-row {
+      &:hover {
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.04);
       }
     }
   }
 
-  .slds-table {
-    tbody tr {
-      &:hover {
-        cursor: pointer;
-      }
+  .mat-button-neutral {
+    background-color: #f4f6f9;
+    color: #16325c;
+
+    &:hover {
+      background-color: #e5e8ed;
     }
+  }
+
+  .pagination-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
   }
 
   .cbs-profiles-search {
@@ -29,14 +42,5 @@
     @media screen and (max-width: 670px) {
       width: auto;
     }
-  }
-
-  .cbs-pagination {
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-
-  .cbs-dropdown--full-width {
-    width: 200px;
   }
 }

@@ -1,5 +1,5 @@
 <ngl-modal [header]="headerTitle" [(open)]="isOpen">
-    <div body>
+    <div class="slds-p-around_medium">
 
         <form novalidate [formGroup]="entryFeesForm" class="slds-form--stacked" cbsFormFocus *ngIf="formGenerated">
             <ng-container
@@ -28,7 +28,7 @@
             <button class="slds-button" (click)="resetFeeCalculation.emit()">Reset fee calculation</button>
         </p>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="isOpen = false">
             {{ 'CANCEL' | translate }}
         </button>

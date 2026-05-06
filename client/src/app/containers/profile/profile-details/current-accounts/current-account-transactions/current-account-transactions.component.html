@@ -22,8 +22,8 @@
             <div class="slds-grid slds-grid--vertical-align-center">
                 <div class="slds-text-heading--large slds-m-right--medium">{{ (profile | async)?.name }}</div>
                 <div scope="row">
-                    <ngl-badge type="success" *ngIf="(profile | async)?.status === 'LIVE'">Live</ngl-badge>
-                    <ngl-badge type="info" *ngIf="(profile | async)?.status === 'PENDING'">Pending</ngl-badge>
+                    <mat-chip color="primary" *ngIf="(profile | async)?.status === 'LIVE'">Live</mat-chip>
+                    <mat-chip color="accent" *ngIf="(profile | async)?.status === 'PENDING'">Pending</mat-chip>
                 </div>
             </div>
         </div>
@@ -152,7 +152,7 @@
 </ng-template>
 
 <ngl-modal [header]="modalTitle | translate" [(open)]="isModalOpened">
-    <div body>
+    <div class="slds-p-around_medium">
         <div class="slds-form--stacked">
             <form novalidate [formGroup]="transactionForm">
                 <ng-container *ngIf="transactionDebit">
@@ -200,7 +200,7 @@
             </form>
         </div>
     </div>
-    <ng-template ngl-modal-footer>
+    <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="cancel()">{{ 'CANCEL' | translate }}</button>
         <button class="slds-button slds-button--success" [disabled]="transactionForm.invalid" (click)="submit()">
             {{ 'SAVE' | translate }}

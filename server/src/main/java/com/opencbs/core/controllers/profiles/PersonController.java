@@ -3,6 +3,7 @@ package com.opencbs.core.controllers.profiles;
 import com.opencbs.core.accounting.domain.Account;
 import com.opencbs.core.accounting.mappers.AccountMapper;
 import com.opencbs.core.controllers.BaseController;
+
 import com.opencbs.core.domain.enums.ModuleType;
 import com.opencbs.core.domain.profiles.Person;
 import com.opencbs.core.domain.profiles.Profile;
@@ -49,14 +50,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @SuppressWarnings("unused")
 @RequiredArgsConstructor
 public class PersonController extends BaseController {
-
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(PersonController.class);
     private final PersonService personService;
     private final PersonDtoValidator validator;
     private final PersonMapper personMapper;
     private final AccountMapper accountMapper;
     private final ProfileWorker profileWorker;
     private final MakerCheckerWorker makerCheckerWorker;
-
 
     @RequestMapping(value = "/{id}", method = GET)
     public GetPersonDetailsDto get(@PathVariable long id) throws ResourceNotFoundException {
@@ -67,7 +67,8 @@ public class PersonController extends BaseController {
     }
 
     @RequestMapping(value = "/lookup", method = GET)
-    public Page<PersonDetailDto> get(@RequestParam(value = "search", required = false) String query, Pageable pageable) {
+    public Page<PersonDetailDto> get(@RequestParam(value = "search", required = false) String query,
+            Pageable pageable) {
         Page<Person> personPage = this.personService.search(query, pageable);
         List<PersonDetailDto> personDetailPage = personPage.getContent()
                 .stream()
@@ -79,30 +80,35 @@ public class PersonController extends BaseController {
     @PermissionRequired(name = "MAKER_FOR_PEOPLE", moduleType = ModuleType.MAKER_CHECKER, description = "")
     @RequestMapping(method = RequestMethod.POST)
     public RequestDto post(@RequestBody PersonDto personDto) throws Exception {
+        // logger.info("Saving people: {}",personDto);
         this.validator.validate(personDto);
+        // personDto.getFieldValues(), personDto.getId()
+        logger.info("Saving people: {}, {}", personDto.getFieldValues(), personDto.getId());
         Request request = this.makerCheckerWorker.create(RequestType.PEOPLE_CREATE, personDto);
+        logger.info("Saving maker for people: {}", request);
         RequestDto detailsDto = new RequestDto();
         detailsDto.setId(request.getId());
-        return  detailsDto;
+        return detailsDto;
     }
 
     @PermissionRequired(name = "MAKER_FOR_PEOPLE", moduleType = ModuleType.MAKER_CHECKER, description = "")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public RequestDto put(@PathVariable long id,
-                          @RequestBody PersonDto personDto) throws Exception {
+            @RequestBody PersonDto personDto) throws Exception {
         personDto.setId(id);
         this.validator.validate(personDto);
         Request request = this.makerCheckerWorker.create(RequestType.PEOPLE_EDIT, personDto);
         RequestDto detailsDto = new RequestDto();
         detailsDto.setId(request.getId());
-        return  detailsDto;
+        return detailsDto;
     }
 
     @RequestMapping(value = "/{id}/account", method = POST)
     public PersonDetailDto createCurrentAccount(@PathVariable long id,
-                                                @RequestParam("currencyId") long currencyId) throws ResourceNotFoundException {
+            @RequestParam("currencyId") long currencyId) throws ResourceNotFoundException {
         Person person = this.personService.getPerson(id);
-        return this.personMapper.mapEntityToDto(this.personService.createCurrentAccount(person, currencyId, UserHelper.getCurrentUser()));
+        return this.personMapper.mapEntityToDto(
+                this.personService.createCurrentAccount(person, currencyId, UserHelper.getCurrentUser()));
     }
 
     @RequestMapping(value = "/{id}/accounts", method = GET)
@@ -112,12 +118,14 @@ public class PersonController extends BaseController {
         return accounts
                 .stream()
                 .map(this.accountMapper::accountToProfileDto)
-                .peek(x -> x.setBalance(this.personService.getBalance(x.getId()).setScale(2, BigDecimal.ROUND_HALF_EVEN)))
+                .peek(x -> x
+                        .setBalance(this.personService.getBalance(x.getId()).setScale(2, BigDecimal.ROUND_HALF_EVEN)))
                 .collect(Collectors.toList());
     }
 
     @GetMapping(path = "/{profileId}/links/profiles")
-    public Collection<ProfilesDto> getRelatedProfiles(@PathVariable Long profileId, Pageable pageable) throws ResourceNotFoundException {
+    public Collection<ProfilesDto> getRelatedProfiles(@PathVariable Long profileId, Pageable pageable)
+            throws ResourceNotFoundException {
         Person person = this.personService.getPerson(profileId);
         Collection<Profile> profiles = profileWorker.getRelatedProfiles(person, pageable, UserHelper.getCurrentUser());
         ModelMapper mapper = new ModelMapper();

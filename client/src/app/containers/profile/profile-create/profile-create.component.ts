@@ -16,7 +16,7 @@ import {
 import { CustomFieldSectionMeta } from '../../../core/models/customField.model';
 import { FieldConfig } from '../../../shared/modules/cbs-form/models/field-config.interface';
 
-const SVG_DATA = {collection: 'standard', class: 'user', name: 'user'};
+const SVG_DATA = { collection: 'standard', class: 'user', name: 'user' };
 
 @Component({
   standalone: false,
@@ -25,7 +25,7 @@ const SVG_DATA = {collection: 'standard', class: 'user', name: 'user'};
   styleUrls: ['profile-create.component.scss']
 })
 export class NewProfileComponent implements OnInit, OnDestroy {
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild('submitButton', { static: false }) submitButton: ElementRef;
   public profileBreadcrumbLabel = '';
   public profileForm: FormGroup;
   public createProfileState: CreateProfileState;
@@ -43,14 +43,14 @@ export class NewProfileComponent implements OnInit, OnDestroy {
   private profileFieldsSub: any;
 
   constructor(private createProfileStore$: Store<CreateProfileState>,
-              private profileFieldsMetaStore$: Store<ProfileFieldsState>,
-              private fb: FormBuilder,
-              private store$: Store<fromRoot.State>,
-              private router: Router,
-              private route: ActivatedRoute,
-              private toastrService: ToastrService,
-              private translate: TranslateService,
-              private renderer2: Renderer2) {
+    private profileFieldsMetaStore$: Store<ProfileFieldsState>,
+    private fb: FormBuilder,
+    private store$: Store<fromRoot.State>,
+    private router: Router,
+    private route: ActivatedRoute,
+    private toastrService: ToastrService,
+    private translate: TranslateService,
+    private renderer2: Renderer2) {
     this.profileFieldsStore = this.store$.pipe(select(fromRoot.getProfileFieldsState));
   }
 
@@ -61,11 +61,12 @@ export class NewProfileComponent implements OnInit, OnDestroy {
       .subscribe(
         params => {
           this.type = params['type'];
-          if ( this.type === 'people' ) {
+
+          if (this.type === 'people') {
             this.profileBreadcrumbLabel = 'CREATE_PERSON';
-          } else if ( this.type === 'companies' ) {
+          } else if (this.type === 'companies') {
             this.profileBreadcrumbLabel = 'CREATE_COMPANIES';
-          } else if ( this.type === 'groups' ) {
+          } else if (this.type === 'groups') {
             this.profileBreadcrumbLabel = 'CREATE_GROUP';
           }
 
@@ -80,25 +81,41 @@ export class NewProfileComponent implements OnInit, OnDestroy {
             }
           ];
 
-          if ( this.type === 'people' || this.type === 'companies' || this.type === 'groups' ) {
+          if (this.type === 'people' || this.type === 'companies' || this.type === 'groups') {
             this.profileFieldsMetaStore$.dispatch(new fromStore.LoadProfileFieldsMeta(this.type));
           }
         });
 
-    this.profileFieldsSub = this.profileFieldsStore.pipe(getProfileCustomFields())
+    this.profileFieldsSub = this.profileFieldsStore
       .subscribe(
-        (sectionsMeta: CustomFieldSectionMeta[]) => {
-          this.profileFieldSections = sectionsMeta;
-          this.sectionNavData = [];
+        (state) => {
+          if (state.loaded && state.success && !state.error) {
+            // Success case - profile fields loaded
+            const sectionsMeta = state.profileFields;
+            this.profileFieldSections = sectionsMeta;
+            this.sectionNavData = [];
 
-          sectionsMeta.map(section => {
-            this.sectionNavData.push({
-              title: section.caption,
-              id: section.id
+            sectionsMeta.map(section => {
+              this.sectionNavData.push({
+                title: section.caption,
+                id: section.id
+              });
             });
-          });
 
-          this.generateSections(this.profileFieldSections);
+            this.generateSections(this.profileFieldSections);
+          } else if (state.loaded && !state.success && state.error) {
+            // Error case - profile fields failed to load
+            this.loading = false;
+            this.toastrService.clear();
+            this.translate.get('LOAD_PROFILE_FIELDS_ERROR')
+              .subscribe(
+                (res: string) => {
+                  this.toastrService.error(state.errorMessage || res, '', environment.ERROR_TOAST_CONFIG);
+                });
+          } else if (state.loaded) {
+            // Any loaded state (success or error) means initial loading is complete
+            this.loading = false;
+          }
         }
       );
 
@@ -106,15 +123,15 @@ export class NewProfileComponent implements OnInit, OnDestroy {
       .subscribe(
         (state: CreateProfileState) => {
           this.createProfileState = state;
-          if ( state.loaded && state.success && !state.error ) {
+          if (state.loaded && state.success && !state.error) {
             this.toastrService.clear();
-            this.translate.get('CREATE_SUCCESS')
+            this.translate.get('PROFILE_CREATION_REQUEST_SUBMITTED')
               .subscribe(
                 (res: string) => {
                   this.toastrService.success(res, '', environment.SUCCESS_TOAST_CONFIG);
                 });
-            this.goToProfileInfo();
-          } else if ( state.loaded && !state.success && state.error ) {
+            this.goToProfilesList();
+          } else if (state.loaded && !state.success && state.error) {
             this.translate.get('CREATE_ERROR')
               .subscribe(
                 (res: string) => {
@@ -128,13 +145,13 @@ export class NewProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.routeSub.unsubscribe();
-    this.profileFieldsSub.unsubscribe();
-    this.createProfileSub.unsubscribe();
+    this.routeSub?.unsubscribe();
+    this.profileFieldsSub?.unsubscribe();
+    this.createProfileSub?.unsubscribe();
 
-    this.profileFieldsStore.dispatch(new fromStore.ResetProfileFieldsMeta());
+    this.profileFieldsStore?.dispatch(new fromStore.ResetProfileFieldsMeta());
     const sections = <FormArray>this.profileForm.controls['fieldSections'];
-    if ( sections.length ) {
+    if (sections.length) {
       sections.value.map(item => {
         sections.removeAt(sections.controls.indexOf(item));
       });
@@ -148,27 +165,29 @@ export class NewProfileComponent implements OnInit, OnDestroy {
   }
 
   generateSections(sectionsMeta) {
-    if ( sectionsMeta.length ) {
-      const sections = <FormArray>this.profileForm.controls['fieldSections'];
+    const sections = <FormArray>this.profileForm.controls['fieldSections'];
 
-      if ( sections.length ) {
-        sections.value.map(item => {
-          sections.removeAt(sections.controls.indexOf(item));
-        });
-      }
+    if (sections.length) {
+      sections.value.map(item => {
+        sections.removeAt(sections.controls.indexOf(item));
+      });
+    }
 
+    if (sectionsMeta.length) {
       sectionsMeta.map((section, index) => {
         sections.push(this.fb.array([]));
         this.generateCustomFields(section.customFields, index);
       });
-      this.loading = false;
     }
+
+    // Always set loading to false once we've processed the sections (even if empty)
+    this.loading = false;
   }
 
   generateCustomFields(fields, index) {
     const section = <FormArray>this.profileForm.controls['fieldSections']['controls'][index];
 
-    if ( section.length ) {
+    if (section.length) {
       section.value.map(item => {
         section.removeAt(section.controls.indexOf(item));
       });
@@ -181,8 +200,8 @@ export class NewProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  submit({valid, value}) {
-    if ( valid ) {
+  submit({ valid, value }) {
+    if (valid) {
       this.disableSubmitBtn(true);
       const profileDataToSend = {
         fieldValues: []
@@ -193,7 +212,7 @@ export class NewProfileComponent implements OnInit, OnDestroy {
       fieldsMeta.map(field => {
         valueArray.map(valItem => {
           const key = Object.keys(valItem)[0];
-          if ( key === field.name ) {
+          if (key === field.name) {
             profileDataToSend.fieldValues.push({
               fieldId: field.id,
               value: valItem[key] ? valItem[key] : null
@@ -201,18 +220,18 @@ export class NewProfileComponent implements OnInit, OnDestroy {
           }
         });
       });
-
-      this.createProfileStore$.dispatch(new fromStore.CreateProfile({data: profileDataToSend, type: this.type}));
+      console.log("Saving profile data:", this.type, profileDataToSend);
+      this.createProfileStore$.dispatch(new fromStore.CreateProfile({ data: profileDataToSend, type: this.type }));
     }
   }
 
   flattenArray(array, selector?) {
     let tempArray = [];
     array.map(item => {
-      if ( Array.isArray(item) ) {
+      if (Array.isArray(item)) {
         tempArray = [...tempArray, ...item];
       }
-      if ( selector && !Array.isArray(item) ) {
+      if (selector && !Array.isArray(item)) {
         tempArray = [...tempArray, ...item[selector]];
       }
     });
@@ -223,7 +242,7 @@ export class NewProfileComponent implements OnInit, OnDestroy {
     this.renderer2.setProperty(this.submitButton.nativeElement, 'disabled', bool);
   }
 
-  goToProfileInfo() {
+  goToProfilesList() {
     this.resetState();
     this.router.navigate(['profiles']);
   }
@@ -239,11 +258,11 @@ export class NewProfileComponent implements OnInit, OnDestroy {
   }
 
   createControl(config: FieldConfig) {
-    const {disabled, validation, value, required} = config;
+    const { disabled, validation, value, required } = config;
     const validationOptions = validation || [];
-    if ( required ) {
+    if (required) {
       validationOptions.push(Validators.required);
     }
-    return this.fb.control({disabled, value}, validationOptions);
+    return this.fb.control({ disabled, value }, validationOptions);
   }
 }

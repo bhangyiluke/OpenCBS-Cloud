@@ -33,6 +33,7 @@ export class FormFieldComponent implements OnInit {
   }
 
   buildField() {
+    
     this.fieldData.map(item => {
       if (item.id === +this.fieldForm.value.fieldId) {
         this.fieldId = item.id;
@@ -77,7 +78,7 @@ export class FormFieldComponent implements OnInit {
           item.value ? this.fieldForm.controls['value'].setValue(item.value) : this.fieldForm.controls['value'].setValue(false);
         }
 
-        if (item.field.fieldType === 'GRID') {
+        if (item.field?.fieldType === 'GRID') {
           this.gridValues = item.value
             ? JSON.parse(item.value).data
             : item.field.extra.data;

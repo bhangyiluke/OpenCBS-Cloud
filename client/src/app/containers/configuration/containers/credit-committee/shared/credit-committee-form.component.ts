@@ -29,7 +29,7 @@ export class CCRulesFormComponent implements OnInit, OnDestroy {
     });
     this.rolesSub = this.store$.pipe(select(fromRoot.getRolesState))
     .subscribe((roleState: RoleListState) => {
-      console.log('roleState ', roleState);
+      // console.log('roleState ', roleState);
       if (roleState.loaded && roleState.success && !roleState.error) {
         this.roles = [...roleState.roles];
         this.compare(this.selectedItems, this.roles);
