@@ -31,17 +31,17 @@ export class BondListComponent implements OnInit, OnDestroy {
   private currentPageSub: any;
 
   constructor(private bondListStore$: Store<IBondList>,
-              private bondStore$: Store<BondState>,
-              private router: Router,
-              private store$: Store<fromRoot.State>,
-              private route: ActivatedRoute) {
+    private bondStore$: Store<BondState>,
+    private router: Router,
+    private store$: Store<fromRoot.State>,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.bondStore$.dispatch(new fromStore.ResetBond());
     this.bondData = this.store$.select(fromRoot.getBondListState);
     this.currentPageSub = this.bondData
-      .pipe((this.getCurrentPage()))
+      .pipe(this.getCurrentPage())
       .subscribe((page: number) => {
         this.queryObject = Object.assign({}, this.queryObject, {
           page: page + 1

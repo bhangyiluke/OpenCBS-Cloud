@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { map, Observable, Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import * as fromRoot from '../../../../../core/core.reducer';
@@ -124,9 +124,8 @@ export class PenaltiesComponent implements OnInit, OnDestroy {
   }
 
   getCurrentPage = () => {
-    return state => state?.map(s => {
-        return s.currentPage;
-      });
+    return state => state
+          .pipe(map(s => s['currentPage']));
   };
 
   goToPage(page: number) {

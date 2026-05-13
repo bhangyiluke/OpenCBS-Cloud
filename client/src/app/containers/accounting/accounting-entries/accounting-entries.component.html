@@ -35,14 +35,14 @@
 
                                 <span nglDropdown [(open)]="open" class="slds-button-group">
                                     <button class="slds-button slds-button--neutral" nglDropdownTrigger>
-                                        <span class="slds-truncate">
+                                        <span class="slds-truncate slds-align--absolute-center">
                                             <svg aria-hidden="true"
                                                 class="slds-button__icon--stateful slds-button__icon--left">
                                                 <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#add"></use>
                                             </svg>
                                             {{ 'ADD_TRANSACTION' | translate }}
                                         </span>
-                                        <ngl-icon icon="down" type="default" size="x-small"></ngl-icon>
+                                        <ngl-icon iconName="down" variant="default" size="x-small"></ngl-icon>
                                     </button>
                                     <div
                                         class="slds-dropdown slds-dropdown--left cbs-dropdown cbs-dropdown--full-width">
@@ -194,7 +194,7 @@
                 <cbs-form-textarea-control [requiredField]="true"
                     [hasError]="singleTransactionForm.get('description').errors && singleTransactionForm.get('description').touched"
                     formControlName="description"
-                    fieldLabel="{{ 'DESCRIPTION' | translate }}"></cbs-form-textarea-control>
+                    fieldLabel="{{'DESCRIPTION' | translate}}"></cbs-form-textarea-control>
 
                 <cbs-form-date-control [requiredField]="true" [fieldLabel]="'DATE' | translate"
                     [hasError]="singleTransactionForm.get('createdAt').errors && singleTransactionForm.get('createdAt').touched"
@@ -217,7 +217,7 @@
     </div>
     <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="cancel()">{{ 'CANCEL' | translate }}</button>
-        <button [disabled]="singleTransactionForm.invalid" class="slds-button slds-button--success"
+        <button [disabled]="singleTransactionForm?.invalid" class="slds-button slds-button--success"
             (click)="submitSingleTransaction()">{{ 'SAVE' | translate }}
         </button>
     </ng-template>
@@ -289,7 +289,7 @@
     <ng-template nglModalFooter>
         <button class="slds-button slds-button--neutral" (click)="cancel()">{{ 'CANCEL' | translate }}
         </button>
-        <button [disabled]="multipleTransactionForm.invalid" class="slds-button slds-button--success"
+        <button [disabled]="multipleTransactionForm?.invalid" class="slds-button slds-button--success"
             (click)="submitMultipleTransaction()">{{ 'SAVE' | translate }}
         </button>
     </ng-template>

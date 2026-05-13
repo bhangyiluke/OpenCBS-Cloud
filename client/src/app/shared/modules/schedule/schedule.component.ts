@@ -246,15 +246,16 @@ export class ScheduleComponent implements DoCheck, OnDestroy, OnInit, OnChanges,
       }
 
       if (Object.keys(options).length) {
-        this.schedule.fullCalendar('option', options);
+        this.schedule?.fullCalendar?.('option', options);
       }
     }
   }
 
   initialize() {
     this.schedule = jQuery(this.el.nativeElement.children[0]);
-    this.schedule.fullCalendar(this.config);
-    this.schedule.fullCalendar('addEventSource', this.events);
+    console.log("Calender Schedule:->",this.schedule);
+    this.schedule?.fullCalendar?.(this.config);
+    this.schedule?.fullCalendar?.('addEventSource', this.events);
     this.initialized = true;
   }
 
@@ -262,51 +263,51 @@ export class ScheduleComponent implements DoCheck, OnDestroy, OnInit, OnChanges,
     const changes = this.differ.diff(this.events);
 
     if (this.schedule && changes) {
-      this.schedule.fullCalendar('removeEventSources');
-      this.schedule.fullCalendar('addEventSource', this.events);
+      this.schedule?.fullCalendar?.('removeEventSources');
+      this.schedule?.fullCalendar?.('addEventSource', this.events);
     }
   }
 
   ngOnDestroy() {
-    jQuery(this.el.nativeElement.children[0]).fullCalendar('destroy');
+    jQuery(this.el.nativeElement.children[0])?.fullCalendar?.('destroy');
     this.initialized = false;
     this.schedule = null;
   }
 
   gotoDate(date: any) {
-    this.schedule.fullCalendar('gotoDate', date);
+    this.schedule?.fullCalendar('gotoDate', date);
   }
 
   prev() {
-    this.schedule.fullCalendar('prev');
+    this.schedule?.fullCalendar('prev');
   }
 
   next() {
-    this.schedule.fullCalendar('next');
+    this.schedule?.fullCalendar?.('next');
   }
 
   prevYear() {
-    this.schedule.fullCalendar('prevYear');
+    this.schedule?.fullCalendar?.('prevYear');
   }
 
   nextYear() {
-    this.schedule.fullCalendar('nextYear');
+    this.schedule?.fullCalendar?.('nextYear');
   }
 
   today() {
-    this.schedule.fullCalendar('today');
+    this.schedule?.fullCalendar?.('today');
   }
 
   incrementDate(duration: any) {
-    this.schedule.fullCalendar('incrementDate', duration);
+    this.schedule?.fullCalendar?.('incrementDate', duration);
   }
 
   changeView(viewName: string) {
-    this.schedule.fullCalendar('changeView', viewName);
+    this.schedule?.fullCalendar?.('changeView', viewName);
   }
 
   getDate() {
-    return this.schedule.fullCalendar('getDate');
+    return this.schedule?.fullCalendar?.('getDate');
   }
 
   findEvent(id: string) {

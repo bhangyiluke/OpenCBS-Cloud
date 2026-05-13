@@ -156,7 +156,7 @@ export class AccountingEntriesComponent implements OnInit, OnDestroy {
         ...this.queryObject, page
       }
     };
-    this.router.navigate(['/accounting', 'accounting-entries'], navigationExtras);
+    this.router?.navigate(['/accounting', 'accounting-entries'], navigationExtras);
     this.entries$.dispatch(new fromStore.LoadAccountingEntries(this.queryObject));
   }
 
@@ -177,23 +177,26 @@ export class AccountingEntriesComponent implements OnInit, OnDestroy {
   }
 
   openTransactionModal(value: any) {
+    console.log("Selected transaction type: ", value);
+    const dateNow = moment().format(environment.DATE_FORMAT_MOMENT);
     if (value === 'SINGLE') {
+      this.singleTransactionForm?.controls['createdAt']?.setValue(dateNow);
       this.isSingleTransactionModalOpened = true;
     } else {
+      this.multipleTransactionForm?.controls['dateTime']?.setValue(dateNow);
       this.isMultipleTransactionModalOpened = true;
     }
-    this.singleTransactionForm?.reset();
-    this.multipleTransactionForm?.reset();
-    const dateNow = moment().format(environment.DATE_FORMAT_MOMENT);
-    this.singleTransactionForm?.controls['createdAt'].setValue(dateNow);
-    this.multipleTransactionForm?.controls['dateTime'].setValue(dateNow);
-    this.lookupDebitAccount?.onClearLookup();
-    this.lookupCreditAccount?.onClearLookup();
-    this.lookupTransactionTemplate?.onClearLookup();
-    this.multipleTransactionDebitAccounts = [];
-    this.multipleTransactionCreditAccounts = [];
-    this.multipleTransactionDebitAccountsValue = [];
-    this.multipleTransactionCreditAccountsValue = [];
+    this.open = false; // Close the dropdown
+    // this.singleTransactionForm?.reset();
+    // this.multipleTransactionForm?.reset();
+
+    // this.lookupDebitAccount?.onClearLookup();
+    // this.lookupCreditAccount?.onClearLookup();
+    // this.lookupTransactionTemplate?.onClearLookup();
+    // this.multipleTransactionDebitAccounts = [];
+    // this.multipleTransactionCreditAccounts = [];
+    // this.multipleTransactionDebitAccountsValue = [];
+    // this.multipleTransactionCreditAccountsValue = [];
   }
 
   cancel() {

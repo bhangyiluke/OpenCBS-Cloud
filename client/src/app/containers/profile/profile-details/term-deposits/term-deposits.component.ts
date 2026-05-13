@@ -6,7 +6,7 @@ import { CurrentUserService } from '../../../../core/store/users/current-user/cu
 import { getProfileStatus } from '../../../../core/store/profile/profile.selectors';
 import * as ProfileUtils from '../../shared/profile.utils';
 import * as fromRoot from '../../../../core/core.reducer';
-import { Subscription } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import * as fromStore from '../../../../core/store';
 import { ITermDepositProfileList } from '../../../../core/store';
 import { Observable, of } from 'rxjs';
@@ -82,17 +82,17 @@ export class TermDepositsComponent implements OnInit, OnDestroy {
       this.permissions = userPermissions;
     });
 
-    this.statusSub = this.profileStore$.pipe(select(fromRoot.getProfileState))
-      .pipe((getProfileStatus()))
-      .subscribe((status: string) => {
-        if ( this.profileType === 'people' || this.profileType === 'companies' ) {
-          this.navElements = ProfileUtils.setNavElements(
-            this.profileType,
-            this.profileId,
-            this.permissions
-          );
-        }
-      });
+    // this.statusSub = this.profileStore$.pipe(select(fromRoot.getProfileState))
+    //   .pipe(getProfileStatus())
+    //   .subscribe(() => {
+    //     if ( this.profileType === 'people' || this.profileType === 'companies' ) {
+    //       this.navElements = ProfileUtils.setNavElements(
+    //         this.profileType,
+    //         this.profileId,
+    //         this.permissions
+    //       );
+    //     }
+    //   });
 
     this.statusSub = this.profileStore$.pipe(select(fromRoot.getProfileState), getProfileStatus())
       .subscribe(() => {
@@ -108,9 +108,8 @@ export class TermDepositsComponent implements OnInit, OnDestroy {
   }
 
   getCurrentPage = () => {
-    return state => state?.map(s => {
-        return s.currentPage;
-      });
+    return state => state
+          .pipe(map(s => s['currentPage']));
   };
 
   goToNextPage(page: number) {

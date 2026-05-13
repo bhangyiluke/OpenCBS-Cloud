@@ -16,7 +16,7 @@
             </button>
             <button class="slds-button slds-button--success"
                     #submitButton aria-live="assertive" (click)="submitForm()"
-                    [disabled]="savingProductForm.form.invalid">
+                    [disabled]="savingProductForm?.form?.invalid">
                 <span class="slds-text-not-selected">
                     <svg aria-hidden="true" class="slds-button__icon--stateful slds-button__icon--left">
                     <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#check"></use>

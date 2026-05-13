@@ -45,7 +45,7 @@
         </ng-template>
     </p-table>
 
-    <cbs-loading-indicator [isFixed]="true" [showLoader]="(bondData | async)?.loading"></cbs-loading-indicator>
+    <!-- <cbs-loading-indicator [isFixed]="true" [showLoader]="(bondData | async)?.loading"></cbs-loading-indicator> -->
 
     <div class="slds-grid slds-grid--align-center" *ngIf="(bondData | async)?.totalElements > (bondData | async)?.size">
         <ngl-pagination class="cbs-pagination" *ngIf="(bondData | async)?.loaded" [(page)]="queryObject.page"

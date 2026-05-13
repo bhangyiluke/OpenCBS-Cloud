@@ -73,6 +73,8 @@ spring:
       supported: 1.0,2.0,3.0
       default: 1.0
       version-required: false
+    pathmatch:
+      matching-strategy: ant_path_matcher
   jackson:
     serialization:
       fail-on-empty-beans: false # Can be useful in general
@@ -197,6 +199,10 @@ server:
   # http2:
   #   enabled: true
   forward-headers-strategy: framework
+  tomcat:
+    threads:
+      virtual:
+        enabled: true
 
 # Logging Configuration
 logging:

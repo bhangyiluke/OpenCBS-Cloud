@@ -49,7 +49,7 @@ export class ProfileBorrowingsComponent implements OnInit, OnDestroy {
       this.profileId = +params['id'];
       this.profileType = params['type'];
       if ( this.profileType === 'people' || this.profileType === 'companies' ) {
-        this.url = `${environment.API_ENDPOINT}profiles/${this.profileType}/${this.profileId}/attachments/`;
+        this.url = `${environment.API_ENDPOINT}profiles/${this.profileType}/${this.profileId}/attachments`;
       }
       this.borrowings = this.borrowingService.getProfileBorrowingList(this.profileId);
     });

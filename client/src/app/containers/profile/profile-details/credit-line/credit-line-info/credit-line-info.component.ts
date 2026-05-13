@@ -49,13 +49,12 @@ export class CreditLineInfoComponent implements OnInit, OnDestroy {
       this.profileType = params['type'];
 
       if ( this.profileType === 'people' || this.profileType === 'companies' || this.profileType === 'groups' ) {
-        this.url = `${environment.API_ENDPOINT}profiles/${this.profileType}/${this.profileId}/attachments/`;
+        this.url = `${environment.API_ENDPOINT}profiles/${this.profileType}/${this.profileId}/attachments`;
       }
     });
 
     this.statusSub = this.profileStore$.select(fromRoot.getProfileState)
-      .pipe(
-        (getProfileStatus()))
+      .pipe(getProfileStatus())
       .subscribe(() => {
         if ( this.profileType === 'people' || this.profileType === 'companies' || this.profileType === 'groups' ) {
           this.navElements = ProfileUtils.setNavElements(

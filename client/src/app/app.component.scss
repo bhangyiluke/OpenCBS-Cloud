@@ -1,31 +1,39 @@
-::ng-deep input {
-  padding: 12px;
-  line-height: 1;
-  border-radius: 4px;
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
-
-  &:focus {
-    border-color: #1e97ce;
-    box-shadow: 0 0 0 2px rgba(30, 151, 206, 0.2);
-  }
-
-  &[type="submit"] {
-    width: 100%;
-    margin-top: 24px;
-    margin-bottom: 16px;
-    height: 44px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-  }
-}
-
-::ng-deep .cdk-overlay-container {
-  z-index: 100000;
-}
-
 ::ng-deep {
+  .cdk-overlay-container {
+    z-index: 100000;
+  }
+
+  input {
+    padding: 12px;
+    line-height: 1;
+    border-radius: 4px;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s !important;
+
+    &:focus {
+      border-color: #1e97ce !important;
+      box-shadow: 0 0 0 2px rgba(30, 151, 206, 0.2) !important;
+    }
+
+    // &[type="submit"] {
+    //   width: 100%;
+    //   margin-top: 24px;
+    //   margin-bottom: 16px;
+    //   height: 44px;
+    //   font-weight: 600;
+    //   letter-spacing: 0.5px;
+    // }
+  }
+  .mat-icon-button,
+  .mat-mdc-icon-button {
+    padding: 0 !important;
+    min-width: 0 !important;
+    width: 40px !important; /* Desired width */
+    height: 40px !important; /* Desired height */
+    line-height: 1 !important; /* Center the icon vertically */
+    transform: scale(0.7) !important;
+  }
   .slds-modal__close {
     background-color: transparent; // Remove default background
     .slds-button_icon {

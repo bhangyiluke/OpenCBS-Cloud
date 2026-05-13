@@ -4,7 +4,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import * as fromStore from '../../../core/store';
 import * as fromRoot from '../../../core/core.reducer';
 import { Table as DataTable } from 'primeng/table';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { ISavingEntries, ISavingState, SavingEntriesActions } from '../../../core/store';
 import { Subscription } from 'rxjs';
 
@@ -94,9 +94,8 @@ export class SavingEntriesComponent implements OnInit, OnDestroy {
   }
 
   getCurrentPage = () => {
-    return state => state?.map(s => {
-        return s.currentPage;
-      });
+    return state => state
+          .pipe(map(s => s['currentPage']));
   };
 
   goToPage(page: number) {

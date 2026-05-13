@@ -15,8 +15,8 @@
             <span class="slds-truncate" *ngIf="!valueString">{{
                 !disabled ? selectPlaceholder : "-"
             }}</span>
-            <!-- <ngl-icon icon="down" variant="default" size="x-small" *ngIf="!isOpened"></ngl-icon>
-            <ngl-icon icon="close" variant="default" size="x-small" *ngIf="isOpened"></ngl-icon> -->
+            <ngl-icon iconName="down" variant="default" size="x-small" *ngIf="!isOpened"></ngl-icon>
+            <ngl-icon iconName="close" variant="default" size="x-small" *ngIf="isOpened"></ngl-icon>
         </button>
         <button
             *ngIf="valueString && !disabled"

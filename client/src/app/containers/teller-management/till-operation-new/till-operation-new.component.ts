@@ -254,7 +254,7 @@ export class OperationsNewComponent implements OnInit, OnDestroy {
     this.profile = this.profileStore$.pipe(select(fromRoot.getProfileState));
 
     if (profileType === 'people' || profileType === 'companies') {
-      this.url = `${environment.API_ENDPOINT}profiles/${profileType}/${profile.id}/attachments/`;
+      this.url = `${environment.API_ENDPOINT}profiles/${profileType}/${profile.id}/attachments`;
     }
 
     this.operationCreateService.getProfile(profile.id).subscribe(profileApps => {

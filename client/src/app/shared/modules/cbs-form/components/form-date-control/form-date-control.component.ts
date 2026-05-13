@@ -120,7 +120,8 @@ export class FormDateControlComponent implements OnInit, ControlValueAccessor, O
   }
 
   isNotWeekend(date): boolean {
-    return date.isoWeekday() !== 6 && date.isoWeekday() !== 7;
+    // console.log("Check if the date is weekend...",date);
+    return date?.isoWeekday() !== 6 && date?.isoWeekday() !== 7;
   }
 
   isWeekend(): boolean {

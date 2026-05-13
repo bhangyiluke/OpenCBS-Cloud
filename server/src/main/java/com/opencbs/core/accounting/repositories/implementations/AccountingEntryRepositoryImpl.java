@@ -51,7 +51,7 @@ public class AccountingEntryRepositoryImpl extends BaseRepository<AccountingEntr
         String hql = "select case when count(*) > 0 then true else false end\n " +
                 "from AccountingEntry as ae\n " +
                 "where ae.debitAccount.id = :accountId or ae.creditAccount.id = :accountId\n " +
-                "and now() > ae.createdAt";
+                "and current_timestamp > ae.createdAt";
         Query query = this.getEntityManager().createQuery(hql);
         query.setParameter("accountId", accountId);
         return (Boolean) query.getSingleResult();

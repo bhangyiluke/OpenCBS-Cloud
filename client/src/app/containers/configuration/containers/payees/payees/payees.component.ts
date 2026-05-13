@@ -195,7 +195,7 @@ export class PayeeListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     this.form.valueChanges.subscribe(fields => {
-      this.formChanged = this.isNew ? !this.form.invalid : this.checkFormChanges(fields);
+      this.formChanged = this.isNew ? !this?.form.invalid : this.checkFormChanges(fields);
     });
   }
 

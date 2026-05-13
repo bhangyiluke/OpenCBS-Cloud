@@ -21,7 +21,7 @@ public class BaseSavingProductDto extends BaseDto {
     private BigDecimal interestRateMax;
     private Frequency interestAccrualFrequency;
     private Frequency postingFrequency;
-    private boolean capitalized;
+    private Boolean capitalized;
 
     private BigDecimal depositAmountMin;
     private BigDecimal depositAmountMax;

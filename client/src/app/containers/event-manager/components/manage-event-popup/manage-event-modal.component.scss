@@ -2,6 +2,8 @@
   .cbs-schedule {
     &__modal {
       position: relative;
+      max-height: 80vh;
+      overflow-y: auto;
     }
 
     &__wrap {
@@ -37,21 +39,45 @@
     padding: 0 1rem 0 0.75rem;
     line-height: 1.9rem;
     min-height: 10rem;
+    max-height: 15rem;
+    overflow-y: auto;
 
     li {
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #f4f4f4;
+
+      &:last-child {
+        border-bottom: none;
+      }
 
       .slds-icon {
         position: relative;
         top: -2px;
         cursor: pointer;
+        color: #c23934;
+
+        &:hover {
+          color: #a71e1a;
+        }
       }
     }
   }
 
-  .slds-form--compound cbs-form-date + cbs-form-time {
-    padding-left: .5rem;
+  .slds-form--compound {
+    .slds-form-element__row {
+      margin-bottom: 1rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    cbs-form-date + cbs-form-time {
+      padding-left: .5rem;
+    }
   }
 
   .cbs__response-block {

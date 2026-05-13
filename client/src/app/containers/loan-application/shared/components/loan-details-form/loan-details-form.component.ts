@@ -28,7 +28,7 @@ interface Config {
 })
 export class LoanDetailsFormComponent implements OnInit {
   @Input() config: Config = {
-    scheduleTypeUrl: `${environment.API_ENDPOINT}/schedule-types`
+    scheduleTypeUrl: `${environment.API_ENDPOINT}schedule-types`
   };
   @Input() loanAppFormState: ILoanAppFormState;
   @Output() submit = new EventEmitter();

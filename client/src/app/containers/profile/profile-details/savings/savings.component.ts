@@ -4,10 +4,11 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { getProfileStatus, IProfile } from '../../../../core/store/profile';
 import { CurrentUserService } from '../../../../core/store/users/current-user';
 import * as ProfileUtils from '../../shared/profile.utils';
-  import * as fromRoot from '../../../../core/core.reducer';
+import * as fromRoot from '../../../../core/core.reducer';
 import { Observable, Subscription } from 'rxjs';
 import * as fromStore from '../../../../core/store';
 import { ISavingProfileList } from '../../../../core/store/saving/saving-profile-list';
+import { map } from 'rxjs/operators';
 
 @Component({
   standalone: false,
@@ -39,11 +40,11 @@ export class SavingsComponent implements OnInit, OnDestroy {
   private currentPageSub: Subscription;
 
   constructor(private profileStore$: Store<IProfile>,
-              private route: ActivatedRoute,
-              private savingProfileListStore$: Store<ISavingProfileList>,
-              private store$: Store<fromRoot.State>,
-              private router: Router,
-              private currentUserService: CurrentUserService) {
+    private route: ActivatedRoute,
+    private savingProfileListStore$: Store<ISavingProfileList>,
+    private store$: Store<fromRoot.State>,
+    private router: Router,
+    private currentUserService: CurrentUserService) {
   }
 
   ngOnInit() {
@@ -59,8 +60,9 @@ export class SavingsComponent implements OnInit, OnDestroy {
       this.permissions = userPermissions;
     });
 
-    this.savingData = this.store$.pipe(select(fromRoot.getSavingProfileListState));
-    this.currentPageSub = this.savingData?.pipe((this.getCurrentPage())).subscribe((page: number) => {
+    // this.savingData = this.store$.pipe(select(fromRoot.getSavingProfileListState));
+    this.savingData = this.store$.select(fromRoot.getSavingProfileListState);
+    this.currentPageSub = this.savingData?.pipe(this.getCurrentPage()).subscribe((page: number) => {
       this.queryObject = Object.assign({}, this.queryObject, {
         page: page + 1
       });
@@ -81,9 +83,10 @@ export class SavingsComponent implements OnInit, OnDestroy {
     });
 
     this.statusSub = this.profileStore$.pipe(select(fromRoot.getProfileState), getProfileStatus())
-      .subscribe(() => {
+      .subscribe((status: string) => {
+        // console.log("getProfileStatus:->", status);
         this.isLoading = false;
-        if ( this.profileType === 'people' || this.profileType === 'companies' ) {
+        if (this.profileType === 'people' || this.profileType === 'companies') {
           this.navElements = ProfileUtils.setNavElements(
             this.profileType,
             this.profileId,
@@ -93,10 +96,15 @@ export class SavingsComponent implements OnInit, OnDestroy {
       });
   }
 
+  // getCurrentPage = () => {
+  //   return state => state?.map(s => {
+  //     return s.currentPage;
+  //   });
+  // };
+
   getCurrentPage = () => {
-    return state => state?.map(s => {
-        return s.currentPage;
-      });
+    return state => state
+      .pipe(map(s => s['currentPage']));
   };
 
   goToNextPage(page: number) {
@@ -108,7 +116,7 @@ export class SavingsComponent implements OnInit, OnDestroy {
   }
 
   openAttachment(attachment) {
-    if ( attachment.contentType && this.testIfImage(attachment.contentType) ) {
+    if (attachment.contentType && this.testIfImage(attachment.contentType)) {
       this.imageUrl = this.url + attachment.id;
       this.opened = true;
     } else {
@@ -143,7 +151,7 @@ export class SavingsComponent implements OnInit, OnDestroy {
     this.statusSub.unsubscribe();
     this.currentPageSub.unsubscribe();
     this.paramsSub.unsubscribe();
-    if ( this.profileSub ) {
+    if (this.profileSub) {
       this.profileSub.unsubscribe();
     }
     this.permissionSub?.unsubscribe();

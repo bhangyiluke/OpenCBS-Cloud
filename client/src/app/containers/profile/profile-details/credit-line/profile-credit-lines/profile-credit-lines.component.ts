@@ -55,7 +55,7 @@ export class ProfileCreditLinesComponent implements OnInit, OnDestroy {
       this.profileType = params['type'];
 
       if ( this.profileType === 'people' || this.profileType === 'companies' || this.profileType === 'groups' ) {
-        this.url = `${environment.API_ENDPOINT}profiles/${this.profileType}/${this.profileId}/attachments/`;
+        this.url = `${environment.API_ENDPOINT}profiles/${this.profileType}/${this.profileId}/attachments`;
       }
       this.creditLineService.getProfileCreditLineList(this.profileId).subscribe(creditLines => {
         this.profileCreditLineList = creditLines;

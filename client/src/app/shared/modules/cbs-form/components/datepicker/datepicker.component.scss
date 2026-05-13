@@ -9,10 +9,20 @@
     }
 
     .mat-icon-button {
-      width: 32px;
-      height: 32px;
-      line-height: 32px;
+      // width: 32px;
+      // height: 32px;
+      // line-height: 32px;
     }
+
+    // .mat-icon-button,
+    // .mat-mdc-icon-button {
+    //   padding: 0;
+    //   min-width: 0;
+    //   width: 40px; /* Desired width */
+    //   height: 40px; /* Desired height */
+    //   line-height: 40px; /* Center the icon vertically */
+    //   transform: scale(0.7);
+    // }
 
     &__age {
       position: absolute;

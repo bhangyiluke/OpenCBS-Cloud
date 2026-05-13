@@ -116,7 +116,7 @@ export class PicklistComponent implements OnInit, OnChanges {
     this.getLookupData?.(lookupUrl).subscribe(
       (resp: LookupResponse) => {
         this.loading = false;
-        console.log("Loading lookup data...", resp.content, url)
+        // console.log("Loading lookup data...", resp.content, url)
         if (this.config?.scope) {
           resp = resp[this.config?.scope];
         }

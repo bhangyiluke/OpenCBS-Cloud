@@ -13,6 +13,6 @@
     <span *ngIf="showAge && yearsFromNow" class="cbs-datepicker__age">
         {{'AGE' | translate}}: {{ yearsFromNow }}
     </span>
-    <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="disabled || !enableDropdownPicker"></mat-datepicker-toggle>
+    <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="disabled || !enableDropdownPicker" size="small" class="mat-icon-button"></mat-datepicker-toggle>
     <mat-datepicker #picker [disabled]="disabled || !enableDropdownPicker"></mat-datepicker>
 </div>

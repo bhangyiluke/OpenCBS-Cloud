@@ -30,7 +30,7 @@ import { FieldConfig } from '../../models/field-config.interface';
           [disabled]="config.disabled"
           class="slds-input"
           [mask]="timeMask">
-        <ngl-icon category="utility" icon="clock" size="x-small" svgClass="slds-input__icon"></ngl-icon>
+        <ngl-icon category="utility" iconName="clock" size="x-small" svgClass="slds-input__icon"></ngl-icon>
       </div>
     </div>
   `,

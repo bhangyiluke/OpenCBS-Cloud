@@ -93,7 +93,7 @@ export class ProfileInfoEditComponent implements OnInit, OnDestroy {
       this.type = params['type'];
 
       if ( this.type === 'people' || this.type === 'companies' || this.type === 'groups' ) {
-        this.url = `${environment.API_ENDPOINT}profiles/${this.type}/${this.id}/attachments/`;
+        this.url = `${environment.API_ENDPOINT}profiles/${this.type}/${this.id}/attachments`;
       }
 
     });
