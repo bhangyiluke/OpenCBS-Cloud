@@ -6,9 +6,11 @@ import com.opencbs.core.officedocuments.repositories.DocumentRepository;
 import org.springframework.util.Assert;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -109,16 +111,21 @@ public abstract class AbstractDocumentService<T extends Template> {
     }
 
     List<T> loadPrintingForms() throws Exception {
-        Path templatePath = this.getPath();
-        this.createDirectoryIfNotExist(templatePath);
-        List<T> templateData = getTemplatesFromPath(templatePath);
+        List<T> templateData = new ArrayList<>();
 
-//        URL templateResource = this.getClass().getResource("/templates");
-//        if(templateResource!=null) {
-//            templatePath = Paths.get(templateResource.toURI());
-//            templatePath = templatePath.resolve(this.getTemplateFolderName());
-//            templateData.addAll(getTemplatesFromPath(templatePath));
-//        }
+        String location = templateProperty.getLocation();
+        if (location.startsWith("classpath:")) {
+            String resourcePath = location.substring("classpath:".length());
+            URL templateResource = this.getClass().getResource(resourcePath);
+            if (templateResource != null) {
+                Path templatePath = Paths.get(templateResource.toURI()).resolve(this.getTemplateFolderName());
+                templateData.addAll(getTemplatesFromPath(templatePath));
+            }
+        } else {
+            Path templatePath = this.getPath();
+            this.createDirectoryIfNotExist(templatePath);
+            templateData.addAll(getTemplatesFromPath(templatePath));
+        }
 
         templateData.sort(Comparator.comparing(td -> td.getName()));
         Integer id = 0;

@@ -25,7 +25,7 @@ import java.io.IOException;
 @RequestMapping(value = "/api/requests")
 @RequiredArgsConstructor
 public class RequestController {
-
+    // private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(RequestController.class);
     private final RequestService requestService;
     private final RequestMapper requestMapper;
     private final RequestValidator requestValidator;

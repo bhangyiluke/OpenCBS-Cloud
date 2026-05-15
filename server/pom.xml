@@ -35,16 +35,18 @@
 		<!-- <jasperreports.version>6.21.5</jasperreports.version> -->
 		<jasperreports.version>6.21.5</jasperreports.version>
 	</properties>
-	<!-- <repositories>
+	<repositories>
 		<repository>
 			<id>jaspersoft-third-party</id>
 			<url>https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts/</url>
 		</repository>
-		<repository>
-			<id>jasperreports</id>
-			<url>https://jasperreports.sourceforge.net/maven2</url>
-		</repository>
-	</repositories> -->
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>jaspersoft-third-party</id>
+			<url>https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts/</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<dependencies>
 		<dependency>
@@ -257,6 +259,19 @@
 			<artifactId>spring-modulith-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- Source: https://mvnrepository.com/artifact/com.alexnederlof/jasperreports-plugin -->
+		<dependency>
+			<groupId>com.alexnederlof</groupId>
+			<artifactId>jasperreports-plugin</artifactId>
+			<version>2.8</version>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.lowagie</groupId>
+					<artifactId>itext</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<!-- Source:
 		https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
 		<!-- <dependency>
@@ -265,6 +280,12 @@
 			<version>3.15.0</version>
 			<scope>compile</scope>
 		</dependency> -->
+		<!-- This plug in is not needed -->
+		<!-- <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency> -->
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -388,7 +409,7 @@
 							<outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
 							<resources>
 								<resource>
-									<directory>../client/dist</directory>
+									<directory>${project.basedir}/../client/dist</directory>
 								</resource>
 							</resources>
 						</configuration>
@@ -446,6 +467,31 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.alexnederlof</groupId>
+				<artifactId>jasperreports-plugin</artifactId>
+				<version>2.8</version>
+				<executions>
+					<execution>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>jasper</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!-- These are the default configurations: -->
+					<compiler>net.sf.jasperreports.engine.design.JRJdtCompiler</compiler>
+					<sourceDirectory>src/main/jasperreports</sourceDirectory>
+					<outputDirectory>${project.build.directory}/classes/jasper</outputDirectory>
+					<outputFileExt>.jasper</outputFileExt>
+					<xmlValidation>true</xmlValidation>
+					<verbose>true</verbose>
+					<numberOfThreads>4</numberOfThreads>
+					<failOnMissingSourceDirectory>true</failOnMissingSourceDirectory>
+					<sourceScanner>org.codehaus.plexus.compiler.util.scan.StaleSourceScanner</sourceScanner>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

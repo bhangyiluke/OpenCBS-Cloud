@@ -46,7 +46,7 @@ import static com.opencbs.core.officedocuments.helpers.TemplateHelper.getObjectF
 
 @Component
 public class ExcelReportService extends AbstractDocumentService<ExcelTemplate> implements ReportService<ExcelTemplate, ExcelRequest> {
-
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(ExcelReportService.class);
     private final LookupWorker lookupWorker;
     private final static String TEMPLATE_FOLDER_NAME = "excel_reports";
     private final static String DOCUMENT_FORMAT = "format";
@@ -59,6 +59,7 @@ public class ExcelReportService extends AbstractDocumentService<ExcelTemplate> i
         excelTemplates = this.getAllDocument();
         excelTemplates.addAll(getReports());
         this.excelTemplates.addAll(this.jasperReportService.getReports());
+        LOGGER.info("Excel templates loaded: {}", excelTemplates.size());
         Integer idReport = 0;
         for (ExcelTemplate template : excelTemplates) {
             template.setId(idReport++);
@@ -79,6 +80,7 @@ public class ExcelReportService extends AbstractDocumentService<ExcelTemplate> i
 
     @Override
     public List<ExcelTemplate> getDocumentsByPoint(String point) {
+        //  LOGGER.info("Excel templates loaded: {}", excelTemplates);
         return excelTemplates.stream().filter(et -> point.equals(et.getPoint())).collect(Collectors.toList());
     }
 

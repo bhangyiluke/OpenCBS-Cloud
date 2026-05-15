@@ -1,6 +1,17 @@
 spring:
   application:
     name: opencbs-server
+  freemarker:
+    settings:
+      template_update_delay: 3000 # 3 seconds for development, set to 0 for no caching
+      default_encoding: UTF-8
+      number_format: 0.###### # Avoid scientific notation
+      date_format: yyyy-MM-dd
+      time_format: HH:mm:ss
+      datetime_format: yyyy-MM-dd HH:mm:ss
+      locale: en_US
+      classic_compatible: true
+      # auto_import: "common.ftl as common" # Example of auto-importing a common template
   main:
     allow-bean-definition-overriding: true
     # lazy-initialization: true
@@ -10,7 +21,7 @@ spring:
     password: ${OPENCBS_DB_PASSWORD:OpenCBS@2025!}
     
     hikari:
-      pool-name: ${spring.application.name} -hikari-connection-pool
+      pool-name: ${spring.application.name}-hikari-connection-pool
       maximum-pool-size: 200
       minimum-idle: 50
       idle-timeout: 30000
@@ -176,7 +187,7 @@ springdoc:
 # JWT Configuration
 jwt:
   keystore:
-    password: ${JWT_KEYSTORE_PASSWORD:mypassword}
+    password: ${JWT_KEYSTORE_PASSWORD:P@ssw0rd!}
     alias: ${JWT_KEYSTORE_ALIAS:jwt}
     # path: jwt-keystore.jks
     type: ${JWT_KEYSTORE_TYPE:PKCS12}
@@ -189,15 +200,21 @@ jwt:
 # Token Blacklist Configuration
 token:
   blacklist:
-    cleanup-interval: 86400000  # 24 hours in millisecondsserver:
+    cleanup-interval: 86400000  # 24 hours in milliseconds
 server:
   port: 8090
   compression:
     enabled: true
     mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json,application/xml
     min-response-size: 1024 # bytes
-  # http2:
-  #   enabled: true
+  ssl:
+    enabled: false # Set to true to enable SSL
+    key-store: classpath:ssl-keystore.p12
+    key-store-password: ${SSL_KEYSTORE_PASSWORD:P@ssw0rd!}
+    key-store-type: PKCS12
+    key-alias: tomcat
+  http2:
+    enabled: true
   forward-headers-strategy: framework
   tomcat:
     threads:

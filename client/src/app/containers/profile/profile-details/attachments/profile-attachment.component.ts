@@ -41,13 +41,13 @@ export class ProfileAttachmentComponent implements OnInit, OnDestroy {
   private attachmentListSub: Subscription;
 
   constructor(private attachmentStore$: Store<ProfileAttachmentListState>,
-              private attachmentDeleteStore$: Store<DeleteProfileAttachState>,
-              private route: ActivatedRoute,
-              private store$: Store<fromRoot.State>,
-              private toastrService: ToastrService,
-              private translate: TranslateService,
-              private profileStore$: Store<IProfile>,
-              private currentUserService: CurrentUserService) {
+    private attachmentDeleteStore$: Store<DeleteProfileAttachState>,
+    private route: ActivatedRoute,
+    private store$: Store<fromRoot.State>,
+    private toastrService: ToastrService,
+    private translate: TranslateService,
+    private profileStore$: Store<IProfile>,
+    private currentUserService: CurrentUserService) {
     this.profile = this.store$.pipe(select(fromRoot.getProfileState));
   }
 
@@ -60,14 +60,14 @@ export class ProfileAttachmentComponent implements OnInit, OnDestroy {
       this.profileId = +params['id'];
       this.profileType = params['type'];
 
-      if ( this.profileType === 'people' || this.profileType === 'companies' || this.profileType === 'groups' ) {
+      if (this.profileType === 'people' || this.profileType === 'companies' || this.profileType === 'groups') {
         this.url = `${environment.API_ENDPOINT}profiles/${this.profileType}/${this.profileId}/attachments`;
       }
     });
 
     this.statusSub = this.store$.pipe(select(fromRoot.getProfileState), (getProfileStatus()))
       .subscribe((status: string) => {
-        if ( this.profileType === 'people' || this.profileType === 'companies' || this.profileType === 'groups' ) {
+        if (this.profileType === 'people' || this.profileType === 'companies' || this.profileType === 'groups') {
           this.navElements = ProfileUtils.setNavElements(
             this.profileType,
             this.profileId,
@@ -78,7 +78,7 @@ export class ProfileAttachmentComponent implements OnInit, OnDestroy {
 
     this.attachmentListSub = this.store$.pipe(select(fromRoot.getProfileAttachmentsState))
       .subscribe((state: ProfileAttachmentListState) => {
-        if ( state.loaded && state.success && !state.error ) {
+        if (state.loaded && state.success && !state.error) {
           this.getProfile();
         }
       });
@@ -86,17 +86,17 @@ export class ProfileAttachmentComponent implements OnInit, OnDestroy {
     this.delAttachmentSub = this.store$.pipe(select(fromRoot.getProfileAttachmentDeleteState))
       .subscribe(
         (state: DeleteProfileAttachState) => {
-          if ( state.loaded && state.success && !state.error ) {
+          if (state.loaded && state.success && !state.error) {
             this.translate.get('DELETE_SUCCESS').subscribe((res: string) => {
               this.toastrService.success(res, '', environment.SUCCESS_TOAST_CONFIG);
               this.getProfile();
             });
-            if ( this.deletedPinnedFileId ) {
+            if (this.deletedPinnedFileId) {
               this.getProfile();
             }
             this.resetDelState();
             this.deletedPinnedFileId = null;
-          } else if ( state.loaded && !state.success && state.error ) {
+          } else if (state.loaded && !state.success && state.error) {
             this.translate.get('DELETE_ERROR').subscribe((res: string) => {
               this.toastrService.error('', res, environment.ERROR_TOAST_CONFIG);
             });
@@ -131,7 +131,7 @@ export class ProfileAttachmentComponent implements OnInit, OnDestroy {
   }
 
   delete(e) {
-    if ( this.selectedAttachment.pinned ) {
+    if (this.selectedAttachment.pinned) {
       this.deletedPinnedFileId = this.selectedAttachment.id;
     }
     this.attachmentDeleteStore$.dispatch(
@@ -156,7 +156,7 @@ export class ProfileAttachmentComponent implements OnInit, OnDestroy {
   }
 
   onUpload(event) {
-    if ( event.xhr && event.xhr.status === 200 ) {
+    if (event.xhr && event.xhr.status === 200) {
       this.closeUploadModal();
       this.getProfile();
       this.translate.get('UPLOAD_SUCCESS').subscribe((res: string) => {
@@ -166,7 +166,7 @@ export class ProfileAttachmentComponent implements OnInit, OnDestroy {
   }
 
   onError(err) {
-    if ( err.xhr && (err.xhr.status >= 400 && err.xhr.status <= 500) ) {
+    if (err.xhr && (err.xhr.status >= 400 && err.xhr.status <= 500)) {
       const response = JSON.parse(err.xhr.response);
       this.closeUploadModal();
       this.toastrService.error(response.message, '', environment.ERROR_TOAST_CONFIG);
@@ -201,7 +201,7 @@ export class ProfileAttachmentComponent implements OnInit, OnDestroy {
   }
 
   openAttachment(attachment) {
-    if ( attachment.contentType && this.testIfImage(attachment.contentType) ) {
+    if (attachment.contentType && this.testIfImage(attachment.contentType)) {
       this.imageUrl = this.url + attachment.id;
       this.opened = true;
     } else {
@@ -211,7 +211,7 @@ export class ProfileAttachmentComponent implements OnInit, OnDestroy {
   }
 
   pin(attachment) {
-    if ( attachment.pinned ) {
+    if (attachment.pinned) {
       this.attachmentStore$.dispatch(new fromStore.UnpinProfileAttachment({
         profileType: this.profileType,
         profileId: this.profileId,
