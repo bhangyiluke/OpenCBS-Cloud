@@ -1,5 +1,5 @@
 <ngl-modal [header]="getEventHeader() | translate" [(open)]="isDialogVisible">
-    <div body class="cbs-schedule__modal">
+    <div class="slds-p-around_medium">
         <form novalidate [formGroup]="eventForm" *ngIf="canEditView()">
             <fieldset class="slds-form--compound">
                 <div class="slds-form-element__group">
@@ -162,10 +162,8 @@
                 </div>
             </div>
         </div>
-
-
     </div>
-    <ng-template ngl-modal-footer *ngIf="canEditView()">
+    <ng-template nglModalFooter *ngIf="canEditView()">
         <button class="slds-button slds-button--neutral" (click)="cancel()">{{'CANCEL' | translate}}</button>
         <button class="slds-button slds-button--brand" #submitBtn (click)="submit(eventForm)"
                 [disabled]="eventForm.invalid">{{'SAVE' | translate}}

@@ -26,6 +26,7 @@ export class ProfileListComponent implements OnInit, OnDestroy {
   public svgData = SVG_DATA;
   public profilesData: any;
   public searchQuery = '';
+  public open = false;
   public profileType: string;
   public currentInstance: string;
   public displayedColumns: string[] = ['fullName', 'type', 'status', 'branch'];
@@ -38,11 +39,11 @@ export class ProfileListComponent implements OnInit, OnDestroy {
   private currentPageSub: any;
 
   constructor(private profilesStore$: Store<IProfileList>,
-              private router: Router,
-              private store$: Store<fromRoot.State>,
-              private route: ActivatedRoute,
-              private profileStore$: Store<IProfile>,
-              private commonService: CommonService) {
+    private router: Router,
+    private store$: Store<fromRoot.State>,
+    private route: ActivatedRoute,
+    private profileStore$: Store<IProfile>,
+    private commonService: CommonService) {
     this.profilesData = this.store$.select(fromRoot.getProfilesState);
   }
 
@@ -60,7 +61,7 @@ export class ProfileListComponent implements OnInit, OnDestroy {
       this.queryObject.page = query['page'] ? query['page'] : 1;
 
       this.searchQuery = query['search'] ? query['search'] : '';
-      if ( this.queryObject.page !== 1 && this.searchQuery.search ) {
+      if (this.queryObject.page !== 1 && this.searchQuery.search) {
         this.profilesStore$.dispatch(new fromStore.LoadProfiles(this.queryObject));
       } else {
         this.profilesStore$.dispatch(new fromStore.LoadProfiles());
@@ -69,10 +70,10 @@ export class ProfileListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if ( this.currentPageSub ) {
+    if (this.currentPageSub) {
       this.currentPageSub.unsubscribe();
     }
-    if ( this.paramsSub ) {
+    if (this.paramsSub) {
       this.paramsSub.unsubscribe();
     }
   }
@@ -115,7 +116,7 @@ export class ProfileListComponent implements OnInit, OnDestroy {
   goToProfile(profile) {
     this.profileType = profile.type === 'PERSON' ? 'people' : profile.type === 'COMPANY' ? 'companies' : 'groups';
     this.router.navigate(['/profiles', this.profileType, profile['id'], 'info']);
-    this.profileStore$.dispatch(new fromStore.LoadProfileInfo({id: profile['id'], type: this.profileType}));
+    this.profileStore$.dispatch(new fromStore.LoadProfileInfo({ id: profile['id'], type: this.profileType }));
   }
 
   getTypeColor(type: string): string {

@@ -116,10 +116,18 @@ public abstract class AbstractDocumentService<T extends Template> {
         String location = templateProperty.getLocation();
         if (location.startsWith("classpath:")) {
             String resourcePath = location.substring("classpath:".length());
-            URL templateResource = this.getClass().getResource(resourcePath);
-            if (templateResource != null) {
-                Path templatePath = Paths.get(templateResource.toURI()).resolve(this.getTemplateFolderName());
-                templateData.addAll(getTemplatesFromPath(templatePath));
+            if (!resourcePath.endsWith("/")) resourcePath += "/";
+            resourcePath += getTemplateFolderName() + "/";
+            org.springframework.core.io.Resource[] resources = new org.springframework.core.io.support.PathMatchingResourcePatternResolver()
+                .getResources("classpath*:" + resourcePath + "*.zip");
+            for (org.springframework.core.io.Resource res : resources) {
+                if (res.exists()) {
+                    Path tmp = java.nio.file.Files.createTempFile("template-", ".zip");
+                    try (java.io.InputStream is = res.getInputStream()) {
+                        java.nio.file.Files.copy(is, tmp, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                    }
+                    templateData.addAll(getTemplatesFromSingleZip(tmp));
+                }
             }
         } else {
             Path templatePath = this.getPath();
@@ -214,4 +222,13 @@ public abstract class AbstractDocumentService<T extends Template> {
     }
 
     abstract String getTemplateFolderName();
+
+    protected List<T> getTemplatesFromSingleZip(Path zipPath) throws IOException {
+        List<T> list = new ArrayList<>();
+        loadTemplateData(zipPath).ifPresent(x -> {
+            x.setPath(zipPath);
+            list.add(x);
+        });
+        return list;
+    }
 }

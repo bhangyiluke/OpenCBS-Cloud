@@ -177,7 +177,7 @@ export class AccountingEntriesComponent implements OnInit, OnDestroy {
   }
 
   openTransactionModal(value: any) {
-    console.log("Selected transaction type: ", value);
+    // console.log("Selected transaction type: ", value);
     const dateNow = moment().format(environment.DATE_FORMAT_MOMENT);
     if (value === 'SINGLE') {
       this.singleTransactionForm?.controls['createdAt']?.setValue(dateNow);

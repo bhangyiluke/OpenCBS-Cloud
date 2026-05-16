@@ -7,7 +7,7 @@
 # 	echo -e "\t-build version - specify the version of JAR. For example, 1.0.0"
 #         echo -e "\t-instance name - specify the instance name without opencbs prefix. For example, my-finance or impact-finance"
 # }
-mvn -f ./server clean package jar:jar -DBUILD_VERSION=$1 -Denv.NODE_OPTIONS=--openssl-legacy-provider -am -DskipTests=true -DskipITs=true -T1C
+mvn -f ./server clean package -DBUILD_VERSION=1.0.1 -Denv.NODE_OPTIONS=--openssl-legacy-provider -am -DskipTests=true -DskipITs=true -T1C
 
 # if [ "$#" -ne 2 ]; then
     # show_usage

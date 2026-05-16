@@ -1,7 +1,11 @@
 <cbs-header>
     <cbs-page-header>
         <div cbs-page-header-layout="left">
-            <cbs-heading-block [isMainPage]="true" headingTitle="{{ 'PROFILES' | translate }}" [svgData]="svgData">
+            <cbs-heading-block
+                [isMainPage]="true"
+                headingTitle="{{ 'PROFILES' | translate }}"
+                [svgData]="svgData"
+            >
             </cbs-heading-block>
         </div>
 
@@ -10,33 +14,73 @@
                 [searchQuery]="searchQuery"
                 (onClear)="clearSearch()"
                 (onSearch)="search($event)"
-                placeholder="{{ 'SEARCH' | translate }}"></cbs-search-input>
+                placeholder="{{ 'SEARCH' | translate }}"
+            ></cbs-search-input>
         </div>
 
         <div cbs-page-header-layout="right">
-            <button *cbsVisibleByPermission="{
-                group: 'MAKER_CHECKER',
-                permissions: ['MAKER_FOR_PEOPLE', 'MAKER_FOR_COMPANY', 'MAKER_FOR_GROUP'] }"
-                    mat-button
-                    [matMenuTriggerFor]="createMenu"
-                    class="mat-button-neutral">
-                <mat-icon>add</mat-icon>
-                {{ 'CREATE' | translate }}
-            </button>
-            <mat-menu #createMenu="matMenu">
-                <button mat-menu-item routerLink="/profiles/people/create">
-                    <mat-icon>person</mat-icon>
-                    {{ 'PROFILE_PERSON' | translate }}
+            <span nglDropdown [(open)]="open">
+                <button
+                    *cbsVisibleByPermission="{
+                        group: 'MAKER_CHECKER',
+                        permissions: [
+                            'MAKER_FOR_PEOPLE',
+                            'MAKER_FOR_COMPANY',
+                            'MAKER_FOR_GROUP',
+                        ],
+                    }"
+                    class="slds-button slds-button--neutral"
+                    nglDropdownTrigger
+                >
+                    <span class="slds-truncate">
+                        <svg
+                            aria-hidden="true"
+                            class="slds-button__icon--stateful slds-button__icon--left"
+                        >
+                            <use
+                                xlink:href="assets/icons/utility-sprite/svg/symbols.svg#add"
+                            ></use>
+                        </svg>
+                        {{ "CREATE" | translate }}
+                    </span>
+                    <ngl-icon
+                        iconName="down"
+                        type="default"
+                        size="x-small"
+                    ></ngl-icon>
                 </button>
-                <button mat-menu-item routerLink="/profiles/companies/create">
-                    <mat-icon>business</mat-icon>
-                    {{ (currentInstance === 'rwanda' ? 'COMPANY_GROUP' : 'PROFILE_COMPANY') | translate }}
-                </button>
-                <button *ngIf="currentInstance != 'rwanda'" mat-menu-item routerLink="/profiles/groups/create">
-                    <mat-icon>group</mat-icon>
-                    {{ 'PROFILE_GROUP' | translate }}
-                </button>
-            </mat-menu>
+                <div class="slds-dropdown cbs-dropdown cbs-dropdown--full-width">
+                    <ul class="dropdown__list" role="menu">
+                        <li class="slds-dropdown__item">
+                            <a routerLink="/profiles/people/create" role="menuitem" nglDropdownItem>
+                                <svg aria-hidden="true"
+                                     class="slds-align-middle slds-button--icon slds-button--icon-xx-small slds-button__icon--left slds-button__icon--stateful">
+                                    <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#user"></use>
+                                </svg>
+                                {{ 'PROFILE_PERSON' | translate }}
+                            </a>
+                        </li>
+                        <li class="slds-dropdown__item">
+                            <a routerLink="/profiles/companies/create" role="menuitem" nglDropdownItem>
+                                <svg aria-hidden="true"
+                                     class="slds-align-middle slds-button--icon slds-button--icon-xx-small slds-button__icon--left slds-button__icon--stateful">
+                                    <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#company"></use>
+                                </svg>
+                                {{ (currentInstance === 'rwanda' ? 'COMPANY_GROUP' : 'PROFILE_COMPANY') | translate }}
+                            </a>
+                        </li>
+                        <li *ngIf="currentInstance != 'rwanda'" class="slds-dropdown__item">
+                            <a routerLink="/profiles/groups/create" role="menuitem" nglDropdownItem>
+                                <svg aria-hidden="true"
+                                     class="slds-align-middle slds-button--icon slds-button--icon-xx-small slds-button__icon--left slds-button__icon--stateful">
+                                    <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#groups"></use>
+                                </svg>
+                                {{ 'PROFILE_GROUP' | translate }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </span>
         </div>
         <!-- /cbs-page-header-layout = right -->
     </cbs-page-header>
@@ -44,65 +88,86 @@
 </cbs-header>
 <!-- cbs-header -->
 
-
 <main class="cbs-main cbs-main--pt-sm">
 
-    <table mat-table [dataSource]="(profilesData | async)?.profiles" class="mat-elevation-z8">
-
-        <!-- Full Name Column -->
-        <ng-container matColumnDef="fullName">
-            <th mat-header-cell *matHeaderCellDef>{{ 'FULLNAME' | translate }}</th>
-            <td mat-cell *matCellDef="let profile" (click)="goToProfile(profile)">
-                <div class="profile-name-cell">
-                    <mat-icon *ngIf="profile?.type === 'PERSON'">person</mat-icon>
-                    <mat-icon *ngIf="profile?.type === 'GROUP'">group</mat-icon>
-                    <mat-icon *ngIf="profile?.type === 'COMPANY'">business</mat-icon>
+    <table class="slds-table slds-table--bordered slds-table--cell-buffer cbs-profiles">
+        <thead>
+        <tr class="slds-text-title--caps">
+            <th scope="col">
+                <div class="slds-truncate" title="Full Name">{{ 'FULLNAME' | translate }}</div>
+            </th>
+            <th scope="col">
+                <div class="slds-truncate" title="Profile Type">{{ 'PROFILE_TYPE' | translate }}</div>
+            </th>
+            <th scope="col">
+                <div class="slds-truncate" title="Maker/Checker Status">{{ 'MAKER_CHECKER_STATUS' | translate}}
+                </div>
+            </th>
+            <th scope="col">
+                <div class="slds-truncate" title="Branch">{{ 'BRANCH' | translate}}
+                </div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let profile of (profilesData | async)?.profiles; let i = index;" (click)="goToProfile(profile)">
+            <td scope="row">
+                <div class="slds-truncate" title="">
+                        <span class="slds-icon_container slds-icon_container--circle slds-icon-action-user"
+                              title="name">
+                            <svg *ngIf="profile?.type === 'PERSON'" aria-hidden="true"
+                                 class="slds-icon slds-icon--x-small">
+                                <use xlink:href="assets/icons/action-sprite/svg/symbols.svg#user"></use>
+                            </svg>
+                            <svg *ngIf="profile?.type === 'GROUP'" aria-hidden="true"
+                                 class="slds-icon slds-icon--x-small">
+                                <use xlink:href="assets/icons/action-sprite/svg/symbols.svg#new_group"></use>
+                            </svg>
+                            <svg *ngIf="profile?.type === 'COMPANY'" aria-hidden="true"
+                                 class="slds-icon slds-icon--x-small">
+                                <use xlink:href="assets/icons/action-sprite/svg/symbols.svg#new_person_account"></use>
+                            </svg>
+                            <span class="slds-assistive-text">{{profile?.name}}</span>
+                        </span>
                     <span>{{profile?.name}}</span>
                 </div>
             </td>
-        </ng-container>
-
-        <!-- Profile Type Column -->
-        <ng-container matColumnDef="type">
-            <th mat-header-cell *matHeaderCellDef>{{ 'PROFILE_TYPE' | translate }}</th>
-            <td mat-cell *matCellDef="let profile">
-                <mat-chip [color]="getTypeColor(profile?.type)" selected>{{ profile?.type | translate }}</mat-chip>
+            <td scope="row">
+                <span class="slds-badge"
+                      [ngClass]="{'slds-badge--orange': (profile?.type === 'PERSON')
+                      , 'slds-badge--blue': (profile?.type === 'COMPANY')
+                      , 'slds-badge--grey': (profile?.type === 'GROUP')}">
+                                {{ profile?.type | translate }}
+                </span>
             </td>
-        </ng-container>
-
-        <!-- Status Column -->
-        <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef>{{ 'MAKER_CHECKER_STATUS' | translate }}</th>
-            <td mat-cell *matCellDef="let profile">
-                <mat-chip *ngIf="profile?.status === 'LIVE'" color="primary">{{'LIVE' | translate}}</mat-chip>
-                <mat-chip *ngIf="profile?.status === 'PENDING'" color="accent">{{'PENDING' | translate}}</mat-chip>
+            <td scope="row">
+                <ngl-badge type="success" *ngIf="profile?.status === 'LIVE'">{{'LIVE' | translate}}</ngl-badge>
+                <ngl-badge type="info" *ngIf="profile?.status === 'PENDING'">{{'PENDING' | translate}}</ngl-badge>
             </td>
-        </ng-container>
-
-        <!-- Branch Column -->
-        <ng-container matColumnDef="branch">
-            <th mat-header-cell *matHeaderCellDef>{{ 'BRANCH' | translate }}</th>
-            <td mat-cell *matCellDef="let profile">{{ profile?.branchName | translate }}</td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="goToProfile(row)"></tr>
+            <td data-label="Branch">
+                <div class="slds-truncate" title="branch">{{ profile?.branchName | translate }}</div>
+            </td>
+        </tr>
+        </tbody>
     </table>
 
     <cbs-loading-indicator [isFixed]="true" [showLoader]="(profilesData | async)?.loading"></cbs-loading-indicator>
 
-    <div class="pagination-container"
-          *ngIf="(profilesData | async)?.totalElements > (profilesData | async)?.size">
-        <mat-paginator
+    <div class="slds-grid slds-grid--align-center"
+         *ngIf="(profilesData | async)?.totalElements > (profilesData | async)?.size">
+        <ngl-pagination
+            class="cbs-pagination"
             *ngIf="(profilesData | async)?.loaded"
-            [length]="(profilesData | async)?.totalElements"
-            [pageSize]="(profilesData | async)?.size"
-            [pageSizeOptions]="[5, 10, 20, 50]"
-            (page)="onPageChange($event)"
-            showFirstLastButtons>
-        </mat-paginator>
+            [(page)]="queryObject.page"
+            [total]="(profilesData | async)?.totalElements"
+            limit="5"
+            [perPage]="(profilesData | async)?.size"
+            [previousText]="'PREVIOUS' | translate"
+            [nextText]="'NEXT' | translate"
+            boundaryNumbers="1"
+            (pageChange)="gotoPage($event)"
+            #pagination></ngl-pagination>
     </div>
 
 </main>
 <!-- ./cbs-main -->
-
