@@ -72,11 +72,16 @@ export class TransferBetweenMembersComponent implements OnInit {
     });
 
     this.printingFormService.getForms('TRANSFER_MEMBERS').subscribe(res => {
+      // console.log('TRANSFER_MEMBERS',res);
       if (res.err) {
         this.toastrService.error(res.err, '', environment.ERROR_TOAST_CONFIG);
       } else {
-        this.receiptFormId = res[0]['id'];
-        this.receiptFormLabel = res[0]['label'];
+        let option= res.find(option => option.default);
+        if(!option){
+          option = res[0];
+        }
+        this.receiptFormId = option?.id;
+        this.receiptFormLabel = option?.label;
       }
     });
   }

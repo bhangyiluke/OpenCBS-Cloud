@@ -385,7 +385,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>3.4.1</version>
@@ -400,7 +400,7 @@
 							<executable>npm</executable>
 							<arguments>
 								<argument>ci</argument>
-								<argument>--legacy-peer-deps</argument>
+								<argument>-legacy-peer-deps</argument>
 							</arguments>
 							<workingDirectory>${project.basedir}/../client</workingDirectory>
 						</configuration>
@@ -421,21 +421,6 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<!-- <plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>generate-resources</phase>
-						<configuration>
-							<target>
-								<copy todir="${project.build.outputDirectory}/static">
-									<fileset dir="${project.basedir}/../client/dist" />
-								</copy>
-							</target>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin> -->
 			<plugin>
 				<groupId>com.alexnederlof</groupId>
@@ -453,7 +438,7 @@
 					<!-- These are the default configurations: -->
 					<compiler>net.sf.jasperreports.engine.design.JRJdtCompiler</compiler>
 					<sourceDirectory>src/main/jasperreports</sourceDirectory>
-					<outputDirectory>${project.build.directory}/classes/jasper</outputDirectory>
+					<outputDirectory>${project.build.directory}/classes/templates/jasper</outputDirectory>
 					<outputFileExt>.jasper</outputFileExt>
 					<xmlValidation>true</xmlValidation>
 					<verbose>false</verbose>

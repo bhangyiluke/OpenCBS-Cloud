@@ -34,7 +34,6 @@ import { LoanPayeeModule } from './containers/loan-payee/loan-payee.module';
 import { HttpHeaderInterceptorService } from './core/services/http-header-interceptor.service';
 import { TransfersModule } from './containers/transfers/transfers.module'
 
-
 const environment = {
   development: true,
   production: false,

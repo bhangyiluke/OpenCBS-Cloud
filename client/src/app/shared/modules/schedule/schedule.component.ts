@@ -12,36 +12,42 @@ import {
   AfterViewChecked,
   SimpleChanges
 } from '@angular/core';
+import { CalendarOptions } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 
 declare let jQuery: any;
 
 @Component({
   standalone: false,
   selector: 'cbs-schedule',
-  template: '<div [ngStyle]="style" [class]="styleClass"></div>',
+  // template: '<div [ngStyle]="style" [class]="styleClass"><full-calendar></full-calendar></div>',
+  template: '<full-calendar [options]="calendarOptions"></full-calendar>',
   styleUrls: ['schedule.component.scss']
 })
-export class ScheduleComponent implements DoCheck, OnDestroy, OnInit, OnChanges, AfterViewChecked {
-  @Input() events: any[]=[];
+
+// implements DoCheck, OnDestroy, OnInit, OnChanges, AfterViewChecked --- IGNORE ---
+export class ScheduleComponent implements OnInit {
+  @Input() events: any[] = [];
   @Input() header: any;
   @Input() style: any;
-  @Input() styleClass: string='';
-  @Input() rtl: boolean=false;
-  @Input() weekends: boolean=true;
-  @Input() hiddenDays: number[]=[];
-  @Input() fixedWeekCount: boolean=true;
-  @Input() weekNumbers: boolean=false;
+  @Input() styleClass: string = '';
+  @Input() rtl: boolean = false;
+  @Input() weekends: boolean = true;
+  @Input() hiddenDays: number[] = [];
+  @Input() fixedWeekCount: boolean = true;
+  @Input() weekNumbers: boolean = false;
   @Input() businessHours: any;
   @Input() height: any;
   @Input() contentHeight: any;
   @Input() aspectRatio = 1.35;
   @Input() eventLimit: any;
   @Input() defaultDate: any;
-  @Input() editable: boolean=false;
+  @Input() editable: boolean = false;
   @Input() firstDay = 0;
-  @Input() droppable: boolean=false;
-  @Input() eventStartEditable: boolean=true;
-  @Input() eventDurationEditable: boolean=true;
+  @Input() droppable: boolean = false;
+  @Input() eventStartEditable: boolean = true;
+  @Input() eventDurationEditable: boolean = true;
   @Input() defaultView = 'month';
   @Input() allDaySlot = true;
   @Input() allDayText = 'all-day';
@@ -52,17 +58,17 @@ export class ScheduleComponent implements DoCheck, OnDestroy, OnInit, OnChanges,
   @Input() minTime: any = '00:00:00';
   @Input() maxTime: any = '24:00:00';
   @Input() slotEventOverlap = true;
-  @Input() nowIndicator: boolean=false;
+  @Input() nowIndicator: boolean = false;
   @Input() dragRevertDuration = 500;
   @Input() dragOpacity = .75;
   @Input() dragScroll = true;
   @Input() eventOverlap: any;
   @Input() eventConstraint: any;
-  @Input() locale: string='en';
+  @Input() locale: string = 'en';
   @Input() timezone: boolean | string = false;
   @Input() timeFormat = 'H(:mm)';
-  @Input() eventRender: Function=() => {};
-  @Input() dayRender: Function=() => {};
+  @Input() eventRender: Function = () => { };
+  @Input() dayRender: Function = () => { };
   @Input() options: any;
   @Output() onDayClick: EventEmitter<any> = new EventEmitter();
   @Output() onDrop: EventEmitter<any> = new EventEmitter();
@@ -77,259 +83,273 @@ export class ScheduleComponent implements DoCheck, OnDestroy, OnInit, OnChanges,
   @Output() onEventResize: EventEmitter<any> = new EventEmitter();
   @Output() onViewRender: EventEmitter<any> = new EventEmitter();
 
-  initialized: boolean;
+  // initialized: boolean;
   differ: any;
-  schedule: any;
+  // schedule: any;
   config: any;
+
+  calendarOptions: CalendarOptions = {
+    plugins: [dayGridPlugin, interactionPlugin],
+    initialView: 'dayGridMonth',
+    weekends: false,
+    events: [
+      { title: 'Meeting', start: new Date() },
+      { title: 'Meeting', start: new Date("2026-05-01 11:00:00 am") }
+    ],
+    dateClick: this.handleDateClick.bind(this)
+  };
 
   constructor(public el: ElementRef, differs: IterableDiffers) {
     this.differ = differs.find([]).create();
-    this.initialized = false;
   }
-
-  ngOnInit() {
-    this.config = {
-      theme: true,
-      header: this.header,
-      isRTL: this.rtl,
-      weekends: this.weekends,
-      hiddenDays: this.hiddenDays,
-      fixedWeekCount: this.fixedWeekCount,
-      weekNumbers: this.weekNumbers,
-      businessHours: this.businessHours,
-      height: this.height,
-      contentHeight: this.contentHeight,
-      aspectRatio: this.aspectRatio,
-      eventLimit: this.eventLimit,
-      defaultDate: this.defaultDate,
-      locale: this.locale,
-      timezone: this.timezone,
-      timeFormat: this.timeFormat,
-      editable: this.editable,
-      firstDay: this.firstDay,
-      droppable: this.droppable,
-      eventStartEditable: this.eventStartEditable,
-      eventDurationEditable: this.eventDurationEditable,
-      defaultView: this.defaultView,
-      allDaySlot: this.allDaySlot,
-      allDayText: this.allDayText,
-      slotDuration: this.slotDuration,
-      slotLabelInterval: this.slotLabelInterval,
-      snapDuration: this.snapDuration,
-      scrollTime: this.scrollTime,
-      minTime: this.minTime,
-      maxTime: this.maxTime,
-      slotEventOverlap: this.slotEventOverlap,
-      nowIndicator: this.nowIndicator,
-      dragRevertDuration: this.dragRevertDuration,
-      dragOpacity: this.dragOpacity,
-      dragScroll: this.dragScroll,
-      eventOverlap: this.eventOverlap,
-      eventConstraint: this.eventConstraint,
-      eventRender: this.eventRender,
-      dayRender: this.dayRender,
-      dayClick: (date:any, jsEvent:any, view:any) => {
-        this.findEvent(jsEvent.id)
-        this.onDayClick.emit({
-          'date': date,
-          'jsEvent': jsEvent,
-          'view': view
-        });
-      },
-      drop: (date:any, jsEvent:any, ui:any, resourceId:any) => {
-        this.onDrop.emit({
-          'date': date,
-          'jsEvent': jsEvent,
-          'ui': ui,
-          'resourceId': resourceId
-        });
-      },
-      eventClick: (calEvent:any, jsEvent:any, view:any) => {
-        this.onEventClick.emit({
-          'calEvent': calEvent,
-          'jsEvent': jsEvent,
-          'view': view
-        });
-      },
-      eventMouseover: (calEvent:any, jsEvent:any, view:any) => {
-        this.onEventMouseover.emit({
-          'calEvent': calEvent,
-          'jsEvent': jsEvent,
-          'view': view
-        });
-      },
-      eventMouseout: (calEvent:any, jsEvent:any, view:any) => {
-        this.onEventMouseout.emit({
-          'calEvent': calEvent,
-          'jsEvent': jsEvent,
-          'view': view
-        });
-      },
-      eventDragStart: (event:any, jsEvent:any, ui:any, view:any) => {
-        this.onEventDragStart.emit({
-          'event': event,
-          'jsEvent': jsEvent,
-          'view': view
-        });
-      },
-      eventDragStop: (event:any, jsEvent:any, ui:any, view:any) => {
-        this.onEventDragStop.emit({
-          'event': event,
-          'jsEvent': jsEvent,
-          'view': view
-        });
-      },
-      eventDrop: (event:any, delta:any, revertFunc:any, jsEvent:any, ui:any, view:any) => {
-        this.updateEvent(event);
-
-        this.onEventDrop.emit({
-          'event': event,
-          'delta': delta,
-          'revertFunc': revertFunc,
-          'jsEvent': jsEvent,
-          'view': view
-        });
-      },
-      eventResizeStart: (event:any, jsEvent:any, ui:any, view:any) => {
-        this.onEventResizeStart.emit({
-          'event': event,
-          'jsEvent': jsEvent,
-          'view': view
-        });
-      },
-      eventResizeStop: (event:any, jsEvent:any, ui:any, view:any) => {
-        this.onEventResizeStop.emit({
-          'event': event,
-          'jsEvent': jsEvent,
-          'view': view
-        });
-      },
-      eventResize: (event:any, delta:any, revertFunc:any, jsEvent:any, ui:any, view:any) => {
-        this.updateEvent(event);
-
-        this.onEventResize.emit({
-          'event': event,
-          'delta': delta,
-          'revertFunc': revertFunc,
-          'jsEvent': jsEvent,
-          'view': view
-        });
-      },
-      viewRender: (view:any, element:any) => {
-        this.onViewRender.emit({
-          'view': view,
-          'element': element
-        });
-      }
-    };
-
-    if (this.options) {
-      for (let prop in this.options) {
-        this.config[prop] = this.options[prop];
-      }
-    }
+  handleDateClick(arg) {
+    alert('date click! ' + arg.dateStr)
   }
+  ngOnInit() { }
+  ngOnDestroy() { }
+  // ngOnInit() {
+  //   this.config = {
+  //     theme: true,
+  //     header: this.header,
+  //     isRTL: this.rtl,
+  //     weekends: this.weekends,
+  //     hiddenDays: this.hiddenDays,
+  //     fixedWeekCount: this.fixedWeekCount,
+  //     weekNumbers: this.weekNumbers,
+  //     businessHours: this.businessHours,
+  //     height: this.height,
+  //     contentHeight: this.contentHeight,
+  //     aspectRatio: this.aspectRatio,
+  //     eventLimit: this.eventLimit,
+  //     defaultDate: this.defaultDate,
+  //     locale: this.locale,
+  //     timezone: this.timezone,
+  //     timeFormat: this.timeFormat,
+  //     editable: this.editable,
+  //     firstDay: this.firstDay,
+  //     droppable: this.droppable,
+  //     eventStartEditable: this.eventStartEditable,
+  //     eventDurationEditable: this.eventDurationEditable,
+  //     defaultView: this.defaultView,
+  //     allDaySlot: this.allDaySlot,
+  //     allDayText: this.allDayText,
+  //     slotDuration: this.slotDuration,
+  //     slotLabelInterval: this.slotLabelInterval,
+  //     snapDuration: this.snapDuration,
+  //     scrollTime: this.scrollTime,
+  //     minTime: this.minTime,
+  //     maxTime: this.maxTime,
+  //     slotEventOverlap: this.slotEventOverlap,
+  //     nowIndicator: this.nowIndicator,
+  //     dragRevertDuration: this.dragRevertDuration,
+  //     dragOpacity: this.dragOpacity,
+  //     dragScroll: this.dragScroll,
+  //     eventOverlap: this.eventOverlap,
+  //     eventConstraint: this.eventConstraint,
+  //     eventRender: this.eventRender,
+  //     dayRender: this.dayRender,
+  //     dayClick: (date: any, jsEvent: any, view: any) => {
+  //       this.findEvent(jsEvent.id)
+  //       this.onDayClick.emit({
+  //         'date': date,
+  //         'jsEvent': jsEvent,
+  //         'view': view
+  //       });
+  //     },
+  //     drop: (date: any, jsEvent: any, ui: any, resourceId: any) => {
+  //       this.onDrop.emit({
+  //         'date': date,
+  //         'jsEvent': jsEvent,
+  //         'ui': ui,
+  //         'resourceId': resourceId
+  //       });
+  //     },
+  //     eventClick: (calEvent: any, jsEvent: any, view: any) => {
+  //       this.onEventClick.emit({
+  //         'calEvent': calEvent,
+  //         'jsEvent': jsEvent,
+  //         'view': view
+  //       });
+  //     },
+  //     eventMouseover: (calEvent: any, jsEvent: any, view: any) => {
+  //       this.onEventMouseover.emit({
+  //         'calEvent': calEvent,
+  //         'jsEvent': jsEvent,
+  //         'view': view
+  //       });
+  //     },
+  //     eventMouseout: (calEvent: any, jsEvent: any, view: any) => {
+  //       this.onEventMouseout.emit({
+  //         'calEvent': calEvent,
+  //         'jsEvent': jsEvent,
+  //         'view': view
+  //       });
+  //     },
+  //     eventDragStart: (event: any, jsEvent: any, ui: any, view: any) => {
+  //       this.onEventDragStart.emit({
+  //         'event': event,
+  //         'jsEvent': jsEvent,
+  //         'view': view
+  //       });
+  //     },
+  //     eventDragStop: (event: any, jsEvent: any, ui: any, view: any) => {
+  //       this.onEventDragStop.emit({
+  //         'event': event,
+  //         'jsEvent': jsEvent,
+  //         'view': view
+  //       });
+  //     },
+  //     eventDrop: (event: any, delta: any, revertFunc: any, jsEvent: any, ui: any, view: any) => {
+  //       this.updateEvent(event);
 
-  ngAfterViewChecked() {
-    if (!this.initialized && this.el.nativeElement.offsetParent) {
-      this.initialize();
-    }
-  }
+  //       this.onEventDrop.emit({
+  //         'event': event,
+  //         'delta': delta,
+  //         'revertFunc': revertFunc,
+  //         'jsEvent': jsEvent,
+  //         'view': view
+  //       });
+  //     },
+  //     eventResizeStart: (event: any, jsEvent: any, ui: any, view: any) => {
+  //       this.onEventResizeStart.emit({
+  //         'event': event,
+  //         'jsEvent': jsEvent,
+  //         'view': view
+  //       });
+  //     },
+  //     eventResizeStop: (event: any, jsEvent: any, ui: any, view: any) => {
+  //       this.onEventResizeStop.emit({
+  //         'event': event,
+  //         'jsEvent': jsEvent,
+  //         'view': view
+  //       });
+  //     },
+  //     eventResize: (event: any, delta: any, revertFunc: any, jsEvent: any, ui: any, view: any) => {
+  //       this.updateEvent(event);
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (this.schedule) {
-      let options = Object.create({});
-      for (let change in changes) {
-        if (change !== 'events') {
-          options[change] = changes[change].currentValue;
-        }
-      }
+  //       this.onEventResize.emit({
+  //         'event': event,
+  //         'delta': delta,
+  //         'revertFunc': revertFunc,
+  //         'jsEvent': jsEvent,
+  //         'view': view
+  //       });
+  //     },
+  //     viewRender: (view: any, element: any) => {
+  //       this.onViewRender.emit({
+  //         'view': view,
+  //         'element': element
+  //       });
+  //     }
+  //   };
 
-      if (Object.keys(options).length) {
-        this.schedule?.fullCalendar?.('option', options);
-      }
-    }
-  }
+  //   if (this.options) {
+  //     for (let prop in this.options) {
+  //       this.config[prop] = this.options[prop];
+  //     }
+  //   }
+  // }
 
-  initialize() {
-    this.schedule = jQuery(this.el.nativeElement.children[0]);
-    console.log("Calender Schedule:->",this.schedule);
-    this.schedule?.fullCalendar?.(this.config);
-    this.schedule?.fullCalendar?.('addEventSource', this.events);
-    this.initialized = true;
-  }
+  // ngAfterViewChecked() {
+  //   if (!this.initialized && this.el.nativeElement.offsetParent) {
+  //     this.initialize();
+  //   }
+  // }
 
-  ngDoCheck() {
-    const changes = this.differ.diff(this.events);
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if (this.schedule) {
+  //     let options = Object.create({});
+  //     for (let change in changes) {
+  //       if (change !== 'events') {
+  //         options[change] = changes[change].currentValue;
+  //       }
+  //     }
 
-    if (this.schedule && changes) {
-      this.schedule?.fullCalendar?.('removeEventSources');
-      this.schedule?.fullCalendar?.('addEventSource', this.events);
-    }
-  }
+  //     if (Object.keys(options).length) {
+  //       this.schedule?.fullCalendar?.('option', options);
+  //     }
+  //   }
+  // }
 
-  ngOnDestroy() {
-    jQuery(this.el.nativeElement.children[0])?.fullCalendar?.('destroy');
-    this.initialized = false;
-    this.schedule = null;
-  }
+  // initialize() {
+  //   this.schedule = jQuery(this.el.nativeElement.children[0]);
+  //   console.log("Calender Schedule:->", this.el.nativeElement.children[0]);
+  //   this.schedule?.fullCalendar?.(this.config);
+  //   this.schedule?.fullCalendar?.('addEventSource', this.events);
+  //   this.initialized = true;
+  // }
 
-  gotoDate(date: any) {
-    this.schedule?.fullCalendar('gotoDate', date);
-  }
+  // ngDoCheck() {
+  //   const changes = this.differ.diff(this.events);
 
-  prev() {
-    this.schedule?.fullCalendar('prev');
-  }
+  //   if (this.schedule && changes) {
+  //     this.schedule?.fullCalendar?.('removeEventSources');
+  //     this.schedule?.fullCalendar?.('addEventSource', this.events);
+  //   }
+  // }
 
-  next() {
-    this.schedule?.fullCalendar?.('next');
-  }
+  // ngOnDestroy() {
+  //   jQuery(this.el.nativeElement.children[0])?.fullCalendar?.('destroy');
+  //   this.initialized = false;
+  //   this.schedule = null;
+  // }
 
-  prevYear() {
-    this.schedule?.fullCalendar?.('prevYear');
-  }
+  // gotoDate(date: any) {
+  //   this.schedule?.fullCalendar('gotoDate', date);
+  // }
 
-  nextYear() {
-    this.schedule?.fullCalendar?.('nextYear');
-  }
+  // prev() {
+  //   this.schedule?.fullCalendar('prev');
+  // }
 
-  today() {
-    this.schedule?.fullCalendar?.('today');
-  }
+  // next() {
+  //   this.schedule?.fullCalendar?.('next');
+  // }
 
-  incrementDate(duration: any) {
-    this.schedule?.fullCalendar?.('incrementDate', duration);
-  }
+  // prevYear() {
+  //   this.schedule?.fullCalendar?.('prevYear');
+  // }
 
-  changeView(viewName: string) {
-    this.schedule?.fullCalendar?.('changeView', viewName);
-  }
+  // nextYear() {
+  //   this.schedule?.fullCalendar?.('nextYear');
+  // }
 
-  getDate() {
-    return this.schedule?.fullCalendar?.('getDate');
-  }
+  // today() {
+  //   this.schedule?.fullCalendar?.('today');
+  // }
 
-  findEvent(id: string) {
-    let event;
-    if (this.events) {
-      for (const e of this.events) {
-        if (e.id === id) {
-          event = e;
-          break;
-        }
-      }
-    }
-    return event;
-  }
+  // incrementDate(duration: any) {
+  //   this.schedule?.fullCalendar?.('incrementDate', duration);
+  // }
 
-  updateEvent(event: any) {
-    let sourceEvent = this.findEvent(event.id);
-    if (sourceEvent) {
-      sourceEvent.start = event.start.format();
-      if (event.end) {
-        sourceEvent.end = event.end.format();
-      }
-    }
-  }
+  // changeView(viewName: string) {
+  //   this.schedule?.fullCalendar?.('changeView', viewName);
+  // }
+
+  // getDate() {
+  //   return this.schedule?.fullCalendar?.('getDate');
+  // }
+
+  // findEvent(id: string) {
+  //   let event;
+  //   if (this.events) {
+  //     for (const e of this.events) {
+  //       if (e.id === id) {
+  //         event = e;
+  //         break;
+  //       }
+  //     }
+  //   }
+  //   return event;
+  // }
+
+  // updateEvent(event: any) {
+  //   let sourceEvent = this.findEvent(event.id);
+  //   if (sourceEvent) {
+  //     sourceEvent.start = event.start.format();
+  //     if (event.end) {
+  //       sourceEvent.end = event.end.format();
+  //     }
+  //   }
+  // }
 }

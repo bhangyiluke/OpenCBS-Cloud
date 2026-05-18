@@ -43,20 +43,25 @@ public class LoanRepositoryImpl extends BaseRepository<Loan> implements LoanRepo
         CriteriaBuilder cb = criteriaBuilder();
         CriteriaQuery<Tuple> cq = cb.createTupleQuery();
         Root<Loan> root = cq.from(Loan.class);
+        Join<Object, Object> loanOfficerJoin = root.join("loanOfficer", jakarta.persistence.criteria.JoinType.LEFT);
+        Join<Object, Object> la = root.join("loanApplication", jakarta.persistence.criteria.JoinType.LEFT);
+        Join<Object, Object> credit = la.join("creditLine", jakarta.persistence.criteria.JoinType.LEFT);
+        Join<Object, Object> p = root.join("profile", jakarta.persistence.criteria.JoinType.LEFT);
+        Join<Object, Object> product = la.join("loanProduct", jakarta.persistence.criteria.JoinType.LEFT);
+        Join<Object, Object> branch = p.join("branch", jakarta.persistence.criteria.JoinType.LEFT);
+        
+        // Join<Object, Object> currency = product.join("currency", jakarta.persistence.criteria.JoinType.LEFT);
 
         Predicate predicate = null;
         if (!StringUtils.isEmpty(searchString)) {
             searchString = searchString.trim();
-            BigDecimal amountSearchPattern = null;
-            try{
-                amountSearchPattern = new BigDecimal(searchString);
-            }catch (NumberFormatException exc){
-            }
 
             // subquery for LoanApplicationCustomFieldValue.owner.id
             Subquery<Long> lacfvSub = cq.subquery(Long.class);
             Root<LoanApplicationCustomFieldValue> lacfv = lacfvSub.from(LoanApplicationCustomFieldValue.class);
-            lacfvSub.select(lacfv.get("owner").get("id")).where(cb.and(cb.like(cb.lower(lacfv.get("value")), "%" + searchString.toLowerCase() + "%"), cb.equal(lacfv.get("status"), EntityStatus.LIVE)));
+            lacfvSub.select(lacfv.get("owner").get("id"))
+                    .where(cb.and(cb.like(cb.lower(lacfv.get("value")), "%" + searchString.toLowerCase() + "%"),
+                            cb.equal(lacfv.get("status"), EntityStatus.LIVE)));
 
             // subquery for CollateralCustomFieldValue -> collateral -> loanApplication.id
             Subquery<Long> ccfvSub = cq.subquery(Long.class);
@@ -72,15 +77,17 @@ public class LoanRepositoryImpl extends BaseRepository<Loan> implements LoanRepo
             // guarantors subquery
             Subquery<Long> guarantorsSub = cq.subquery(Long.class);
             Root<Loan> loanSub = guarantorsSub.from(Loan.class);
-            Join<Object, Object> la = loanSub.join("loanApplication", jakarta.persistence.criteria.JoinType.LEFT);
             Join<Object, Object> g = la.join("guarantors", jakarta.persistence.criteria.JoinType.LEFT);
-            Join<Object, Object> p = g.join("profile", jakarta.persistence.criteria.JoinType.LEFT);
-            guarantorsSub.select(la.get("id")).where(cb.like(cb.lower(p.get("name")), "%" + searchString.toLowerCase() + "%"));
+
+            guarantorsSub.select(la.get("id"))
+                    .where(cb.like(cb.lower(p.get("name")), "%" + searchString.toLowerCase() + "%"));
 
             // loan officer subquery
             Subquery<Long> loanOfficerSub = cq.subquery(Long.class);
             Root<User> loanOfficer = loanOfficerSub.from(User.class);
-            Predicate loanOfficerPred = cb.or(cb.like(cb.lower(loanOfficer.get("firstName")), "%" + searchString.toLowerCase() + "%"), cb.like(cb.lower(loanOfficer.get("lastName")), "%" + searchString.toLowerCase() + "%"));
+            Predicate loanOfficerPred = cb.or(
+                    cb.like(cb.lower(loanOfficer.get("firstName")), "%" + searchString.toLowerCase() + "%"),
+                    cb.like(cb.lower(loanOfficer.get("lastName")), "%" + searchString.toLowerCase() + "%"));
             loanOfficerSub.select(loanOfficer.get("id")).where(loanOfficerPred);
 
             predicate = cb.and(
@@ -94,47 +101,50 @@ public class LoanRepositoryImpl extends BaseRepository<Loan> implements LoanRepo
                             root.get("applicationId").in(ccfvSub),
                             root.get("applicationId").in(guarantorsSub),
                             root.get("loanOfficerId").in(loanOfficerSub),
-                            cb.like(cb.lower(root.get("creditLine")), "%" + searchString.toLowerCase() + "%")
-                    ),
-                    cb.notEqual(root.get("status"), LoanStatus.PENDING)
-            );
+                            cb.like(cb.lower(root.get("creditLine")), "%" + searchString.toLowerCase() + "%")),
+                    cb.notEqual(root.get("status"), LoanStatus.PENDING));
         }
 
         // count query
         CriteriaQuery<Long> countQuery = cb.createQuery(Long.class);
         Root<Loan> countRoot = countQuery.from(Loan.class);
-        if (predicate != null) countQuery.select(cb.countDistinct(countRoot)).where(predicate);
-        else countQuery.select(cb.countDistinct(countRoot));
+        if (predicate != null)
+            countQuery.select(cb.countDistinct(countRoot)).where(predicate);
+        else
+            countQuery.select(cb.countDistinct(countRoot));
         Long total = getEntityManager().createQuery(countQuery).getSingleResult();
 
         // select projection fields
         cq.multiselect(
                 root.get("id").alias("id"),
-                // TODO: Fetch the loan profile name from here..., we shall use a join to get related objects
-                // root.get("profileName").alias("profileName"),
+                // TODO: Fetch the loan profile name from here..., we shall use a join to get
+                // related objects
+                p.get("name").alias("profileName"),
 
                 root.get("amount").alias("amount"),
                 root.get("code").alias("code"),
                 root.get("interestRate").alias("interestRate"),
-                // root.get("applicationId").alias("applicationId"),
-                root.get("id").alias("applicationId"),
-                // root.get("applicationCode").alias("applicationCode"),
-                root.get("type").alias("type"),
-                // root.get("productName").alias("productName"),
-                // product.get("name").alias("productName"),
+                la.get("id").alias("applicationId"),
+                la.get("code").alias("applicationCode"),
+                // root.get("type").alias("type"),
+                // cb.selectCase(root.get("type")).when("individual", "Individual").when("group", "Group")
+                //         .otherwise(root.get("type")).alias("type"),
+                product.get("name").alias("productName"),
                 root.get("createdBy").alias("createdBy"),
                 root.get("status").alias("status"),
                 root.get("createdAt").alias("createdAt"),
-                root.get("branchName").alias("branchName"),
-                root.get("currency").alias("currency"),
+                branch.get("name").alias("branchName"),
+                // currency.get("name").alias("currency"),
                 root.get("disbursementDate").alias("disbursementDate"),
                 root.get("maturityDate").alias("maturityDate"),
-                root.get("loanOfficerId").alias("loanOfficerId"),
-                root.get("creditLine").alias("creditLine"),
-                root.get("creditLineOutstandingAmount").alias("creditLineOutstandingAmount")
-        );
+                // root.get("loanOfficerId").alias("loanOfficerId"),
+                loanOfficerJoin.get("firstName").alias("loanOfficerFirstName"),
+                loanOfficerJoin.get("lastName").alias("loanOfficerLastName"),
+                credit.get("name").alias("creditLine"),
+                credit.get("committedAmount").alias("creditLineOutstandingAmount"));
 
-        if (predicate != null) cq.where(predicate);
+        if (predicate != null)
+            cq.where(predicate);
         cq.orderBy(cb.desc(root.get("createdAt")));
 
         TypedQuery<Tuple> typedQuery = getEntityManager().createQuery(cq);
@@ -145,7 +155,8 @@ public class LoanRepositoryImpl extends BaseRepository<Loan> implements LoanRepo
         List<SimplifiedLoan> results = tuples.stream().map(t -> {
             SimplifiedLoan dto = new SimplifiedLoan();
             Object idObj = t.get("id");
-            if (idObj instanceof Number) dto.setId(((Number) idObj).longValue());
+            if (idObj instanceof Number)
+                dto.setId(((Number) idObj).longValue());
             dto.setProfileName((String) t.get("profileName"));
             dto.setAmount((java.math.BigDecimal) t.get("amount"));
             dto.setCode((String) t.get("code"));
@@ -175,7 +186,7 @@ public class LoanRepositoryImpl extends BaseRepository<Loan> implements LoanRepo
     @Override
     public LoanAdditionalInfo getAdditionalInfo(Long loanId) throws Exception {
         String queryString = FileProvider.getLoanScript("LoanAdditionalInfoScript.sql");
-        Query query = this.getEntityManager().createNativeQuery(queryString,"loanAdditionalInfoMapper");
+        Query query = this.getEntityManager().createNativeQuery(queryString, "loanAdditionalInfoMapper");
         query.setParameter("loanId", loanId);
         query.setParameter("dateTime", DateHelper.getLocalDateTimeNow());
         try {
@@ -184,5 +195,5 @@ public class LoanRepositoryImpl extends BaseRepository<Loan> implements LoanRepo
         } catch (NoResultException e) {
             throw new Exception("Additional information on the loan was not found.");
         }
-     }
+    }
 }
