@@ -56,7 +56,14 @@ public class GlobalSettingsService {
 
     protected ScriptEngine getJsEngine() {
         ScriptEngineManager factory = new ScriptEngineManager();
-        return factory.getEngineByName("nashorn");
+        ScriptEngine engine = factory.getEngineByName("rhino");
+        if (engine == null) {
+            engine = factory.getEngineByName("JavaScript");
+        }
+        if (engine == null) {
+            throw new IllegalStateException("No JavaScript engine available (Rhino not found on classpath)");
+        }
+        return engine;
     }
 
     protected String eval(ScriptEngine engine, String script) throws ScriptException {

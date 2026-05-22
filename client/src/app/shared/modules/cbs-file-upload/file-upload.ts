@@ -25,7 +25,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class FileUploadComponent implements OnInit, AfterContentInit {
 
-  @Input() name: string;
+  @Input() name: string = "file";
 
   @Input() url: string;
 
@@ -151,7 +151,7 @@ export class FileUploadComponent implements OnInit, AfterContentInit {
       }
     }
 
-    this.onSelect.emit({originalEvent: event, files: files});
+    this.onSelect.emit({ originalEvent: event, files: files });
 
     if (this.hasFiles() && this.auto) {
       this.upload();
@@ -189,9 +189,9 @@ export class FileUploadComponent implements OnInit, AfterContentInit {
       'formData': formData
     });
 
-    for (let i = 0; i < this.files.length; i++) {
-      formData.append(this.name, this.files[i], this.files[i].name);
-    }
+    // for (let i = 0; i < this.files.length; i++) {
+    //   formData.append(this.name, this.files[i], this.files[i].name);
+    // }
 
     xhr.upload.addEventListener('progress', (e: ProgressEvent) => {
       if (e.lengthComputable) {
@@ -205,9 +205,9 @@ export class FileUploadComponent implements OnInit, AfterContentInit {
         this.fileComment = '';
         this.progress = 0;
         if (xhr.status >= 200 && xhr.status < 300) {
-          this.onUpload.emit({xhr: xhr, files: this.files});
+          this.onUpload.emit({ xhr: xhr, files: this.files });
         } else {
-          this.onError.emit({xhr: xhr, files: this.files});
+          this.onError.emit({ xhr: xhr, files: this.files });
         }
         this.clear();
         this.uploading = false;
@@ -226,8 +226,12 @@ export class FileUploadComponent implements OnInit, AfterContentInit {
       'xhr': xhr,
       'formData': formData
     });
-
-    xhr.send(formData);
+    // console.log("Files upload...", this.files);
+    for (let i = 0; i < this.files.length; i++) {
+      formData.append(this.name, this.files[i], this.files[i].name);
+      xhr.send(formData);
+    }
+    // xhr.send(formData);
   }
 
   clear() {
@@ -288,7 +292,7 @@ export class FileUploadComponent implements OnInit, AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedTreetableModule, FormsModule, TranslateModule],
+  imports: [CommonModule, SharedTreetableModule, FormsModule, TranslateModule],
   exports: [FileUploadComponent, SharedTreetableModule],
   declarations: [FileUploadComponent]
 })

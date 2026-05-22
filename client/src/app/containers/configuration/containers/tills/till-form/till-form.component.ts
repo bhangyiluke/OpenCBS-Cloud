@@ -44,11 +44,13 @@ export class TillFormComponent implements OnInit, OnDestroy, AfterViewChecked {
   ngOnInit() {
     this.currencies = this.store$.select(fromRoot.getCurrencyListState)
     .subscribe((currency: ICurrencyList) => {
+      console.log("Accounts on till config...",currency);
       if (currency.loaded && currency.success && !currency.error) {
         this.generateCustomFields(this.getCurrenciesName(currency.currencies, this.data));
       }
     });
     this.accountsSub = this.accountsService.getAccounts().subscribe(data => {
+      console.log("Accounts on till config...",data);
       if (data.content) {
         this.accounts = data.content;
       }
@@ -137,8 +139,10 @@ export class TillFormComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   setValues(till) {
+    console.log("Till data...",till);
     this.form.controls['name'].setValue(till['data']['name']);
     this.form.controls['branchId'].setValue(till['data']['branchId']);
+    this.form.controls['accountId'].setValue(till['data']['accountId']);
     this.cachedData = this.form.value;
   }
 

@@ -91,7 +91,7 @@ public class LoanEventService implements ContractAccountingEntryService {
             }
             first = this.setVirtualName(first);
 
-            event.setId(0L);
+            // event.setId(0L);
             BigDecimal totalAmount = events.getValue()
                     .stream()
                     .map(LoanEvent::getAmount)

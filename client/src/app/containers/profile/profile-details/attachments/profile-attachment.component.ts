@@ -156,6 +156,7 @@ export class ProfileAttachmentComponent implements OnInit, OnDestroy {
   }
 
   onUpload(event) {
+    console.log("Upload profile file...",event);
     if (event.xhr && event.xhr.status === 200) {
       this.closeUploadModal();
       this.getProfile();

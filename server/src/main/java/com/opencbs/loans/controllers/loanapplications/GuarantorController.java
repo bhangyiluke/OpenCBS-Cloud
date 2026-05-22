@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -37,106 +38,120 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping(value = "/api/loan-applications/{loanApplicationId}/guarantors")
 @SuppressWarnings("/unused/")
 public class GuarantorController extends BaseController {
+        // private static final Logger logger = LoggerFactory.getLogger(GuarantorController.class);
+        private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(GuarantorController.class);
+        private final LoanApplicationService loanApplicationService;
+        private final GuarantorService guarantorService;
+        private final GuarantorMapper guarantorMapper;
+        private final GuarantorDtoValidator guarantorDtoValidator;
 
-    private final LoanApplicationService loanApplicationService;
-    private final GuarantorService guarantorService;
-    private final GuarantorMapper guarantorMapper;
-    private final GuarantorDtoValidator guarantorDtoValidator;
-
-    //@Autowired
-    public GuarantorController(GuarantorService guarantorService,
-                               GuarantorMapper guarantorMapper,
-                               LoanApplicationService loanApplicationService,
-                               GuarantorDtoValidator guarantorDtoValidator) {
-        this.guarantorService = guarantorService;
-        this.guarantorMapper = guarantorMapper;
-        this.loanApplicationService = loanApplicationService;
-        this.guarantorDtoValidator = guarantorDtoValidator;
-    }
-
-    @RequestMapping(method = RequestMethod.GET)
-    public List<GuarantorDetailDto> get(@PathVariable long loanApplicationId) {
-        LoanApplication loanApplication = this.loanApplicationService
-                .findOne(loanApplicationId)
-                .orElseThrow(() -> new ResourceAccessException(String.format("Loan application not found (ID=%d).", loanApplicationId)));
-
-        return this.guarantorService.findAll(loanApplication)
-                .stream()
-                .map(this.guarantorMapper::mapToDto)
-                .collect(Collectors.toList());
-    }
-
-    @RequestMapping(value = "/{guarantorId}", method = RequestMethod.GET)
-    public GuarantorDetailDto getById(@PathVariable long guarantorId,
-                                      @PathVariable long loanApplicationId) throws Exception {
-        LoanApplication loanApplication = this.loanApplicationService.findOne(loanApplicationId)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan application not found (ID=%d).", loanApplicationId)));
-
-        Guarantor guarantor = this.guarantorService.findOne(guarantorId)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("Guarantor not found (ID=%d).", guarantorId)));
-
-        if (!loanApplication.getId().equals(guarantor.getLoanApplication().getId())) {
-            throw new ResourceNotFoundException("Guarantor belongs to another loan application.");
-        }
-        return this.guarantorMapper.mapToDto(guarantor);
-    }
-
-    @RequestMapping(method = POST)
-    @PermissionRequired(name = "GUARANTOR", moduleType = ModuleType.LOAN_APPLICATIONS, description = "")
-    public GuarantorDetailDto post(@PathVariable long loanApplicationId,
-                                   @RequestBody GuarantorDto guarantorDto) throws Exception {
-        LoanApplication loanApplication = this.loanApplicationService
-                .findOne(loanApplicationId)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan application not found (ID=%d).", loanApplicationId)));
-        this.guarantorDtoValidator.validate(guarantorDto);
-        Guarantor guarantor = this.guarantorMapper.mapToEntity(guarantorDto);
-        guarantor.setLoanApplication(loanApplication);
-        guarantor.setCreatedAt(DateHelper.getLocalDateTimeNow());
-        guarantor.setCreatedBy(UserHelper.getCurrentUser());
-        return this.guarantorMapper.mapToDto(this.guarantorService.create(guarantor));
-    }
-
-    @RequestMapping(value = "/{guarantorId}", method = RequestMethod.PUT)
-    @PermissionRequired(name = "GUARANTOR", moduleType = ModuleType.LOAN_APPLICATIONS, description = "")
-    public GuarantorDetailDto put(@RequestBody GuarantorDto guarantorDto,
-                                  @PathVariable long loanApplicationId,
-                                  @PathVariable long guarantorId) throws Exception {
-        LoanApplication loanApplication = this.loanApplicationService
-                .findOne(loanApplicationId)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan application not found (ID=%d).", loanApplicationId)));
-        Guarantor oldGuarantor = this.guarantorService
-                .findOne(guarantorId)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("Guarantor not found (ID=%d).", guarantorId)));
-        if (!loanApplication.getId().equals(oldGuarantor.getLoanApplication().getId())) {
-            throw new ResourceNotFoundException("Guarantor belongs to another loan application.");
+        // @Autowired
+        public GuarantorController(GuarantorService guarantorService,
+                        GuarantorMapper guarantorMapper,
+                        LoanApplicationService loanApplicationService,
+                        GuarantorDtoValidator guarantorDtoValidator) {
+                this.guarantorService = guarantorService;
+                this.guarantorMapper = guarantorMapper;
+                this.loanApplicationService = loanApplicationService;
+                this.guarantorDtoValidator = guarantorDtoValidator;
         }
 
-        this.guarantorDtoValidator.validate(guarantorDto);
-        Guarantor guarantor = this.guarantorMapper.mapToEntity(guarantorDto);
-        guarantor.setId(guarantorId);
-        guarantor.setCreatedBy(UserHelper.getCurrentUser());
-        guarantor.setLoanApplication(loanApplication);
-        return this.guarantorMapper.mapToDto(this.guarantorService.update(guarantor));
-    }
+        @RequestMapping(method = RequestMethod.GET)
+        public List<GuarantorDetailDto> get(@PathVariable long loanApplicationId) {
+                LoanApplication loanApplication = this.loanApplicationService
+                                .findOne(loanApplicationId)
+                                .orElseThrow(() -> new ResourceAccessException(String
+                                                .format("Loan application not found (ID=%d).", loanApplicationId)));
 
-    @RequestMapping(value = "/{guarantorId}", method = RequestMethod.DELETE)
-    @PermissionRequired(name = "GUARANTOR", moduleType = ModuleType.LOAN_APPLICATIONS, description = "")
-    public void delete(@PathVariable long guarantorId) throws Exception {
-        Guarantor guarantor = this.guarantorService
-                .findOne(guarantorId)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("Guarantor not found (ID=%d).", guarantorId)));
+                return this.guarantorService.findAll(loanApplication)
+                                .stream()
+                                .map(this.guarantorMapper::mapToDto)
+                                .collect(Collectors.toList());
+        }
 
-        guarantor.setClosedAt(DateHelper.getLocalDateTimeNow());
-        guarantor.setClosedBy(UserHelper.getCurrentUser());
-        this.guarantorService.update(guarantor);
-    }
+        @RequestMapping(value = "/{guarantorId}", method = RequestMethod.GET)
+        public GuarantorDetailDto getById(@PathVariable long guarantorId,
+                        @PathVariable long loanApplicationId) throws Exception {
+                LoanApplication loanApplication = this.loanApplicationService.findOne(loanApplicationId)
+                                .orElseThrow(() -> new ResourceNotFoundException(String
+                                                .format("Loan application not found (ID=%d).", loanApplicationId)));
 
-    @RequestMapping(value = "/lookup", method = GET)
-    public Page<ProfileDto> lookup(@PathVariable long loanApplicationId, @RequestParam(value = "search", required = false) String query, Pageable pageable) throws ResourceNotFoundException {
-        LoanApplication loanApplication = this.loanApplicationService
-                .findOne(loanApplicationId)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan application not found (ID=%d).", loanApplicationId)));
-        ModelMapper mapper = new ModelMapper();
-        return this.guarantorService.findAvailableProfiles(query, loanApplication, pageable).map(x -> mapper.map(x, ProfileDto.class));
-    }
+                Guarantor guarantor = this.guarantorService.findOne(guarantorId)
+                                .orElseThrow(() -> new ResourceNotFoundException(
+                                                String.format("Guarantor not found (ID=%d).", guarantorId)));
+
+                if (!loanApplication.getId().equals(guarantor.getLoanApplication().getId())) {
+                        throw new ResourceNotFoundException("Guarantor belongs to another loan application.");
+                }
+                return this.guarantorMapper.mapToDto(guarantor);
+        }
+
+        @RequestMapping(method = POST)
+        @PermissionRequired(name = "GUARANTOR", moduleType = ModuleType.LOAN_APPLICATIONS, description = "")
+        public GuarantorDetailDto post(@PathVariable long loanApplicationId,
+                        @RequestBody GuarantorDto guarantorDto) throws Exception {
+                logger.info("Save loan guaranter :{}",guarantorDto);
+                LoanApplication loanApplication = this.loanApplicationService
+                                .findOne(loanApplicationId)
+                                .orElseThrow(() -> new ResourceNotFoundException(String
+                                                .format("Loan application not found (ID=%d).", loanApplicationId)));
+                this.guarantorDtoValidator.validate(guarantorDto);
+                Guarantor guarantor = this.guarantorMapper.mapToEntity(guarantorDto);
+                guarantor.setLoanApplication(loanApplication);
+                guarantor.setCreatedAt(DateHelper.getLocalDateTimeNow());
+                guarantor.setCreatedBy(UserHelper.getCurrentUser());
+                // logger.info("Created guarantor : {}", guarantor);
+                return this.guarantorMapper.mapToDto(this.guarantorService.create(guarantor));
+        }
+
+        @RequestMapping(value = "/{guarantorId}", method = RequestMethod.PUT)
+        @PermissionRequired(name = "GUARANTOR", moduleType = ModuleType.LOAN_APPLICATIONS, description = "")
+        public GuarantorDetailDto put(@RequestBody GuarantorDto guarantorDto,
+                        @PathVariable long loanApplicationId,
+                        @PathVariable long guarantorId) throws Exception {
+                LoanApplication loanApplication = this.loanApplicationService
+                                .findOne(loanApplicationId)
+                                .orElseThrow(() -> new ResourceNotFoundException(String
+                                                .format("Loan application not found (ID=%d).", loanApplicationId)));
+                Guarantor oldGuarantor = this.guarantorService
+                                .findOne(guarantorId)
+                                .orElseThrow(() -> new ResourceNotFoundException(
+                                                String.format("Guarantor not found (ID=%d).", guarantorId)));
+                if (!loanApplication.getId().equals(oldGuarantor.getLoanApplication().getId())) {
+                        throw new ResourceNotFoundException("Guarantor belongs to another loan application.");
+                }
+
+                this.guarantorDtoValidator.validate(guarantorDto);
+                Guarantor guarantor = this.guarantorMapper.mapToEntity(guarantorDto);
+                guarantor.setId(guarantorId);
+                guarantor.setCreatedBy(UserHelper.getCurrentUser());
+                guarantor.setLoanApplication(loanApplication);
+                return this.guarantorMapper.mapToDto(this.guarantorService.update(guarantor));
+        }
+
+        @RequestMapping(value = "/{guarantorId}", method = RequestMethod.DELETE)
+        @PermissionRequired(name = "GUARANTOR", moduleType = ModuleType.LOAN_APPLICATIONS, description = "")
+        public void delete(@PathVariable long guarantorId) throws Exception {
+                Guarantor guarantor = this.guarantorService
+                                .findOne(guarantorId)
+                                .orElseThrow(() -> new ResourceNotFoundException(
+                                                String.format("Guarantor not found (ID=%d).", guarantorId)));
+
+                guarantor.setClosedAt(DateHelper.getLocalDateTimeNow());
+                guarantor.setClosedBy(UserHelper.getCurrentUser());
+                this.guarantorService.update(guarantor);
+        }
+
+        @RequestMapping(value = "/lookup", method = GET)
+        public Page<ProfileDto> lookup(@PathVariable long loanApplicationId,
+                        @RequestParam(value = "search", required = false) String query, Pageable pageable)
+                        throws ResourceNotFoundException {
+                LoanApplication loanApplication = this.loanApplicationService
+                                .findOne(loanApplicationId)
+                                .orElseThrow(() -> new ResourceNotFoundException(String
+                                                .format("Loan application not found (ID=%d).", loanApplicationId)));
+                ModelMapper mapper = new ModelMapper();
+                return this.guarantorService.findAvailableProfiles(query, loanApplication, pageable)
+                                .map(x -> mapper.map(x, ProfileDto.class));
+        }
 }

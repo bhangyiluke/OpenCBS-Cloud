@@ -189,7 +189,6 @@ jwt:
   keystore:
     password: ${JWT_KEYSTORE_PASSWORD:P@ssw0rd!}
     alias: ${JWT_KEYSTORE_ALIAS:jwt}
-    # path: jwt-keystore.jks
     type: ${JWT_KEYSTORE_TYPE:PKCS12}
     path: ${JWT_KEYSTORE_PATH:classpath:jwt-keystore.p12}
   token:
@@ -227,7 +226,7 @@ logging:
     name: logs/${spring.application.name}.log
   logback:
     rollingpolicy:
-      file-name-pattern: logs/${spring.application.name}-%d{yyyy-MM-dd}.%i.gz
+      file-name-pattern: logs/${spring.application.name}-%d{yyyy-MM-dd}.%i.tar.gz
       max-file-size: 20MB
       max-history: 3
   level:
@@ -268,7 +267,7 @@ net:
         font:
           name: SansSerif
 template:
-  location: classpath:/templates/
+  location: classpath:/templates
 day-closure:
   auto-start-time: "@midnight"
 cors:

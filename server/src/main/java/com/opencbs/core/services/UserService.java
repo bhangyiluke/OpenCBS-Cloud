@@ -36,7 +36,7 @@ public class UserService extends BaseHistoryService<User, Long, Integer> impleme
     private final PasswordEncoder passwordEncoder;
     private final TillRepository tillRepository;
 
-    // //@Autowired
+    @Autowired
     public UserService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder,
                        TillRepository tillRepository) {

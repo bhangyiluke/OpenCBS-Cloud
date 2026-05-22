@@ -34,8 +34,8 @@ import java.text.SimpleDateFormat;
         AttachmentProperty.class,
         TemplateProperty.class,
         CoreModuleProperties.class })
-// @EnableJpaRepositories(value = "com.opencbs", repositoryFactoryBeanClass =
-// EnversRevisionRepositoryFactoryBean.class)
+// @EnableJpaRepositories(value = "com.opencbs", repositoryFactoryBeanClass =EnversRevisionRepositoryFactoryBean.class)
+@EnableJpaRepositories(value = "com.opencbs", repositoryFactoryBeanClass = EnversRevisionRepositoryFactoryBean.class)
 @EnableScheduling
 @AutoConfigureAfter
 @SuppressWarnings("unused")

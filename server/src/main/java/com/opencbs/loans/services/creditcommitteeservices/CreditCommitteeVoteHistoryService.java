@@ -32,7 +32,7 @@ public class CreditCommitteeVoteHistoryService {
 
     @Transactional
     public CreditCommitteeVoteHistory create(CreditCommitteeVoteHistory creditCommitteeVoteHistory) {
-        creditCommitteeVoteHistory.setId(0L);
+        // creditCommitteeVoteHistory.setId(0L);
         return this.creditCommitteeVoteHistoryRepository.save(creditCommitteeVoteHistory);
     }
 

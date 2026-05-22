@@ -102,7 +102,7 @@ public class BondEventService {
 
             first = this.setVirtualName(first);
 
-            event.setId(0L);
+            // event.setId(0L);
             BigDecimal totalAmount = events.getValue()
                     .stream()
                     .map(BondEvent::getAmount)

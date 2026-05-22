@@ -340,15 +340,17 @@ export class AccountingEntriesComponent implements OnInit, OnDestroy {
   }
 
   downloadPrintingForm(objToSend: any) {
+    console.log("Requested form: ", objToSend);
     this.printingFormService.downloadForm(objToSend, 'GENERAL_LEDGER')
       .subscribe(res => {
-        if (res.err) {
+        if (res.err || res.errorCode) {
           this.translate?.get('CREATE_ERROR').subscribe((response: string) => {
-            this.toastrService?.error(res.err, response, environment.ERROR_TOAST_CONFIG);
+            this.toastrService?.error(res.err || res.message, response, environment.ERROR_TOAST_CONFIG);
             this.isLoading = false;
           });
         } else {
           this.isLoading = false;
+          console.log("Downloaded form: ", res);
           FileSaver.saveAs(res, `${this.receiptFormLabel}.docx`)
         }
       });

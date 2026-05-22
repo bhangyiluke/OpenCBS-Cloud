@@ -67,20 +67,15 @@
 		</dependency>
 		<dependency>
 			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-database-oracle</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-database-postgresql</artifactId>
 		</dependency>
+		<!-- Source:
+		https://mvnrepository.com/artifact/org.springframework.modulith/spring-modulith-core -->
 		<dependency>
 			<groupId>org.springframework.modulith</groupId>
-			<artifactId>spring-modulith-starter-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.modulith</groupId>
-			<artifactId>spring-modulith-events-amqp</artifactId>
-			<scope>runtime</scope>
+			<artifactId>spring-modulith-core</artifactId>
+			<version>2.0.6</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -97,11 +92,6 @@
 			<artifactId>querydsl-jpa</artifactId>
 			<version>${querydsl.version}</version>
 		</dependency>
-		<!-- <dependency>
-			<groupId>com.oracle.database.jdbc</groupId>
-			<artifactId>ojdbc17</artifactId>
-			<scope>runtime</scope>
-		</dependency> -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -294,7 +284,19 @@
 					<groupId>com.lowagie</groupId>
 					<artifactId>itext</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-simple</artifactId>
+				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<!-- Rhino JavaScript engine (replacement for removed Nashorn on Java 21+).
+		     Provides javax.script.ScriptEngine named "rhino" and "JavaScript". -->
+		<dependency>
+			<groupId>org.mozilla</groupId>
+			<artifactId>rhino-engine</artifactId>
+			<version>1.7.15</version>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
@@ -333,6 +335,18 @@
 			<plugin>
 				<groupId>org.graalvm.buildtools</groupId>
 				<artifactId>native-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>se.kth.castor</groupId>
+				<artifactId>depclean-maven-plugin</artifactId>
+				<version>2.1.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>depclean</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

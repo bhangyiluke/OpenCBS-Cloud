@@ -64,9 +64,9 @@
     [(open)]="isOpen"
 >
     <div class="slds-p-around_medium">
-        <cbs-loading-indicator
+        <!-- <cbs-loading-indicator
             [showLoader]="fieldsReady"
-        ></cbs-loading-indicator>
+        ></cbs-loading-indicator> -->
         <form novalidate [formGroup]="reportForm" class="slds-form--stacked">
             <div
                 [hidden]="fieldsReady"
@@ -101,8 +101,8 @@
         </button>
     </ng-template>
 </ngl-modal>
-
+<!-- 
 <cbs-loading-indicator
     [isFixed]="true"
     [showLoader]="!forms.length"
-></cbs-loading-indicator>
+></cbs-loading-indicator> -->
