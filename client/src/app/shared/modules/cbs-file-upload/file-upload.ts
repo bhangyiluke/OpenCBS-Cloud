@@ -214,7 +214,7 @@ export class FileUploadComponent implements OnInit, AfterContentInit {
       }
     };
 
-    this.hasComments ? xhr.open('POST', this.url + '?comment=' + this.fileComment, true) : xhr.open('POST', this.url, true);
+    xhr.open('POST', this.url, true);
 
     if (this.includeToken) {
       const token = window.localStorage.getItem(this.tokenName);
@@ -226,10 +226,31 @@ export class FileUploadComponent implements OnInit, AfterContentInit {
       'xhr': xhr,
       'formData': formData
     });
-    // console.log("Files upload...", this.files);
+    if (this.hasComments) {
+      formData.append('comment', this.fileComment || '');
+    }
+    console.log("Files upload...", this.fileComment);
     for (let i = 0; i < this.files.length; i++) {
-      formData.append(this.name, this.files[i], this.files[i].name);
+      formData.append("file", this.files[i], this.files[i].name);
       xhr.send(formData);
+      // const token = window.localStorage.getItem(this.tokenName);
+      // fetch(this.url+"/create", {
+      //   method: "POST",
+      //   body: formData,
+      //   headers: {
+      //     "Authorization": `Bearer ${token}`
+      //   }
+      //   // Do NOT set Content-Type header; browser sets it with boundary
+      // }).then(data => {
+      //   this.onUpload.emit({ xhr: xhr, files: this.files });
+      //   console.log('Upload Success:', data);
+      // }).catch(error => {
+      //   this.onError.emit({ xhr: xhr, files: this.files });
+      //   console.error('Upload Error:', error);
+      // }).finally(() => {
+      //   this.clear();
+      //   this.uploading = false;
+      // });
     }
     // xhr.send(formData);
   }

@@ -1,1 +1,1 @@
-mvn -f ./server se.kth.castor:depclean-maven-plugin:depclean -DcreatePomDebloated=true -DBUILD_VERSION=1.0.1
+mvn -f ./server/opencbs-server se.kth.castor:depclean-maven-plugin:depclean -DcreatePomDebloated=true -DBUILD_VERSION=1.0.1

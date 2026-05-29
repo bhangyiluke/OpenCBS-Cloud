@@ -1,0 +1,49 @@
+package com.opencbs;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+
+import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.stereotype.Component;
+import org.springframework.core.annotation.Order;
+import com.opencbs.core.configs.MultiReadRequest;
+
+import org.springframework.web.util.ContentCachingRequestWrapper;
+
+@Component
+@Order(1)
+public class RequestBodyLoggingFilter extends OncePerRequestFilter {
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(RequestBodyLoggingFilter.class);
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws IOException, ServletException {
+        // Wrap the request to allow multiple reads of the body
+        // ContentCachingRequestWrapper wrappedRequest = new ContentCachingRequestWrapper(request, 7);
+        HttpServletRequest httpRequest = new MultiReadRequest(request);
+        Part comment = httpRequest.getPart("comment");
+        logger.info("Incoming Request with comment: {}", new String(comment.getInputStream().readAllBytes(),StandardCharsets.UTF_8));
+        Part file = httpRequest.getPart("file");
+        if (file != null) {
+            logger.info("Incoming Request with file type: {}", file.getContentType());
+
+        }
+        // Log the request body
+        // String body = new String(wrappedRequest.getContentAsByteArray(),
+        // StandardCharsets.UTF_8);
+        // String body = new String(httpRequest.getInputStream().readAllBytes(),
+        // StandardCharsets.UTF_8);
+        // if (!body.isEmpty()) {
+        // logger.info("Incoming Request Body: {}", body);
+        // }
+
+        // Continue the filter chain with the wrapped request
+        filterChain.doFilter(httpRequest, response);
+    }
+}
