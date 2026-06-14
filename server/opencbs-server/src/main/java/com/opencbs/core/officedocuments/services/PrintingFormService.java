@@ -65,7 +65,10 @@ public class PrintingFormService extends AbstractDocumentService<Template>
 
     @Override
     public List<Template> getDocumentsByPoint(String point) {
-        return templates.stream().filter(x -> point.equals(x.getPoint())).collect(Collectors.toList());
+        var templates = this.templates.stream()
+                .filter(template -> template.getPoint().equals(point))
+                .collect(Collectors.toList());
+        return templates;
     }
 
     @Override

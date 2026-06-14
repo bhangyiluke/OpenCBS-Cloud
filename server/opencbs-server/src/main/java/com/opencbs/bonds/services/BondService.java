@@ -101,9 +101,12 @@ public class BondService {
     public Bond create(Bond bond, User user) throws ScriptException, ResourceNotFoundException {
         List<BondInstallment> bondInstallments = this.getInstallments(bond);
         bond.setInstallments(bondInstallments);
+        var branch = user.getBranch();
+        bond.setBranch(branch);
         bond.setIsin("");
-        bond.setInstallments(this.getInstallments(bond));
+        // bond.setInstallments(this.getInstallments(bond));
         bond.setCreatedBy(user);
+
         bond.setCreatedAt(DateHelper.getLocalDateTimeNow());
         bond.setStatus(BondStatus.IN_PROGRESS);
         bond = this.bondRepository.save(bond);

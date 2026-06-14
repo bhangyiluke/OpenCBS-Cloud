@@ -272,7 +272,7 @@ net:
         font:
           name: SansSerif
 template:
-  location: classpath:/templates
+  location: ./templates
 attachment:
   location: ./uploads
 day-closure:

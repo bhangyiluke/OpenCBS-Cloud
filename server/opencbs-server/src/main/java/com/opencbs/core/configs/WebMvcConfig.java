@@ -17,13 +17,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
         this.userSessionHandler = userSessionHandler;
     }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
-        // TODO: restrict in production
-        .allowedOrigins("*")
-        .allowedMethods("*");
-    }
+    // @Override
+    // public void addCorsMappings(CorsRegistry registry) {
+    //     registry.addMapping("/api/**")
+    //     // TODO: restrict in production
+    //     .allowedOrigins("*")
+    //     .allowedMethods("*");
+    // }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

@@ -67,6 +67,6 @@ public class BondProduct extends BaseEntity {
     @Column(name = "interest_scheme", nullable = false)
     private String interestScheme;
 
-    @OneToMany(mappedBy = "bondProduct", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "bondProduct", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BondProductAccount> accounts;
 }

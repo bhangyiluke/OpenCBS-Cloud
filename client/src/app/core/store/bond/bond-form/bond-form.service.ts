@@ -15,7 +15,7 @@ export class BondProductService {
 
   public getDefaultBondProduct(): Observable<BondProduct> {
     return this.httpClient.get<BondProduct>(
-      `${environment.API_ENDPOINT}/bond-products/default`,
+      `${environment.API_ENDPOINT}bond-products/default`,
       {
         headers: this.httpClientHeadersService.getHeaders()
       })

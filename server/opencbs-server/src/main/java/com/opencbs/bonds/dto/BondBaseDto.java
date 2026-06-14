@@ -4,12 +4,16 @@ import com.opencbs.core.domain.enums.InterestScheme;
 import com.opencbs.core.dto.BaseDto;
 import com.opencbs.core.dto.ScheduleDto;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
+// @NoArgsConstructor
 public abstract class BondBaseDto extends BaseDto {
+    public BondBaseDto() {
+    }
     private String isin;
     private BigDecimal number;
     private BigDecimal interestRate;

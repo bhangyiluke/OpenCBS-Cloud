@@ -94,7 +94,7 @@ public class Bond extends Contract {
     @JoinColumn(name = "profile_id", nullable = false)
     private Profile profile;
 
-    @OneToMany(mappedBy = "bond", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "bond", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("number ASC")
     private List<BondInstallment> installments;
 

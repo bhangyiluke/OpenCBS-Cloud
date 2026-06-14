@@ -161,9 +161,9 @@ public abstract class AbstractDocumentService<T extends Template> {
     }
 
     List<Path> getFileList(Path path) throws IOException {
-        if (!Files.exists(path)) {
-            return Collections.emptyList();
-        }
+        // if (!Files.exists(path)) {
+        //     return Collections.emptyList();
+        // }
         return Files.list(path).filter(x -> this.patternMatch(".+\\.zip$", x.toString()))
                 .collect(Collectors.toList());
     }

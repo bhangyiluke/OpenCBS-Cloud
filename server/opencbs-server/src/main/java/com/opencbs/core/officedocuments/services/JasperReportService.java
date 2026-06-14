@@ -34,7 +34,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Slf4j
-// @RequiredArgsConstructor
 @Service
 public class JasperReportService implements ReportService<ExcelTemplate, ExcelRequest> {
 
@@ -191,7 +190,7 @@ public class JasperReportService implements ReportService<ExcelTemplate, ExcelRe
     }
 
     @Override
-    public ResponseEntity getDocuments(ExcelRequest request) throws Exception {
+    public ResponseEntity<?> getDocuments(ExcelRequest request) throws Exception {
         ReportFormatType reportFormatType = ReportFormatType.valueOf(request.getFieldsValues().get(DOCUMENT_FORMAT));
         JasperExporter exporter = this.jasperExporterHelper.getExporter(reportFormatType);
         final JasperPrint report = this.getReport(request, exporter);

@@ -24,7 +24,7 @@ import moment from 'moment';
   styleUrls: ['./bond-new.component.scss']
 })
 export class BondNewComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(BondDetailsFormComponent, { static: false }) formComponent: BondDetailsFormComponent;
+  @ViewChild(BondDetailsFormComponent, { static: true }) formComponent: BondDetailsFormComponent;
   public bondFormState: BondFormState;
   public formVisible = false;
   public bondFormSub: any;
@@ -45,7 +45,7 @@ export class BondNewComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.formComponent.createForm();
+    this.formComponent?.createForm();
 
     this.routeSub = this.route.queryParams.subscribe(params => {
       if (Object.keys(params).length && +params['profileId'] > 0) {

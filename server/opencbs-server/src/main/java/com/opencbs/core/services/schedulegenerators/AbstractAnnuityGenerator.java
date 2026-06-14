@@ -28,7 +28,8 @@ public abstract class AbstractAnnuityGenerator extends BaseScheduleGenerator {
     @Override
     public List<Installment> getSchedule(ScheduleParams params) {
         List<Installment> installments;
-        if (params.getScheduleBasedType().equals(ScheduleBasedType.BY_MATURITY)) {
+        var scheduleBasedType = params.getScheduleBasedType();
+        if (scheduleBasedType!= null && scheduleBasedType == ScheduleBasedType.BY_MATURITY) {
             installments = this.buildSchedule(params, period, days);
         }
         else {

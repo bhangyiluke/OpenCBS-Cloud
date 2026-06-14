@@ -6,4 +6,5 @@ logs
 .agent
 .github
 *.log
+.env
 dist

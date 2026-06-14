@@ -3,12 +3,14 @@ package com.opencbs.bonds.mappers;
 import com.opencbs.bonds.domain.Bond;
 import com.opencbs.bonds.domain.BondProduct;
 import com.opencbs.bonds.dto.BondAmountDto;
+import com.opencbs.bonds.dto.BondBaseDto;
 import com.opencbs.bonds.dto.BondDetailsDto;
 import com.opencbs.bonds.dto.BondDto;
 import com.opencbs.bonds.dto.BondExpireDateDto;
 import com.opencbs.bonds.services.BondService;
 import com.opencbs.core.annotations.Mapper;
 import com.opencbs.core.domain.Currency;
+import com.opencbs.core.dto.CurrencyDto;
 import com.opencbs.core.helpers.DateHelper;
 import com.opencbs.core.services.CurrencyService;
 import org.modelmapper.ModelMapper;
@@ -20,7 +22,7 @@ public class BondMapper {
     private final BondService bondService;
 
     public BondMapper(CurrencyService currencyService,
-                      BondService bondService) {
+            BondService bondService) {
         this.currencyService = currencyService;
         this.bondService = bondService;
     }
@@ -28,7 +30,9 @@ public class BondMapper {
     public BondDetailsDto mapToDto(Bond bond) {
         ModelMapper modelMapper = new ModelMapper();
         BondDetailsDto bondsDetailsDto = modelMapper.map(bond, BondDetailsDto.class);
-        bondsDetailsDto.setEquivalentCurrency(bond.getCurrency());
+        // bondsDetailsDto.setEquivalentCurrency(bond.getCurrency());
+        CurrencyDto currencyDto = modelMapper.map(bond.getCurrency(), CurrencyDto.class);
+        bondsDetailsDto.setEquivalentCurrency(currencyDto);
         BondAmountDto amountDto = new BondAmountDto();
         amountDto.setAmount(bond.getAmount());
         amountDto.setEquivalentAmount(bond.getEquivalentAmount());
@@ -42,10 +46,9 @@ public class BondMapper {
         Bond bond = modelMapper.map(dto, Bond.class);
         BondProduct product = this.bondService.findOneProduct(dto.getBondProductId()).get();
         Currency currency = this.currencyService.findOne(dto.getEquivalentCurrencyId()).get();
-        BondAmountDto amountDto =
-                this.bondService
-                    .getBondAmount(Integer.valueOf(dto.getNumber().toString()), dto.getEquivalentCurrencyId(),
-                            dto.getSellDate().atTime(DateHelper.getLocalTimeNow()));
+        BondAmountDto amountDto = this.bondService
+                .getBondAmount(Integer.valueOf(dto.getNumber().toString()), dto.getEquivalentCurrencyId(),
+                        dto.getSellDate().atTime(DateHelper.getLocalTimeNow()));
         bond.setBondProduct(product);
         bond.setCurrency(currency);
         bond.setAmount(amountDto.getAmount());

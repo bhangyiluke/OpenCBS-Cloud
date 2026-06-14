@@ -24,7 +24,7 @@ export class ChildrenAccountsService {
 
   getChildrenByPage(accountId: any, page: any) {
     return this.httpClient.get(
-      `${environment.API_ENDPOINT}/accounting/chart-of-accounts/root/${accountId}/leaves?page=${page}`)
+      `${environment.API_ENDPOINT}accounting/chart-of-accounts/root/${accountId}/leaves?page=${page}`)
       .pipe(delay(environment.RESPONSE_DELAY),
         catchError(err => {
           return observableOf(err.error)
