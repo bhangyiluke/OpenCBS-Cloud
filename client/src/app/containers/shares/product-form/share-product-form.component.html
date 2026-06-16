@@ -1,0 +1,73 @@
+<cbs-header>
+  <cbs-page-header>
+    <div cbs-page-header-layout="left">
+      <cbs-heading-block [isMainPage]="true" [headingTitle]="(productId ? 'EDIT_SHARE_PRODUCT' : 'CREATE_SHARE_PRODUCT') | translate">
+      </cbs-heading-block>
+    </div>
+  </cbs-page-header>
+</cbs-header>
+
+<main class="cbs-main cbs-main--pt-sm">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="slds-grid slds-grid--wrap slds-gutters slds-gutters_small">
+      <div class="slds-col slds-size_1-of-2">
+        <label class="slds-form-element__label">{{ 'NAME' | translate }}</label>
+        <input class="slds-input" formControlName="name">
+      </div>
+      <div class="slds-col slds-size_1-of-2">
+        <label class="slds-form-element__label">{{ 'CODE' | translate }}</label>
+        <input class="slds-input" formControlName="code">
+      </div>
+      <div class="slds-col slds-size_1-of-2">
+        <label class="slds-form-element__label">{{ 'CURRENCY' | translate }}</label>
+        <select class="slds-select" formControlName="currencyId">
+          <option *ngFor="let currency of currencies" [ngValue]="currency.id">{{ currency.code }} - {{ currency.name }}</option>
+        </select>
+      </div>
+      <div class="slds-col slds-size_1-of-4">
+        <label class="slds-form-element__label">{{ 'NOMINAL_VALUE' | translate }}</label>
+        <input type="number" class="slds-input" formControlName="nominalValue">
+      </div>
+      <div class="slds-col slds-size_1-of-4">
+        <label class="slds-form-element__label">{{ 'UNIT_PRICE' | translate }}</label>
+        <input type="number" class="slds-input" formControlName="unitPrice">
+      </div>
+      <div class="slds-col slds-size_1-of-4">
+        <label class="slds-form-element__label">{{ 'MIN_SHARES' | translate }}</label>
+        <input type="number" class="slds-input" formControlName="minSharesPerMember">
+      </div>
+      <div class="slds-col slds-size_1-of-4">
+        <label class="slds-form-element__label">{{ 'MAX_SHARES' | translate }}</label>
+        <input type="number" class="slds-input" formControlName="maxSharesPerMember">
+      </div>
+      <div class="slds-col slds-size_1-of-4">
+        <label class="slds-form-element__label">{{ 'LOT_SELECTION_POLICY' | translate }}</label>
+        <select class="slds-select" formControlName="lotSelectionPolicy">
+          <option *ngFor="let policy of lotSelectionPolicies" [ngValue]="policy">{{ policy | translate }}</option>
+        </select>
+      </div>
+      <div class="slds-col slds-size_1-of-4">
+        <label class="slds-form-element__label">{{ 'STATUS' | translate }}</label>
+        <select class="slds-select" formControlName="statusType">
+          <option *ngFor="let status of statusTypes" [ngValue]="status">{{ status | translate }}</option>
+        </select>
+      </div>
+      <div class="slds-col slds-size_1-of-4 slds-align-bottom">
+        <label class="slds-checkbox">
+          <input type="checkbox" formControlName="allowMemberTransfers">
+          <span class="slds-checkbox_fake"></span>
+          <span class="slds-form-element__label">{{ 'ALLOW_MEMBER_TRANSFERS' | translate }}</span>
+        </label>
+      </div>
+    </div>
+    <div class="slds-m-top_medium">
+      <button class="slds-button slds-button_brand slds-m-right_x-small" type="submit" [disabled]="loading">
+        {{ 'SAVE' | translate }}
+      </button>
+      <button class="slds-button slds-button_neutral" type="button" (click)="cancel()">
+        {{ 'CANCEL' | translate }}
+      </button>
+    </div>
+  </form>
+  <cbs-loading-indicator [isFixed]="true" [showLoader]="loading"></cbs-loading-indicator>
+</main>

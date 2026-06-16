@@ -1,0 +1,71 @@
+<cbs-header>
+  <cbs-page-header>
+    <div cbs-page-header-layout="left">
+      <cbs-heading-block [isMainPage]="true" headingTitle="{{ 'SHARE_AGE_ANALYSIS' | translate }}">
+      </cbs-heading-block>
+    </div>
+  </cbs-page-header>
+</cbs-header>
+
+<main class="cbs-main cbs-main--pt-sm">
+  <form [formGroup]="form" (ngSubmit)="loadAnalysis()">
+    <div class="slds-grid slds-gutters slds-gutters_small">
+      <div class="slds-col slds-size_1-of-3">
+        <label class="slds-form-element__label">{{ 'REPORT_DATE' | translate }}</label>
+        <input type="date" class="slds-input" formControlName="reportDate">
+      </div>
+      <div class="slds-col slds-size_1-of-3">
+        <label class="slds-form-element__label">{{ 'SHARE_PRODUCT' | translate }}</label>
+        <input class="slds-input" formControlName="shareProductId" placeholder="{{ 'PRODUCT_ID' | translate }}">
+      </div>
+      <div class="slds-col slds-size_1-of-3">
+        <label class="slds-form-element__label">{{ 'BRANCH' | translate }}</label>
+        <input class="slds-input" formControlName="branchId" placeholder="{{ 'BRANCH_ID' | translate }}">
+      </div>
+      <div class="slds-col slds-size_1-of-3">
+        <label class="slds-form-element__label">{{ 'MEMBER' | translate }}</label>
+        <input class="slds-input" formControlName="profileId" placeholder="{{ 'PROFILE_ID' | translate }}">
+      </div>
+      <div class="slds-col slds-size_1-of-3 slds-align-bottom">
+        <button class="slds-button slds-button_brand" type="submit">{{ 'LOAD' | translate }}</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="slds-grid slds-m-top_medium" *ngIf="analysis">
+    <div class="slds-col slds-size_1-of-4">
+      <div class="slds-card">
+        <div class="slds-card__body">
+          <div class="slds-text-heading_small">{{ 'TOTAL_SHARES' | translate }}</div>
+          <div class="slds-text-heading_medium">{{ analysis.totalQuantity }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="slds-col slds-size_1-of-4">
+      <div class="slds-card">
+        <div class="slds-card__body">
+          <div class="slds-text-heading_small">{{ 'TOTAL_VALUE' | translate }}</div>
+          <div class="slds-text-heading_medium">{{ analysis.totalValue | cbsNumberFormat }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p-table [value]="analysis?.buckets || []" [styleClass]="'slds-table slds-table--bordered slds-table--cell-buffer slds-m-top_medium'">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>{{ 'AGE_BUCKET' | translate }}</th>
+        <th>{{ 'QUANTITY' | translate }}</th>
+        <th>{{ 'VALUE' | translate }}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-bucket>
+      <tr>
+        <td>{{ bucket.label }}</td>
+        <td>{{ bucket.quantity }}</td>
+        <td>{{ bucket.value | cbsNumberFormat }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <cbs-loading-indicator [isFixed]="true" [showLoader]="loading"></cbs-loading-indicator>
+</main>

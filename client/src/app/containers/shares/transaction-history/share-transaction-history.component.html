@@ -1,0 +1,53 @@
+<cbs-header>
+  <cbs-page-header>
+    <div cbs-page-header-layout="left">
+      <cbs-heading-block [isMainPage]="true" headingTitle="{{ 'SHARE_TRANSACTIONS' | translate }}">
+      </cbs-heading-block>
+    </div>
+    <div cbs-page-header-layout="right">
+      <button class="slds-button slds-button_neutral slds-m-right_x-small" routerLink="/shares/purchase">
+        {{ 'PURCHASE' | translate }}
+      </button>
+      <button class="slds-button slds-button_neutral" routerLink="/shares/transfer">
+        {{ 'TRANSFER' | translate }}
+      </button>
+    </div>
+  </cbs-page-header>
+</cbs-header>
+
+<main class="cbs-main cbs-main--pt-sm">
+  <p-table [value]="transactions" [styleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>{{ 'DATE' | translate }}</th>
+        <th>{{ 'TYPE' | translate }}</th>
+        <th>{{ 'PRODUCT' | translate }}</th>
+        <th>{{ 'SOURCE_MEMBER' | translate }}</th>
+        <th>{{ 'DESTINATION_MEMBER' | translate }}</th>
+        <th>{{ 'QUANTITY' | translate }}</th>
+        <th>{{ 'UNIT_PRICE' | translate }}</th>
+        <th>{{ 'TOTAL_AMOUNT' | translate }}</th>
+        <th>{{ 'STATUS' | translate }}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-transaction>
+      <tr>
+        <td>{{ transaction.transactionDate | cbsDateFormat }}</td>
+        <td>{{ transaction.type | translate }}</td>
+        <td>{{ transaction.shareProduct?.code }}</td>
+        <td>{{ transaction.sourceProfileName || '-' }}</td>
+        <td>{{ transaction.destinationProfileName || '-' }}</td>
+        <td>{{ transaction.quantity }}</td>
+        <td>{{ transaction.unitPrice | cbsNumberFormat }}</td>
+        <td>{{ transaction.totalAmount | cbsNumberFormat }}</td>
+        <td>{{ transaction.status | translate }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="9">{{ 'NO_RECORDS_FOUND' | translate }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <cbs-loading-indicator [isFixed]="true" [showLoader]="loading"></cbs-loading-indicator>
+</main>

@@ -1,0 +1,64 @@
+<cbs-header>
+  <cbs-page-header>
+    <div cbs-page-header-layout="left">
+      <cbs-heading-block [isMainPage]="true" headingTitle="{{ 'SHARE_PRODUCTS' | translate }}">
+      </cbs-heading-block>
+    </div>
+    <div cbs-page-header-layout="center">
+      <cbs-search-input [searchQuery]="searchQuery" (onSearch)="search($event)" placeholder="{{ 'SEARCH' | translate }}">
+      </cbs-search-input>
+    </div>
+    <div cbs-page-header-layout="right">
+      <button class="slds-button slds-button_brand" (click)="createProduct()">
+        {{ 'CREATE' | translate }}
+      </button>
+    </div>
+  </cbs-page-header>
+</cbs-header>
+
+<main class="cbs-main cbs-main--pt-sm">
+  <p-table [value]="products" [styleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>{{ 'CODE' | translate }}</th>
+        <th>{{ 'NAME' | translate }}</th>
+        <th>{{ 'CURRENCY' | translate }}</th>
+        <th>{{ 'UNIT_PRICE' | translate }}</th>
+        <th>{{ 'MIN_SHARES' | translate }}</th>
+        <th>{{ 'MAX_SHARES' | translate }}</th>
+        <th>{{ 'TRANSFERS' | translate }}</th>
+        <th>{{ 'STATUS' | translate }}</th>
+        <th>{{ 'ACTIONS' | translate }}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>{{ product.code }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.currency?.code }}</td>
+        <td>{{ product.unitPrice | cbsNumberFormat }}</td>
+        <td>{{ product.minSharesPerMember }}</td>
+        <td><span *ngIf="product.maxSharesPerMember; else unlimited">{{ product.maxSharesPerMember }}</span><ng-template #unlimited>{{ 'UNLIMITED' | translate }}</ng-template></td>
+        <td>{{ product.allowMemberTransfers ? ('YES' | translate) : ('NO' | translate) }}</td>
+        <td>{{ product.statusType | translate }}</td>
+        <td>
+          <button class="slds-button slds-button_neutral slds-m-right_x-small" (click)="editProduct(product)">
+            {{ 'EDIT' | translate }}
+          </button>
+          <button class="slds-button slds-button_neutral" *ngIf="product.statusType === 'ACTIVE'" (click)="deactivate(product)">
+            {{ 'DEACTIVATE' | translate }}
+          </button>
+          <button class="slds-button slds-button_neutral" *ngIf="product.statusType === 'INACTIVE'" (click)="activate(product)">
+            {{ 'ACTIVATE' | translate }}
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="9">{{ 'NO_RECORDS_FOUND' | translate }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <cbs-loading-indicator [isFixed]="true" [showLoader]="loading"></cbs-loading-indicator>
+</main>

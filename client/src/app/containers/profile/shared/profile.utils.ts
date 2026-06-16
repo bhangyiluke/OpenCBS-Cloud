@@ -89,6 +89,14 @@ export const setNavElements = (profileType: string, profileId: number, permissio
       availability: ['people', 'companies']
     },
     {
+      link: `/profiles/${profileType}/${profileId}/shares`,
+      name: 'SHARES',
+      visible: false,
+      permission: 'SHARES',
+      icon: {collection: 'custom', name: 'custom43', className: 'custom43'},
+      availability: ['people', 'companies']
+    },
+    {
       link: `/profiles/${profileType}/${profileId}/print-out`,
       name: 'PRINT_OUT',
       visible: false,

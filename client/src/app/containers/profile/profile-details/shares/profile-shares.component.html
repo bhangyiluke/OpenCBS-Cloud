@@ -1,0 +1,154 @@
+<cbs-header>
+    <div class="cbs-profile__header">
+        <div class="cbs-profile__headings">
+            <nav role="navigation" aria-label="Breadcrumbs" class="cbs-breadcrumbs">
+                <ol class="slds-breadcrumb slds-list--horizontal">
+                    <li class="slds-breadcrumb__item slds-text-title--caps">
+                        <a routerLink="/profiles">{{ 'PROFILES' | translate }}</a>
+                    </li>
+                    <li class="slds-breadcrumb__item slds-text-title--caps">
+                        <a [routerLink]="'/profiles/' + profileType + '/' + profileId + '/info'">{{ (profile |
+                            async)?.name }}</a>
+                    </li>
+                    <li class="slds-breadcrumb__item slds-text-title--caps">
+                        <a href="javascript:void(0);">{{ 'SHARES' | translate }}</a>
+                    </li>
+                </ol>
+            </nav>
+            <div class="slds-grid slds-grid--vertical-align-center">
+                <div class="slds-text-heading--large slds-m-right--medium">{{ (profile | async)?.name }}</div>
+                <div scope="row">
+                    <mat-chip color="primary" *ngIf="(profile | async)?.status === 'LIVE'">{{'LIVE' |
+                        translate}}</mat-chip>
+                    <mat-chip color="accent" *ngIf="(profile | async)?.status === 'PENDING'">{{'PENDING' |
+                        translate}}</mat-chip>
+                </div>
+            </div>
+        </div>
+
+        <div cbs-page-header-layout="right">
+            <div class="slds-grid slds-grid--vertical-align-center">
+                <div class="cbs-profile__avatar" *ngIf="(profile | async)?.attachments?.length">
+                    <div class="cbs-profile__avatar-item" *ngFor="let attachment of (profile | async)?.attachments">
+                        <span class="slds-avatar slds-avatar--circle slds-avatar--large" *ngIf="attachment?.pinned"
+                              (click)="openAttachment(attachment)">
+                            <span>
+                                <img [src]="url + attachment?.id" [attr.alt]="attachment?.originalFilename"
+                                     [attr.title]="attachment?.originalFilename"
+                                     *ngIf="testIfImage(attachment?.contentType)" />
+                                <span class="cbs-profile__avatar__file">
+                                    <cbs-doctype-icon *ngIf="!testIfImage(attachment?.contentType)"
+                                                      [fileType]="getFileExtension(attachment?.originalFilename)"
+                                                      [fileName]="attachment?.originalFilename"></cbs-doctype-icon>
+                                </span>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <button (click)="goToPurchase()" class="slds-button slds-button--neutral">
+                    <span class="slds-text-not-selected">
+                        <svg aria-hidden="true" class="slds-button__icon--stateful slds-button__icon--left">
+                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#add"></use>
+                        </svg>{{ 'PURCHASE_SHARES' | translate }}
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</cbs-header>
+
+<main class="cbs-main cbs-main--pt-lg">
+    <div class="cbs-profile-wrap">
+        <div class="cbs-profile__left">
+            <cbs-sidebar-nav [navElements]="navElements"></cbs-sidebar-nav>
+        </div>
+        <div class="cbs-profile__right" id="scrollable-section">
+            <ng-container>
+                <div class="slds-grid slds-gutters slds-gutters_small slds-m-bottom_medium" *ngIf="portfolio">
+                    <div class="slds-col slds-size_1-of-4">
+                        <div class="slds-card">
+                            <div class="slds-card__body">
+                                <div class="slds-text-heading_small">{{ 'TOTAL_SHARES' | translate }}</div>
+                                <div class="slds-text-heading_medium">{{ portfolio.totalQuantity }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-4">
+                        <div class="slds-card">
+                            <div class="slds-card__body">
+                                <div class="slds-text-heading_small">{{ 'TOTAL_VALUE' | translate }}</div>
+                                <div class="slds-text-heading_medium">{{ portfolio.totalValue | cbsNumberFormat }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p-table [value]="sharesPage?.content || []"
+                         [styleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>{{ 'PRODUCT' | translate }}</th>
+                            <th>{{ 'QUANTITY' | translate }}</th>
+                            <th>{{ 'AVAILABLE' | translate }}</th>
+                            <th>{{ 'UNIT_PRICE' | translate }}</th>
+                            <th>{{ 'TOTAL_AMOUNT' | translate }}</th>
+                            <th>{{ 'ACQUISITION_DATE' | translate }}</th>
+                            <th>{{ 'AGE_DAYS' | translate }}</th>
+                            <th>{{ 'ACTIONS' | translate }}</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-lot>
+                        <tr>
+                            <td>{{ lot.shareProduct?.code }} - {{ lot.shareProduct?.name }}</td>
+                            <td>{{ lot.quantity }}</td>
+                            <td>{{ lot.availableQuantity }}</td>
+                            <td>{{ lot.unitPrice | cbsNumberFormat }}</td>
+                            <td>{{ lot.totalAmount | cbsNumberFormat }}</td>
+                            <td>{{ lot.acquisitionDate | cbsDateFormat }}</td>
+                            <td>{{ lot.ageInDays }}</td>
+                            <td>
+                                <button class="slds-button slds-button_neutral slds-m-right_x-small"
+                                        (click)="goToPurchase()">
+                                    {{ 'PURCHASE' | translate }}
+                                </button>
+                                <button class="slds-button slds-button_brand"
+                                        (click)="goToTransfer(lot)"
+                                        [disabled]="!lot.availableQuantity">
+                                    {{ 'TRANSFER' | translate }}
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="8">{{ 'NO_RECORDS_FOUND' | translate }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </ng-container>
+        </div>
+    </div>
+
+    <div class="slds-grid slds-grid--align-center"
+         *ngIf="(sharesPage?.totalElements || 0) > (sharesPage?.size || queryObject.size)">
+        <ngl-pagination class="cbs-pagination"
+                        *ngIf="!isLoading"
+                        [(page)]="queryObject.page"
+                        [total]="sharesPage?.totalElements"
+                        limit="5"
+                        [perPage]="sharesPage?.size || queryObject.size"
+                        [previousText]="'PREVIOUS' | translate"
+                        [nextText]="'NEXT' | translate"
+                        boundaryNumbers="1"
+                        (pageChange)="goToNextPage($event)"
+                        #pagination></ngl-pagination>
+    </div>
+</main>
+
+<ngl-modal [(open)]="opened" (openChange)="resetModal()">
+    <div class="slds-p-around_medium">
+        <img [src]="imageUrl" alt="">
+    </div>
+</ngl-modal>
+
+<cbs-loading-indicator [isFixed]="true" [showLoader]="isLoading"></cbs-loading-indicator>

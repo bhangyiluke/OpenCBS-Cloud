@@ -1,0 +1,59 @@
+<cbs-header>
+  <cbs-page-header>
+    <div cbs-page-header-layout="left">
+      <cbs-heading-block [isMainPage]="true" headingTitle="{{ 'TRANSFER_SHARES' | translate }}">
+      </cbs-heading-block>
+    </div>
+  </cbs-page-header>
+</cbs-header>
+
+<main class="cbs-main cbs-main--pt-sm">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="slds-grid slds-grid--wrap slds-gutters slds-gutters_small">
+      <div class="slds-col slds-size_1-of-3">
+        <label class="slds-form-element__label">{{ 'SOURCE_MEMBER' | translate }}</label>
+        <input class="slds-input" formControlName="sourceProfileId" placeholder="{{ 'SOURCE_PROFILE_ID' | translate }}">
+      </div>
+      <div class="slds-col slds-size_1-of-3">
+        <label class="slds-form-element__label">{{ 'DESTINATION_MEMBER' | translate }}</label>
+        <input class="slds-input" formControlName="destinationProfileId" placeholder="{{ 'DESTINATION_PROFILE_ID' | translate }}">
+      </div>
+      <div class="slds-col slds-size_1-of-3">
+        <label class="slds-form-element__label">{{ 'SHARE_PRODUCT' | translate }}</label>
+        <select class="slds-select" formControlName="shareProductId" (change)="productSelected()">
+          <option *ngFor="let product of products" [ngValue]="product.id">{{ product.code }} - {{ product.name }}</option>
+        </select>
+      </div>
+      <div class="slds-col slds-size_1-of-3">
+        <label class="slds-form-element__label">{{ 'QUANTITY' | translate }}</label>
+        <input type="number" class="slds-input" formControlName="quantity">
+      </div>
+      <div class="slds-col slds-size_1-of-3">
+        <label class="slds-form-element__label">{{ 'UNIT_PRICE' | translate }}</label>
+        <input type="number" class="slds-input" formControlName="unitPrice">
+      </div>
+      <div class="slds-col slds-size_1-of-3">
+        <label class="slds-form-element__label">{{ 'TRANSACTION_DATE' | translate }}</label>
+        <input type="date" class="slds-input" formControlName="transactionDate">
+      </div>
+      <div class="slds-col slds-size_1-of-3">
+        <label class="slds-form-element__label">{{ 'REASON' | translate }}</label>
+        <input class="slds-input" formControlName="reason">
+      </div>
+      <div class="slds-col slds-size_1-of-3">
+        <label class="slds-form-element__label">{{ 'IDEMPOTENCY_KEY' | translate }}</label>
+        <input class="slds-input" formControlName="idempotencyKey">
+      </div>
+    </div>
+    <input type="hidden" formControlName="lotId">
+    <div class="slds-m-top_medium">
+      <button class="slds-button slds-button_brand slds-m-right_x-small" type="submit" [disabled]="loading">
+        {{ 'TRANSFER' | translate }}
+      </button>
+      <button class="slds-button slds-button_neutral" type="button" routerLink="/shares/transactions">
+        {{ 'CANCEL' | translate }}
+      </button>
+    </div>
+  </form>
+  <cbs-loading-indicator [isFixed]="true" [showLoader]="loading"></cbs-loading-indicator>
+</main>

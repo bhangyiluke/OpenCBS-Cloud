@@ -1,0 +1,100 @@
+<cbs-header>
+  <cbs-page-header>
+    <div cbs-page-header-layout="left">
+      <cbs-heading-block [isMainPage]="true" headingTitle="{{ 'MEMBER_SHARE_PORTFOLIO' | translate }}">
+      </cbs-heading-block>
+    </div>
+  </cbs-page-header>
+</cbs-header>
+
+<main class="cbs-main cbs-main--pt-sm">
+  <form [formGroup]="form" (ngSubmit)="loadPortfolio()">
+    <div class="slds-grid slds-gutters slds-gutters_small">
+      <div class="slds-col slds-size_1-of-3">
+        <label class="slds-form-element__label">{{ 'MEMBER' | translate }}</label>
+        <input class="slds-input" formControlName="profileId" placeholder="{{ 'PROFILE_ID' | translate }}">
+      </div>
+      <div class="slds-col slds-size_1-of-3 slds-align-bottom">
+        <button class="slds-button slds-button_brand" type="submit">{{ 'LOAD' | translate }}</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="slds-grid slds-m-top_medium" *ngIf="portfolio">
+    <div class="slds-col slds-size_1-of-4">
+      <div class="slds-card">
+        <div class="slds-card__body">
+          <div class="slds-text-heading_small">{{ 'TOTAL_SHARES' | translate }}</div>
+          <div class="slds-text-heading_medium">{{ portfolio.totalQuantity }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="slds-col slds-size_1-of-4">
+      <div class="slds-card">
+        <div class="slds-card__body">
+          <div class="slds-text-heading_small">{{ 'TOTAL_VALUE' | translate }}</div>
+          <div class="slds-text-heading_medium">{{ portfolio.totalValue | cbsNumberFormat }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="slds-m-top_large">{{ 'SHARE_LOTS' | translate }}</h3>
+  <p-table [value]="portfolio?.lots || []" [styleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>{{ 'PRODUCT' | translate }}</th>
+        <th>{{ 'QUANTITY' | translate }}</th>
+        <th>{{ 'AVAILABLE' | translate }}</th>
+        <th>{{ 'UNIT_PRICE' | translate }}</th>
+        <th>{{ 'TOTAL_AMOUNT' | translate }}</th>
+        <th>{{ 'ACQUISITION_DATE' | translate }}</th>
+        <th>{{ 'AGE_DAYS' | translate }}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-lot>
+      <tr>
+        <td>{{ lot.shareProduct?.code }}</td>
+        <td>{{ lot.quantity }}</td>
+        <td>{{ lot.availableQuantity }}</td>
+        <td>{{ lot.unitPrice | cbsNumberFormat }}</td>
+        <td>{{ lot.totalAmount | cbsNumberFormat }}</td>
+        <td>{{ lot.acquisitionDate | cbsDateFormat }}</td>
+        <td>{{ lot.ageInDays }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="7">{{ 'NO_RECORDS_FOUND' | translate }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <h3 class="slds-m-top_large">{{ 'SHARE_TRANSACTIONS' | translate }}</h3>
+  <p-table [value]="portfolio?.transactions || []" [styleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>{{ 'DATE' | translate }}</th>
+        <th>{{ 'TYPE' | translate }}</th>
+        <th>{{ 'PRODUCT' | translate }}</th>
+        <th>{{ 'QUANTITY' | translate }}</th>
+        <th>{{ 'STATUS' | translate }}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-transaction>
+      <tr>
+        <td>{{ transaction.transactionDate | cbsDateFormat }}</td>
+        <td>{{ transaction.type | translate }}</td>
+        <td>{{ transaction.shareProduct?.code }}</td>
+        <td>{{ transaction.quantity }}</td>
+        <td>{{ transaction.status | translate }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5">{{ 'NO_RECORDS_FOUND' | translate }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <cbs-loading-indicator [isFixed]="true" [showLoader]="loading"></cbs-loading-indicator>
+</main>

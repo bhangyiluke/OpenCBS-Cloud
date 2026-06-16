@@ -44,6 +44,8 @@ import { CreditLineCreateComponent } from './profile-details/credit-line/credit-
 import { CreditLineFormComponent } from './profile-details/credit-line/shared/credit-line-form/credit-line-form.component';
 import { CreditLineEditComponent } from './profile-details/credit-line/credit-line-edit/credit-line-edit.component';
 import { LoanProductsModule } from '../configuration/containers/loan-products/loan-products.module';
+import { SharesService } from '../shares/shared/shares.service';
+import { ProfileSharesComponent } from './profile-details/shares/profile-shares.component';
 
 
 @NgModule({
@@ -88,12 +90,14 @@ import { LoanProductsModule } from '../configuration/containers/loan-products/lo
     CreditLineInfoComponent,
     CreditLineCreateComponent,
     CreditLineEditComponent,
-    CreditLineFormComponent
+    CreditLineFormComponent,
+    ProfileSharesComponent
   ],
   providers: [
     OnEditCanDeactivateGuard,
     MembersService,
-    BankAccountListService
+    BankAccountListService,
+    SharesService
   ]
 })
 export class ProfileModule {

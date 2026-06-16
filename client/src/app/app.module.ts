@@ -33,6 +33,7 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common
 import { LoanPayeeModule } from './containers/loan-payee/loan-payee.module';
 import { HttpHeaderInterceptorService } from './core/services/http-header-interceptor.service';
 import { TransfersModule } from './containers/transfers/transfers.module'
+import { SharesModule } from './containers/shares/shares.module';
 
 const environment = {
   development: true,
@@ -85,6 +86,7 @@ export function createTranslateLoader(httpClient: HttpClient) {
     SavingsModule,
     TermDepositModule,
     BondsModule,
+    SharesModule,
     MakerCheckerModule,
     TransfersModule,
     StoreDevtoolsModule.instrument({

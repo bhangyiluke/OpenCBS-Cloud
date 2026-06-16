@@ -18,6 +18,7 @@ public enum ModuleType {
     TERM_DEPOSITS,
     BORROWINGS,
     BONDS,
+    SHARES,
     ACCOUNTING,
     SETTINGS,
     MAKER_CHECKER,

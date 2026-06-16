@@ -26,6 +26,7 @@ import { ProfileCreditLinesComponent } from './profile-details/credit-line/profi
 import { CreditLineInfoComponent } from './profile-details/credit-line/credit-line-info/credit-line-info.component';
 import { CreditLineCreateComponent } from './profile-details/credit-line/credit-line-create/credit-line-create.component';
 import { CreditLineEditComponent } from './profile-details/credit-line/credit-line-edit/credit-line-edit.component';
+import { ProfileSharesComponent } from './profile-details/shares/profile-shares.component';
 
 const routes: Routes = [
   {
@@ -131,6 +132,10 @@ const routes: Routes = [
       {
         path: 'members',
         component: MembersComponent
+      },
+      {
+        path: 'shares',
+        component: ProfileSharesComponent
       }
     ]
   },

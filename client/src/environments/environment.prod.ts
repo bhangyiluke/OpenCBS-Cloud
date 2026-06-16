@@ -61,6 +61,41 @@ export const environment = {
         ]
       },
       {
+        name: 'SHARES',
+        url: null,
+        hasChildren: true,
+        children: [
+          {
+            name: 'SHARE_PRODUCTS',
+            url: '/shares/products'
+          },
+          {
+            name: 'PURCHASE_SHARES',
+            url: '/shares/purchase'
+          },
+          {
+            name: 'TRANSFER_SHARES',
+            url: '/shares/transfer'
+          },
+          {
+            name: 'SHARE_TRANSACTIONS',
+            url: '/shares/transactions'
+          },
+          {
+            name: 'MEMBER_SHARE_PORTFOLIO',
+            url: '/shares/member-portfolio'
+          },
+          {
+            name: 'SACCO_SHARE_PORTFOLIO',
+            url: '/shares/portfolio'
+          },
+          {
+            name: 'SHARE_AGE_ANALYSIS',
+            url: '/shares/age-analysis'
+          }
+        ]
+      },
+      {
         name: 'TELLER_MANAGEMENT',
         url: '/till',
         hasChildren: false
